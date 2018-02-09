@@ -25,10 +25,11 @@ public class Card : MonoBehaviour {
 		rectTrans = this.GetComponent<RectTransform> ();
 		index = initialIndex;
 		StartCoroutine (Enter(index));
+		Debug.Log (index);
 	}
 
 	public void Dismiss() {
-	
+		Destroy (this.gameObject);
 	}
 
 	public int GetIndex(){
@@ -36,9 +37,11 @@ public class Card : MonoBehaviour {
 	}
 
 	public void ShiftUp(){
+		Debug.Log ("Shifting");
 		if (index != 0) {
 			index--;
-			ReevaluatePosition ();
+			Debug.Log ("new index:" + index);
+			StartCoroutine(ReevaluatePosition ());
 		} else {
 			Debug.LogError ("Trying to shift while index is 0");
 		}
@@ -46,7 +49,7 @@ public class Card : MonoBehaviour {
 
 	IEnumerator ReevaluatePosition () {
 		rectTrans.anchoredPosition = new Vector2 (187.0f, CARD_TOP_OFFSET + (CARD_SEPERATION * (float)index));
-		yield break;
+		yield return null;
 	}
 
 
@@ -63,6 +66,8 @@ public class Card : MonoBehaviour {
 			movementTimeElapsed += Time.deltaTime;
 			yield return new WaitForEndOfFrame ();
 		}
+
+		rectTrans.anchoredPosition = endPoint;
 
 	}
 }
