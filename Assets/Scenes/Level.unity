@@ -143,6 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   marginOfError: 0.85
+  mainCamera: {fileID: 2130496178}
 --- !u!212 &742964827
 SpriteRenderer:
   m_ObjectHideFlags: 0
