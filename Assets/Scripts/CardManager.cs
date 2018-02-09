@@ -12,8 +12,10 @@ public class CardManager : MonoBehaviour {
 	void Start () {
 		currentCards = new List<Card> ();
 		ConstructCard ();
+		Card c = ConstructCard ();
 		ConstructCard ();
-		ConstructCard ();
+
+		StartCoroutine (X (c));
 	}
 	
 	// Update is called once per frame
@@ -21,12 +23,14 @@ public class CardManager : MonoBehaviour {
 		
 	}
 		
-	public void dismissCard (Card cardToDismiss){
+	public void DismissCard (Card cardToDismiss){
+		Debug.Log ("Dismissing");
 		int indexBeingDismissed = cardToDismiss.GetIndex ();
+		Debug.Log ("Index: " + indexBeingDismissed);
 
-		cardToDismiss.Dismiss ();
+
 		currentCards.Remove (cardToDismiss);
-
+		cardToDismiss.Dismiss ();
 		foreach (Card c in currentCards.FindAll((c) => {return c.GetIndex() > indexBeingDismissed;})) {
 			c.ShiftUp ();
 		}
@@ -36,10 +40,14 @@ public class CardManager : MonoBehaviour {
 	public Card ConstructCard(){
 		GameObject go = GameObject.Instantiate (cardPrefab, UICanvas.transform);
 		Card c = go.GetComponent<Card> ();
-		Debug.Log (currentCards.Count);
 		c.Initialize (currentCards.Count);
 		currentCards.Add (c);
 		return c;
 	}
-		
+
+
+	IEnumerator X (Card c){
+		yield return new WaitForSeconds (5);
+		DismissCard (c);
+	}
 }
