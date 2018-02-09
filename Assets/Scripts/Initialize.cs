@@ -12,6 +12,8 @@ public class Initialize : MonoBehaviour {
 
     [SerializeField]
     private UnityEngine.UI.Text floorNumberPrefab;
+    [SerializeField]
+    private Canvas floorNumberCanvas;
 
     [SerializeField]
     private Material shaftMaterial;
@@ -40,8 +42,8 @@ public class Initialize : MonoBehaviour {
 
             UnityEngine.UI.Text floorNumber = Instantiate(floorNumberPrefab);
             floorNumber.text = "FLOOR\n" + (i + 1);
-            floorNumber.transform.SetParent(GameObject.Find("Canvas").GetComponent<Transform>());
-            floorNumber.transform.position = new Vector3(940, 185 + (i * 270));
+            floorNumber.transform.SetParent(floorNumberCanvas.GetComponent<Transform>());
+            floorNumber.transform.position = new Vector3(-0.19f, -3.45f + (i * 2.5f));
         }
 
         //make a dark elevator shaft
