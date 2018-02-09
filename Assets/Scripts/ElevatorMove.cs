@@ -9,23 +9,29 @@ public class ElevatorMove : MonoBehaviour {
 
     [SerializeField]
     private float marginOfError = 0.85f;
-
-    [SerializeField]
+    
     private int noOfFloors;
-    [SerializeField]
-    public GameObject[] floors;
-
-    [SerializeField]
-    private float bottomOfScreen = -3.75f;
-    [SerializeField]
-    private float topOfScreen = 3.75f;
+    private GameObject[] floors;
+    
+    private float bottomOfScreen;
+    private float topOfScreen;
 
     private float elevatorX;
 
 	// Use this for initialization
 	void Start () {
         elevatorX = transform.position.x;
-        floors = new GameObject[noOfFloors];
+    }
+
+    //called by Initialize script; sets objects used by the elevator to objects created by Initialize script
+    public void Initialize()
+    {
+        Initialize init = GameObject.Find("Main Camera").GetComponent<Initialize>();
+
+        noOfFloors = init.NoOfFloors();
+        bottomOfScreen = init.BottomOfScreen();
+        topOfScreen = Mathf.Abs(init.BottomOfScreen());
+        floors = init.Floors();
     }
 	
 	// Update is called once per frame
@@ -50,7 +56,7 @@ public class ElevatorMove : MonoBehaviour {
                 if(transform.position.y >= floor.transform.position.y - marginOfError &&
                     transform.position.y <= floor.transform.position.y + marginOfError)
                 {
-                    StartCoroutine(SnapToFloor(new Vector3(elevatorX, floor.transform.position.y), 1f));
+                    StartCoroutine(SnapToFloor(new Vector3(elevatorX, floor.transform.position.y), 0.6f));
                     break;
                 }
             }
