@@ -35,7 +35,7 @@ public class Initialize : MonoBehaviour {
         //make a dark elevator shaft
         GameObject shaft = GameObject.CreatePrimitive(PrimitiveType.Quad);
         shaft.transform.position = new Vector3(-2.65f, 0);
-        shaft.transform.localScale = new Vector3(2.7f, 10);
+        shaft.transform.localScale = new Vector3(2.7f, 10 + ((noOfFloors - 2) *  2.5f));
         shaft.GetComponent<MeshRenderer>().material = shaftMaterial;
 
         //give the Elevator all the info it needs from this script
