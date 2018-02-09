@@ -41,7 +41,6 @@ public class ElevatorMove : MonoBehaviour {
         noOfFloors = init.NoOfFloors();
         bottomOfScreen = init.BottomOfScreen();
         topOfScreen = (noOfFloors <= 4 ? Mathf.Abs(init.BottomOfScreen()) : Mathf.Abs(init.BottomOfScreen()) + ((noOfFloors - 4) * 2.5f));
-        Debug.Log(topOfScreen);
         floors = init.Floors();
     }
 	
