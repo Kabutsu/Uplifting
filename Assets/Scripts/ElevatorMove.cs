@@ -30,7 +30,8 @@ public class ElevatorMove : MonoBehaviour {
 
         noOfFloors = init.NoOfFloors();
         bottomOfScreen = init.BottomOfScreen();
-        topOfScreen = Mathf.Abs(init.BottomOfScreen());
+        topOfScreen = (noOfFloors <= 4 ? Mathf.Abs(init.BottomOfScreen()) : Mathf.Abs(init.BottomOfScreen()) + ((noOfFloors - 4) * 2.5f));
+        Debug.Log(topOfScreen);
         floors = init.Floors();
     }
 	
@@ -39,13 +40,22 @@ public class ElevatorMove : MonoBehaviour {
         //move elevator up
 		if(Input.GetKey(KeyCode.UpArrow))
         {
-            if(transform.position.y <= topOfScreen) transform.Translate(new Vector3(0, speed * Time.deltaTime));
+            if(transform.position.y < topOfScreen) transform.Translate(new Vector3(0, speed * Time.deltaTime));
+            //move the camera up if player is reaching the top of the screen but still more floors above
+            if (noOfFloors > 4 && GameObject.Find("Main Camera").transform.position.y < ((noOfFloors - 4) * 2.5f) && GameObject.Find("Main Camera").GetComponent<Camera>().WorldToScreenPoint(transform.position).y >= 325)
+            {
+                GameObject.Find("Main Camera").transform.Translate(new Vector3(0, speed * Time.deltaTime));
+            }
         }
 
         //move elevator down
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            if(transform.position.y >= bottomOfScreen) transform.Translate(new Vector3(0, -(speed * Time.deltaTime)));
+            if(transform.position.y > bottomOfScreen) transform.Translate(new Vector3(0, -(speed * Time.deltaTime)));
+            if (noOfFloors > 4 && GameObject.Find("Main Camera").transform.position.y > 0 && GameObject.Find("Main Camera").GetComponent<Camera>().WorldToScreenPoint(transform.position).y <= 165)
+            {
+                GameObject.Find("Main Camera").transform.Translate(new Vector3(0, -(speed * Time.deltaTime)));
+            }
         }
 
         //snap the elevator to a floor if it is within a certain distance of the floor
