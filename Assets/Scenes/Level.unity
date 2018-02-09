@@ -295,5 +295,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   corridorPrefab: {fileID: 1478857280801028, guid: 9c467ec6f60648843a8786037ac74c09,
     type: 2}
+  shaftMaterial: {fileID: 10756, guid: 0000000000000000e000000000000000, type: 0}
   lowestPositionOfElevator: -3.75
   noOfFloors: 4
