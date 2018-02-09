@@ -9,6 +9,9 @@ public class ElevatorMove : MonoBehaviour {
 
     [SerializeField]
     private float marginOfError = 0.85f;
+
+    [SerializeField]
+    private Camera mainCamera;
     
     private int noOfFloors;
     private GameObject[] floors;
@@ -16,11 +19,18 @@ public class ElevatorMove : MonoBehaviour {
     private float bottomOfScreen;
     private float topOfScreen;
 
+    private int cameraHeight;
+    private float cameraMoveUpAt;
+    private float cameraMoveDownAt;
+
     private float elevatorX;
 
 	// Use this for initialization
 	void Start () {
         elevatorX = transform.position.x;
+        cameraHeight = mainCamera.pixelHeight;
+        cameraMoveDownAt = cameraHeight / 4f;
+        cameraMoveUpAt = 3f * cameraMoveDownAt;
     }
 
     //called by Initialize script; sets objects used by the elevator to objects created by Initialize script
@@ -42,7 +52,7 @@ public class ElevatorMove : MonoBehaviour {
         {
             if(transform.position.y < topOfScreen) transform.Translate(new Vector3(0, speed * Time.deltaTime));
             //move the camera up if player is reaching the top of the screen but still more floors above
-            if (noOfFloors > 4 && GameObject.Find("Main Camera").transform.position.y < ((noOfFloors - 4) * 2.5f) && GameObject.Find("Main Camera").GetComponent<Camera>().WorldToScreenPoint(transform.position).y >= 325)
+            if (noOfFloors > 4 && mainCamera.transform.position.y < ((noOfFloors - 4) * 2.5f) && mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position).y >= cameraMoveUpAt)
             {
                 GameObject.Find("Main Camera").transform.Translate(new Vector3(0, speed * Time.deltaTime));
             }
@@ -52,7 +62,7 @@ public class ElevatorMove : MonoBehaviour {
         if (Input.GetKey(KeyCode.DownArrow))
         {
             if(transform.position.y > bottomOfScreen) transform.Translate(new Vector3(0, -(speed * Time.deltaTime)));
-            if (noOfFloors > 4 && GameObject.Find("Main Camera").transform.position.y > 0 && GameObject.Find("Main Camera").GetComponent<Camera>().WorldToScreenPoint(transform.position).y <= 165)
+            if (noOfFloors > 4 && mainCamera.transform.position.y > 0 && mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position).y <= cameraMoveDownAt)
             {
                 GameObject.Find("Main Camera").transform.Translate(new Vector3(0, -(speed * Time.deltaTime)));
             }
