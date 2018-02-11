@@ -18,6 +18,7 @@ public class Passenger : MonoBehaviour {
     private string job;
     private int floor;
     private int rage;
+    private float positionOnLift;
 
 	//Getters and Setters
 	public string GetPassengerName(){return passengerName;}
@@ -30,19 +31,24 @@ public class Passenger : MonoBehaviour {
 	void Start () {
         controller = GameObject.Find("Game Controller").GetComponent<GameController>();
         init = GameObject.Find("Game Controller").GetComponent<Initialize>();
-		elevator = controller.GetElevator ();
-		cardManager = controller.GetCardManager ();
+        elevator = controller.GetElevator();
+    
+		    cardManager = controller.GetCardManager ();
 
         passengerName = NameGenerator.Name();
         job = NameGenerator.Job();
         rage = 0;
-
+		    card = cardManager.ConstructCard (this);
+    
+        positionOnLift = Random.Range(-0.9f, 1.2f);
+        
         do
         {
             floor = Random.Range(1, init.NoOfFloors());
         } while (floor == elevator.GetFloor());
-        Debug.Log(floor);
-		card = cardManager.ConstructCard (this);
+        elevator.Lock();
+
+        StartCoroutine(MoveToPosition(new Vector3(positionOnLift, -0.25f, -1), 1.6f, false));
 	}
 	
 	// Update is called once per frame
@@ -50,9 +56,16 @@ public class Passenger : MonoBehaviour {
 		
 	}
 
-    public void Spawn()
+    IEnumerator MoveToPosition(Vector3 toPosition, float inTime, bool destroy)
     {
-
+        var fromPosition = transform.localPosition;
+        for (var t = 0f; t < 1; t += Time.deltaTime / inTime)
+        {
+            transform.localPosition = Vector3.Lerp(fromPosition, toPosition, t);
+            yield return null;
+        }
+        elevator.Unlock();
+        if (destroy) Destroy(this.gameObject);
     }
 
     public void NotifyFloor(int floorNo)
@@ -62,8 +75,9 @@ public class Passenger : MonoBehaviour {
 
     private void LeaveElevator()
     {
+        cardManager.DismissCard (card);
         controller.RemovePassenger(this);
-		cardManager.DismissCard (card);
-        Destroy(this.gameObject);
+        elevator.Lock();
+        StartCoroutine(MoveToPosition(new Vector3(6, -0.25f, -1), 1.5f, true));
     }
 }

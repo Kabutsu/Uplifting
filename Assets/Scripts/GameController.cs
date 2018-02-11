@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour {
 	private CardManager cardManager;
 
     List<Passenger> passengers;
+    int positionCount;
 
 	//Getters and Setters
 	public CardManager GetCardManager(){return cardManager;}
@@ -32,9 +33,14 @@ public class GameController : MonoBehaviour {
 
     public void RequestPassenger()
     {
-        GameObject passenger = Instantiate(passengerPrefab, elevator.transform);
-        passenger.GetComponent<Passenger>().Spawn();
-        passengers.Add(passenger.GetComponent<Passenger>());
+        if(passengers.Count < 6)
+        {
+            GameObject passenger = Instantiate(passengerPrefab, elevator.transform);
+
+            passenger.transform.localPosition = new Vector3(6, -0.25f, -1);
+            
+            passengers.Add(passenger.GetComponent<Passenger>());
+        }
     }
 
     public void BroadcastFloor(int floorNo)
