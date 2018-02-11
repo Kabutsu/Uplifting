@@ -54,7 +54,7 @@ public class Passenger : MonoBehaviour {
 
         card = cardManager.ConstructCard(this);
 
-        StartCoroutine(MoveToPosition(new Vector3(positionOnLift, -0.25f, -1), 1.6f, false));
+        StartCoroutine(MoveToPosition(new Vector3(positionOnLift, -0.25f, -1), 1.0f, false));
 	}
 	
 	// Update is called once per frame
@@ -99,6 +99,6 @@ public class Passenger : MonoBehaviour {
         cardManager.DismissCard (card);
         controller.RemovePassenger(this);
         elevator.Lock();
-        StartCoroutine(MoveToPosition(new Vector3(6, -0.25f, -1), 1.5f, true));
+        StartCoroutine(MoveToPosition(new Vector3(6, -0.25f, -1), 1.0f, true));
     }
 }
