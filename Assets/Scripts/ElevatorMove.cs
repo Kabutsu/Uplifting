@@ -93,7 +93,9 @@ public class ElevatorMove : MonoBehaviour {
             if (GetFloor() != 0)
             {
                 controller.BroadcastFloor(GetFloor());
-                controller.RequestPassenger();
+				if (controller.GetPassengerCount () < 7) {
+					controller.RequestPassenger();
+				}
             }
         }
     }

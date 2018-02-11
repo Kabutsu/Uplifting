@@ -25,6 +25,8 @@ public class Card : MonoBehaviour {
 	private Text nameText;
 	[SerializeField]
 	private Text titleText;
+	[SerializeField]
+	private Text floorText;
 
 	//References
 	[SerializeField]
@@ -35,6 +37,7 @@ public class Card : MonoBehaviour {
 		stressSlider = transform.Find ("Slider").GetComponent<Slider> ();
 		nameText = transform.Find ("Name").GetComponent<Text> ();
 		titleText = transform.Find ("Job").GetComponent<Text> ();
+		floorText = transform.Find ("Floor").GetComponent<Text> ();
 
 		passenger = passengerReference;
 		stressSlider.value = 0;
@@ -43,6 +46,7 @@ public class Card : MonoBehaviour {
 		StartCoroutine (Enter(index));
 		nameText.text = passenger.GetPassengerName ();
 		titleText.text = passenger.GetPassengerJob ();
+		floorText.text = passenger.GetPassengerReqFloor ().ToString();
 	}
 
 	void Update() {

@@ -50,4 +50,7 @@ public class GameController : MonoBehaviour {
     {
         passengers.Remove(passenger);
     }
+
+	public int GetPassengerCount(){return passengers.Count;}
+
 }
