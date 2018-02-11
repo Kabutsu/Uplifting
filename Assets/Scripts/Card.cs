@@ -34,15 +34,16 @@ public class Card : MonoBehaviour {
 		titleText = transform.Find ("Job").GetComponent<Text> ();
 
 		stressSlider.value = 0;
-		nameText.text = "Name";
-		titleText.text = "Title";
+		nameText.text = "";
+		titleText.text = "";
 	}
 
-	public void Initialize(int initialIndex){
+	public void Initialize(int initialIndex, string name, string job, int floor){
 		rectTrans = this.GetComponent<RectTransform> ();
 		index = initialIndex;
 		StartCoroutine (Enter(index));
-		Debug.Log (index);
+		nameText.text = name;
+		titleText.text = job;
 	}
 
 	public void Dismiss() {

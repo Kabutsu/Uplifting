@@ -35,7 +35,7 @@ public class CardManager : MonoBehaviour {
 	public Card ConstructCard(){
 		GameObject go = GameObject.Instantiate (cardPrefab, UICanvas.transform);
 		Card c = go.GetComponent<Card> ();
-		c.Initialize (currentCards.Count);
+		c.Initialize (currentCards.Count, "Name", "Job");
 		currentCards.Add (c);
 		return c;
 	}
