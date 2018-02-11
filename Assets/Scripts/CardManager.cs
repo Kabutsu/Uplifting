@@ -32,10 +32,10 @@ public class CardManager : MonoBehaviour {
 
 	}
 
-	public Card ConstructCard(){
+	public Card ConstructCard(Passenger passenger){
 		GameObject go = GameObject.Instantiate (cardPrefab, UICanvas.transform);
 		Card c = go.GetComponent<Card> ();
-		c.Initialize (currentCards.Count, "Name", "Job", 0);
+		c.Initialize (currentCards.Count, passenger);
 		currentCards.Add (c);
 		return c;
 	}

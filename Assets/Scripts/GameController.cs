@@ -10,13 +10,20 @@ public class GameController : MonoBehaviour {
     [SerializeField]
     private ElevatorMove elevator;
 
+	[SerializeField]
+	private CardManager cardManager;
+
     List<Passenger> passengers;
     int positionCount;
+
+	//Getters and Setters
+	public CardManager GetCardManager(){return cardManager;}
+	public ElevatorMove GetElevator(){return elevator;}
 
 	// Use this for initialization
 	void Start () {
         passengers = new List<Passenger>();
-        positionCount = 0;
+		cardManager = GameObject.Find ("CardManager").GetComponent<CardManager> ();
 	}
 	
 	// Update is called once per frame
@@ -31,8 +38,6 @@ public class GameController : MonoBehaviour {
             GameObject passenger = Instantiate(passengerPrefab, elevator.transform);
 
             passenger.transform.localPosition = new Vector3(6, -0.25f, -1);
-
-            passenger.GetComponent<Passenger>().Spawn();
             
             passengers.Add(passenger.GetComponent<Passenger>());
         }
@@ -51,4 +56,7 @@ public class GameController : MonoBehaviour {
     {
         passengers.Remove(passenger);
     }
+
+	public int GetPassengerCount(){return passengers.Count;}
+
 }
