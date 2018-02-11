@@ -8,6 +8,8 @@ public class Passenger : MonoBehaviour {
     private Initialize init;
     [SerializeField]
     private ElevatorMove elevator;
+	[SerializeField]
+	public const float TIME_TO_LIVE = 10.0f;
 
     private GameController controller;
 	private CardManager cardManager;
@@ -17,14 +19,15 @@ public class Passenger : MonoBehaviour {
     private string passengerName;
     private string job;
     private int floor;
-    private int rage;
+    private float rage;
     private float positionOnLift;
+	private float timeAlive;
 
 	//Getters and Setters
 	public string GetPassengerName(){return passengerName;}
 	public string GetPassengerJob(){return job;}
 	public int GetPassengerReqFloor(){return floor;}
-	public int GetRage(){return rage;}
+	public float GetRage(){return rage;}
 
 
 	// Use this for initialization
@@ -38,6 +41,7 @@ public class Passenger : MonoBehaviour {
         passengerName = NameGenerator.Name();
         job = NameGenerator.Job();
         rage = 0;
+		timeAlive = -1.0f;
     
         positionOnLift = Random.Range(-0.9f, 1.2f);
         
@@ -54,7 +58,14 @@ public class Passenger : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (timeAlive >= 0.0f) {
+			if (timeAlive < TIME_TO_LIVE) {
+				rage = Mathf.Lerp (0.0f, 100.0f, timeAlive / TIME_TO_LIVE);
+				timeAlive += Time.deltaTime;
+			} else {
+				controller.GameOver ();
+			}
+		}
 	}
 
     IEnumerator MoveToPosition(Vector3 toPosition, float inTime, bool destroy)
@@ -66,6 +77,7 @@ public class Passenger : MonoBehaviour {
             yield return null;
         }
         elevator.Unlock();
+		timeAlive = 0.0f;
         if (destroy) Destroy(this.gameObject);
     }
 
