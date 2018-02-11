@@ -10,17 +10,28 @@ public class Passenger : MonoBehaviour {
     private ElevatorMove elevator;
 
     private GameController controller;
+	private CardManager cardManager;
+
+	private Card card;
 
     private string passengerName;
     private string job;
     private int floor;
     private int rage;
 
+	//Getters and Setters
+	public string GetPassengerName(){return passengerName;}
+	public string GetPassengerJob(){return job;}
+	public int GetPassengerReqFloor(){return floor;}
+	public int GetRage(){return rage;}
+
+
 	// Use this for initialization
 	void Start () {
         controller = GameObject.Find("Game Controller").GetComponent<GameController>();
         init = GameObject.Find("Game Controller").GetComponent<Initialize>();
-        elevator = GameObject.Find("Elevator").GetComponent<ElevatorMove>();
+		elevator = controller.GetElevator ();
+		cardManager = controller.GetCardManager ();
 
         passengerName = NameGenerator.Name();
         job = NameGenerator.Job();
@@ -31,6 +42,7 @@ public class Passenger : MonoBehaviour {
             floor = Random.Range(1, init.NoOfFloors());
         } while (floor == elevator.GetFloor());
         Debug.Log(floor);
+		card = cardManager.ConstructCard (this);
 	}
 	
 	// Update is called once per frame
@@ -51,6 +63,7 @@ public class Passenger : MonoBehaviour {
     private void LeaveElevator()
     {
         controller.RemovePassenger(this);
+		cardManager.DismissCard (card);
         Destroy(this.gameObject);
     }
 }

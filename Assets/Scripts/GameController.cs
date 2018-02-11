@@ -10,11 +10,19 @@ public class GameController : MonoBehaviour {
     [SerializeField]
     private ElevatorMove elevator;
 
+	[SerializeField]
+	private CardManager cardManager;
+
     List<Passenger> passengers;
+
+	//Getters and Setters
+	public CardManager GetCardManager(){return cardManager;}
+	public ElevatorMove GetElevator(){return elevator;}
 
 	// Use this for initialization
 	void Start () {
         passengers = new List<Passenger>();
+		cardManager = GameObject.Find ("CardManager").GetComponent<CardManager> ();
 	}
 	
 	// Update is called once per frame
