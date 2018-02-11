@@ -65,26 +65,26 @@ public class ElevatorMove : MonoBehaviour {
         //move elevator up
 		if(!Locked() && Input.GetKey(KeyCode.UpArrow))
         {
-            if(transform.position.y < topOfScreen) transform.Translate(new Vector3(0, speed * Time.deltaTime));
+            speed = (speed < 0 ? startSpeed : (speed < maxSpeed ? speed + acceleration : speed));
+
+            if (transform.position.y < topOfScreen) transform.Translate(new Vector3(0, speed * Time.deltaTime));
             //move the camera up if player is reaching the top of the screen but still more floors above
             if (noOfFloors > 4 && mainCamera.transform.position.y < ((noOfFloors - 4) * 2.5f) && mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position).y >= cameraMoveUpAt)
             {
                 GameObject.Find("Main Camera").transform.Translate(new Vector3(0, speed * Time.deltaTime));
             }
-
-            if (speed < maxSpeed) speed += acceleration;
         }
 
         //move elevator down
         if (!Locked() && Input.GetKey(KeyCode.DownArrow))
         {
-            if(transform.position.y > bottomOfScreen) transform.Translate(new Vector3(0, -(speed * Time.deltaTime)));
+            speed = (speed > 0 ? -startSpeed : (speed > -maxSpeed ? speed - acceleration : speed));
+
+            if (transform.position.y > bottomOfScreen) transform.Translate(new Vector3(0, speed * Time.deltaTime));
             if (noOfFloors > 4 && mainCamera.transform.position.y > 0 && mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position).y <= cameraMoveDownAt)
             {
-                GameObject.Find("Main Camera").transform.Translate(new Vector3(0, -(speed * Time.deltaTime)));
+                GameObject.Find("Main Camera").transform.Translate(new Vector3(0, speed * Time.deltaTime));
             }
-
-            if (speed < maxSpeed) speed += acceleration;
         }
 
         //snap the elevator to a floor if it is within a certain distance of the floor
