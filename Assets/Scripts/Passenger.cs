@@ -9,7 +9,7 @@ public class Passenger : MonoBehaviour {
     [SerializeField]
     private ElevatorMove elevator;
 	[SerializeField]
-	public const float TIME_TO_LIVE = 10.0f;
+	public const float TIME_TO_LIVE = 15.0f;
 
     private GameController controller;
 	private CardManager cardManager;
@@ -22,6 +22,7 @@ public class Passenger : MonoBehaviour {
     private float rage;
     private float positionOnLift;
 	private float timeAlive;
+	private bool keyHolder; //Can unlock elevator?
 
 	//Getters and Setters
 	public string GetPassengerName(){return passengerName;}
@@ -68,6 +69,10 @@ public class Passenger : MonoBehaviour {
 		}
 	}
 
+	public void AssignAsKeyHolder(){
+		keyHolder = true;
+	}
+
     IEnumerator MoveToPosition(Vector3 toPosition, float inTime, bool destroy)
     {
         var fromPosition = transform.localPosition;
@@ -76,7 +81,9 @@ public class Passenger : MonoBehaviour {
             transform.localPosition = Vector3.Lerp(fromPosition, toPosition, t);
             yield return null;
         }
-        elevator.Unlock();
+		if (keyHolder) {
+			elevator.Unlock();
+		}
 		timeAlive = 0.0f;
         if (destroy) Destroy(this.gameObject);
     }
@@ -88,6 +95,7 @@ public class Passenger : MonoBehaviour {
 
     private void LeaveElevator()
     {
+		timeAlive = -1.0f;
         cardManager.DismissCard (card);
         controller.RemovePassenger(this);
         elevator.Lock();

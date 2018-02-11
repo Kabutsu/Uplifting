@@ -363,7 +363,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14a4b8f1d9cc09f46a4b7b6b66442862, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   maxSpeed: 9
   acceleration: 0.375
   marginOfError: 0.625

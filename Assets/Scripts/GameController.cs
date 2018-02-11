@@ -33,14 +33,37 @@ public class GameController : MonoBehaviour {
 
     public void RequestPassenger()
     {
-        if(passengers.Count < 6)
-        {
-            GameObject passenger = Instantiate(passengerPrefab, elevator.transform);
-
-            passenger.transform.localPosition = new Vector3(6, -0.25f, -1);
-            
-            passengers.Add(passenger.GetComponent<Passenger>());
+		int toSpawn = 0;
+		int rand = Random.Range (0, 10);
+		if (passengers.Count < 5) {
+			if (rand < 4) {
+				toSpawn = 3;
+			} else if (rand < 7) {
+				toSpawn = 2;
+			} else {
+				toSpawn = 1;
+			}
+		} else if (passengers.Count < 6) {
+			if (rand < 6) {
+				toSpawn = 2;
+			} else {
+				toSpawn = 1;
+			}
+		} else if(passengers.Count < 7){
+			toSpawn = 1;
         }
+
+		for (int i = 0; i < toSpawn; i++) {
+			GameObject passenger = Instantiate(passengerPrefab, elevator.transform);
+
+			passenger.transform.localPosition = new Vector3(6, -0.25f, -1);
+
+			if (i == toSpawn - 1) {
+				passenger.GetComponent<Passenger> ().AssignAsKeyHolder ();
+			}
+
+			passengers.Add(passenger.GetComponent<Passenger>());
+		}
     }
 
     public void BroadcastFloor(int floorNo)
