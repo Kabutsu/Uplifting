@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ElevatorMove : MonoBehaviour {
-
-    [SerializeField]
-    private float startSpeed;
+    
     [SerializeField]
     private float maxSpeed;
     [SerializeField]
     private float acceleration;
-    private float speed;
+    private float velocity;
 
     [SerializeField]
     private float marginOfError = 0.85f;
@@ -35,6 +33,8 @@ public class ElevatorMove : MonoBehaviour {
 
     private float elevatorX;
 
+    private int lastFloor;
+
     private bool locked;
 
 	// Use this for initialization
@@ -44,7 +44,8 @@ public class ElevatorMove : MonoBehaviour {
         cameraMoveDownAt = cameraHeight / 4f;
         cameraMoveUpAt = 3f * cameraMoveDownAt;
 
-        
+        velocity = 0;
+        SetLastFloor(0);
 
         locked = false;
         controller = GameObject.Find("Game Controller").GetComponent<GameController>();
@@ -65,36 +66,24 @@ public class ElevatorMove : MonoBehaviour {
         //move elevator up
 		if(!Locked() && Input.GetKey(KeyCode.UpArrow))
         {
-            speed = (speed < 0 ? startSpeed : (speed < maxSpeed ? speed + acceleration : speed));
-
-            if (transform.position.y < topOfScreen) transform.Translate(new Vector3(0, speed * Time.deltaTime));
-            //move the camera up if player is reaching the top of the screen but still more floors above
-            if (noOfFloors > 4 && mainCamera.transform.position.y < ((noOfFloors - 4) * 2.5f) && mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position).y >= cameraMoveUpAt)
-            {
-                GameObject.Find("Main Camera").transform.Translate(new Vector3(0, speed * Time.deltaTime));
-            }
+            velocity = (velocity < maxSpeed ? (velocity < 0 ? velocity + acceleration * 2 : velocity + acceleration) : velocity);
         }
 
         //move elevator down
         if (!Locked() && Input.GetKey(KeyCode.DownArrow))
         {
-            speed = (speed > 0 ? -startSpeed : (speed > -maxSpeed ? speed - acceleration : speed));
-
-            if (transform.position.y > bottomOfScreen) transform.Translate(new Vector3(0, speed * Time.deltaTime));
-            if (noOfFloors > 4 && mainCamera.transform.position.y > 0 && mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position).y <= cameraMoveDownAt)
-            {
-                GameObject.Find("Main Camera").transform.Translate(new Vector3(0, speed * Time.deltaTime));
-            }
+            velocity = (velocity > 0-maxSpeed ? (velocity > 0 ? velocity - acceleration * 2 : velocity - acceleration) : velocity);
         }
 
         //snap the elevator to a floor if it is within a certain distance of the floor
-        if(Input.GetKeyDown(KeyCode.RightArrow))
+        if(Input.GetKeyDown(KeyCode.RightArrow) && Mathf.Abs(velocity) <= maxSpeed/3 && GetFloor() != LastFloor())
         {
             foreach(GameObject floor in floors)
             {
                 if(transform.position.y >= floor.transform.position.y - marginOfError &&
                     transform.position.y <= floor.transform.position.y + marginOfError)
                 {
+                    velocity = 0;
                     StartCoroutine(SnapToFloor(new Vector3(elevatorX, floor.transform.position.y), 0.6f));
                     break;
                 }
@@ -102,13 +91,34 @@ public class ElevatorMove : MonoBehaviour {
             if (GetFloor() != 0)
             {
                 controller.BroadcastFloor(GetFloor());
+                SetLastFloor(GetFloor());
 				if (controller.GetPassengerCount () < 7) {
 					controller.RequestPassenger();
 				}
             }
-
-            speed = startSpeed;
         }
+
+        //move elevator & camera
+        float moveAmount = velocity * Time.deltaTime;
+        if(transform.position.y <= topOfScreen && transform.position.y >= bottomOfScreen)
+        {
+            transform.Translate(new Vector3(0, moveAmount));
+            if(transform.position.y > topOfScreen)
+            {
+                transform.position = new Vector3(elevatorX, topOfScreen);
+            } else if (transform.position.y < bottomOfScreen)
+            {
+                transform.position = new Vector3(elevatorX, bottomOfScreen);
+            }
+            if (noOfFloors > 4 &&
+                (velocity < 0 && mainCamera.transform.position.y > 0 && mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position).y <= cameraMoveDownAt) ^
+                (velocity > 0 && mainCamera.transform.position.y < ((noOfFloors - 4) * 2.5f) && mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position).y >= cameraMoveUpAt))
+                mainCamera.transform.Translate(new Vector3(0, moveAmount));
+        }
+
+        //reduce velocity by acceleration/2
+        velocity = (velocity > 0 ? velocity - acceleration / 2 : (velocity < 0 ? velocity + acceleration / 2 : velocity));
+        Debug.Log(velocity);
     }
 
     //move the elevator to the same position as a floor in a specified time
@@ -136,6 +146,16 @@ public class ElevatorMove : MonoBehaviour {
         }
 
         return 0;
+    }
+
+    private void SetLastFloor(int floor)
+    {
+        lastFloor = floor;
+    }
+
+    private int LastFloor()
+    {
+        return lastFloor;
     }
 
     public void Lock()
