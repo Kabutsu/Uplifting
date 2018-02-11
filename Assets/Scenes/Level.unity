@@ -359,7 +359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14a4b8f1d9cc09f46a4b7b6b66442862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 8
   marginOfError: 0.625
   mainCamera: {fileID: 2130496178}
 --- !u!212 &1539767166
