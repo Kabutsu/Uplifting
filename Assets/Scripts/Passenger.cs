@@ -44,7 +44,7 @@ public class Passenger : MonoBehaviour {
         rage = 0;
 		timeAlive = -1.0f;
     
-        positionOnLift = Random.Range(-0.9f, 1.2f);
+        positionOnLift = Random.Range(-0.9f, 1.1f);
         
         do
         {
