@@ -11,11 +11,6 @@ public class CardManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		currentCards = new List<Card> ();
-		ConstructCard ();
-		Card c = ConstructCard ();
-		ConstructCard ();
-
-		StartCoroutine (X (c));
 	}
 	
 	// Update is called once per frame
@@ -43,11 +38,5 @@ public class CardManager : MonoBehaviour {
 		c.Initialize (currentCards.Count);
 		currentCards.Add (c);
 		return c;
-	}
-
-
-	IEnumerator X (Card c){
-		yield return new WaitForSeconds (5);
-		DismissCard (c);
 	}
 }
