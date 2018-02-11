@@ -59,4 +59,8 @@ public class GameController : MonoBehaviour {
 
 	public int GetPassengerCount(){return passengers.Count;}
 
+	public void GameOver(){
+		Debug.Break ();
+	}
+
 }
