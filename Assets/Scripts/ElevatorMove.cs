@@ -106,9 +106,11 @@ public class ElevatorMove : MonoBehaviour {
             if(transform.position.y > topOfScreen)
             {
                 transform.position = new Vector3(elevatorX, topOfScreen);
+                velocity = 0;
             } else if (transform.position.y < bottomOfScreen)
             {
                 transform.position = new Vector3(elevatorX, bottomOfScreen);
+                velocity = 0;
             }
             if (noOfFloors > 4 &&
                 (velocity < 0 && mainCamera.transform.position.y > 0 && mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position).y <= cameraMoveDownAt) ^
