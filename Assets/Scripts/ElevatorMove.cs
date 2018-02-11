@@ -5,7 +5,12 @@ using UnityEngine;
 public class ElevatorMove : MonoBehaviour {
 
     [SerializeField]
-    protected float speed;
+    private float startSpeed;
+    [SerializeField]
+    private float maxSpeed;
+    [SerializeField]
+    private float acceleration;
+    private float speed;
 
     [SerializeField]
     private float marginOfError = 0.85f;
@@ -66,6 +71,8 @@ public class ElevatorMove : MonoBehaviour {
             {
                 GameObject.Find("Main Camera").transform.Translate(new Vector3(0, speed * Time.deltaTime));
             }
+
+            if (speed < maxSpeed) speed += acceleration;
         }
 
         //move elevator down
@@ -76,6 +83,8 @@ public class ElevatorMove : MonoBehaviour {
             {
                 GameObject.Find("Main Camera").transform.Translate(new Vector3(0, -(speed * Time.deltaTime)));
             }
+
+            if (speed < maxSpeed) speed += acceleration;
         }
 
         //snap the elevator to a floor if it is within a certain distance of the floor
@@ -97,6 +106,8 @@ public class ElevatorMove : MonoBehaviour {
 					controller.RequestPassenger();
 				}
             }
+
+            speed = startSpeed;
         }
     }
 
