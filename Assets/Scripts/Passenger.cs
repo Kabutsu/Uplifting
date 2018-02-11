@@ -33,12 +33,11 @@ public class Passenger : MonoBehaviour {
         init = GameObject.Find("Game Controller").GetComponent<Initialize>();
         elevator = controller.GetElevator();
     
-		    cardManager = controller.GetCardManager ();
+		cardManager = controller.GetCardManager ();
 
         passengerName = NameGenerator.Name();
         job = NameGenerator.Job();
         rage = 0;
-		    card = cardManager.ConstructCard (this);
     
         positionOnLift = Random.Range(-0.9f, 1.2f);
         
@@ -47,6 +46,8 @@ public class Passenger : MonoBehaviour {
             floor = Random.Range(1, init.NoOfFloors());
         } while (floor == elevator.GetFloor());
         elevator.Lock();
+
+        card = cardManager.ConstructCard(this);
 
         StartCoroutine(MoveToPosition(new Vector3(positionOnLift, -0.25f, -1), 1.6f, false));
 	}
