@@ -78,8 +78,27 @@ public class ElevatorMove : MonoBehaviour {
             velocity = (velocity > 0-maxSpeed ? (velocity > 0 ? velocity - acceleration * 2 : velocity - acceleration) : velocity);
         }
 
+        //Powerups/Freeze
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Debug.Log("Freeze");
+            StartCoroutine(FreezePassengers(2f));
+        }
+
+        //Powerups/Boost
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Debug.Log("Boost");
+        }
+
+        //Powerups/Stop
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Debug.Log("Stop");
+        }
+
         //snap the elevator to a floor if it is within a certain distance of the floor
-        if(Input.GetKeyDown(KeyCode.RightArrow) && Mathf.Abs(velocity) <= maxSpeed/3 && GetFloor() != LastFloor())
+        if (Input.GetKeyDown(KeyCode.RightArrow) && Mathf.Abs(velocity) <= maxSpeed/3 && GetFloor() != LastFloor())
         {
             foreach(GameObject floor in floors)
             {
@@ -125,7 +144,6 @@ public class ElevatorMove : MonoBehaviour {
 
         //reduce velocity by acceleration/2
         velocity = (velocity > 0 ? velocity - acceleration / 2 : (velocity < 0 ? velocity + acceleration / 2 : velocity));
-        Debug.Log(velocity);
     }
 
     //move the elevator to the same position as a floor in a specified time
@@ -137,6 +155,14 @@ public class ElevatorMove : MonoBehaviour {
             transform.position = Vector3.Lerp(fromPosition, toPosition, t);
             yield return null;
         }
+    }
+
+    IEnumerator FreezePassengers(float forTime)
+    {
+        controller.FreezePassengers();
+        yield return new WaitForSeconds(forTime);
+        controller.UnfreezePassengers();
+        Debug.Log("Unfreeze");
     }
 
     public int GetFloor()

@@ -86,4 +86,20 @@ public class GameController : MonoBehaviour {
 		Debug.Break ();
 	}
 
+    public void FreezePassengers()
+    {
+        foreach(Passenger passenger in passengers)
+        {
+            passenger.Freeze();
+        }
+    }
+
+    public void UnfreezePassengers()
+    {
+        foreach(Passenger passenger in passengers)
+        {
+            passenger.Unfreeze();
+        }
+    }
+
 }
