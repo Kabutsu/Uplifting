@@ -40,12 +40,16 @@ public class ElevatorMove : MonoBehaviour {
 
     private bool locked;
 
+    private bool stopAvailable;
+
 	// Use this for initialization
 	void Start () {
         elevatorX = transform.position.x;
         cameraHeight = mainCamera.pixelHeight;
         cameraMoveDownAt = cameraHeight / 4f;
         cameraMoveUpAt = 3f * cameraMoveDownAt;
+
+        stopAvailable = true;
 
         velocity = 0;
         SetLastFloor(0);
@@ -76,6 +80,11 @@ public class ElevatorMove : MonoBehaviour {
         if (!Locked() && Input.GetKey(KeyCode.DownArrow))
         {
             velocity = (velocity > 0-maxSpeed ? (velocity > 0 ? velocity - acceleration * 2 : velocity - acceleration) : velocity);
+        }
+
+        if(Input.GetKeyDown(KeyCode.Alpha3) && stopAvailable)
+        {
+            StartCoroutine(StopElevator(3));
         }
 
         //snap the elevator to a floor if it is within a certain distance of the floor
@@ -137,6 +146,14 @@ public class ElevatorMove : MonoBehaviour {
             transform.position = Vector3.Lerp(fromPosition, toPosition, t);
             yield return null;
         }
+    }
+
+    IEnumerator StopElevator(float rechargeTime)
+    {
+        velocity = 0;
+        stopAvailable = false;
+        yield return new WaitForSeconds(rechargeTime);
+        stopAvailable = true;
     }
 
     public int GetFloor()
