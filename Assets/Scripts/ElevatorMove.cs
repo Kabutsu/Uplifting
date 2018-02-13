@@ -15,6 +15,9 @@ public class ElevatorMove : MonoBehaviour {
 
     [SerializeField]
     private Camera mainCamera;
+
+    [SerializeField]
+    private AudioClip crashSound;
     
     private GameController controller;
 
@@ -106,10 +109,12 @@ public class ElevatorMove : MonoBehaviour {
             if(transform.position.y > topOfScreen)
             {
                 transform.position = new Vector3(elevatorX, topOfScreen);
+                if (velocity >= 3 * maxSpeed / 4) mainCamera.GetComponent<AudioSource>().PlayOneShot(crashSound);
                 velocity = 0;
             } else if (transform.position.y < bottomOfScreen)
             {
                 transform.position = new Vector3(elevatorX, bottomOfScreen);
+                if (velocity <= -(3 * maxSpeed / 4)) mainCamera.GetComponent<AudioSource>().PlayOneShot(crashSound);
                 velocity = 0;
             }
             if (noOfFloors > 4 &&
