@@ -48,7 +48,7 @@ public class Passenger : MonoBehaviour {
         
         do
         {
-            floor = Random.Range(1, init.NoOfFloors());
+            floor = Random.Range(1, init.NoOfFloors() + 1);
         } while (floor == elevator.GetFloor());
         elevator.Lock();
 
