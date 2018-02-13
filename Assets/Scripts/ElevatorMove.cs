@@ -40,6 +40,10 @@ public class ElevatorMove : MonoBehaviour {
 
     private bool locked;
 
+    private bool freezeAvailable;
+    private bool boostAvailable;
+    private bool stopAvailable;
+
 	// Use this for initialization
 	void Start () {
         elevatorX = transform.position.x;
@@ -49,6 +53,8 @@ public class ElevatorMove : MonoBehaviour {
 
         velocity = 0;
         SetLastFloor(0);
+
+        freezeAvailable = true;
 
         locked = false;
         controller = GameObject.Find("Game Controller").GetComponent<GameController>();
@@ -79,22 +85,10 @@ public class ElevatorMove : MonoBehaviour {
         }
 
         //Powerups/Freeze
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if(Input.GetKeyDown(KeyCode.Alpha1) && freezeAvailable)
         {
             Debug.Log("Freeze");
             StartCoroutine(FreezePassengers(2f));
-        }
-
-        //Powerups/Boost
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            Debug.Log("Boost");
-        }
-
-        //Powerups/Stop
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            Debug.Log("Stop");
         }
 
         //snap the elevator to a floor if it is within a certain distance of the floor
@@ -159,10 +153,14 @@ public class ElevatorMove : MonoBehaviour {
 
     IEnumerator FreezePassengers(float forTime)
     {
+        freezeAvailable = false;
         controller.FreezePassengers();
         yield return new WaitForSeconds(forTime);
-        controller.UnfreezePassengers();
         Debug.Log("Unfreeze");
+        controller.UnfreezePassengers();
+        yield return new WaitForSeconds(forTime * 3.5f);
+        freezeAvailable = true;
+        Debug.Log("Available");
     }
 
     public int GetFloor()
