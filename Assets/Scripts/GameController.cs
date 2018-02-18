@@ -22,8 +22,8 @@ public class GameController : MonoBehaviour {
     [SerializeField]
     private Text timeText;
     [SerializeField]
-    private Text aMPMText;
 
+    private Text aMPMText;
     [SerializeField]
     private Image fadeOutPanel;
 
@@ -37,8 +37,8 @@ public class GameController : MonoBehaviour {
     [SerializeField]
     private GameOverScreen gameOverScreen;
 
-    List<Passenger> passengers;
-    int positionCount;
+    protected List<Passenger> passengers;
+    protected int positionCount;
 
 	//Getters and Setters
 	public CardManager GetCardManager(){return cardManager;}
@@ -216,7 +216,7 @@ public class GameController : MonoBehaviour {
         LevelController.LoadNextLevel();
     }
 
-    public void RequestPassenger()
+    public virtual void RequestPassenger()
     {
 		int toSpawn = 0;
 		int rand = Random.Range (0, 10);
