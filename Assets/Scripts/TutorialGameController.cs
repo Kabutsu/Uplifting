@@ -83,7 +83,6 @@ public class TutorialGameController : GameController {
         cardManager = GameObject.Find("CardManager").GetComponent<CardManager>();
         elevator.enabled = false;
         AdvanceTutorial();
-        Debug.Log(textbox.transform.position);
 	}
 	
 	// Update is called once per frame
