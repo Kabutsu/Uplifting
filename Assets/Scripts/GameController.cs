@@ -21,13 +21,13 @@ public class GameController : MonoBehaviour {
     [SerializeField]
     private Text timeText;
     [SerializeField]
-    private Text aMPMText;
 
+    private Text aMPMText;
     [SerializeField]
     private GameOverScreen gameOverScreen;
 
-    List<Passenger> passengers;
-    int positionCount;
+    protected List<Passenger> passengers;
+    protected int positionCount;
 
 	//Getters and Setters
 	public CardManager GetCardManager(){return cardManager;}
