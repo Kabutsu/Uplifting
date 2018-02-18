@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialPassenger : MonoBehaviour {
+public class TutorialPassenger : Passenger {
 
 	// Use this for initialization
 	void Start () {

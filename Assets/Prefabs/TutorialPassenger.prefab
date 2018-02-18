@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4782357707257752}
   - component: {fileID: 212529768002981918}
   m_Layer: 0
-  m_Name: stand_down
+  m_Name: TutorialPassenger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
