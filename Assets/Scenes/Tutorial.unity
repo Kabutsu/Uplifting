@@ -629,7 +629,6 @@ GameObject:
   - component: {fileID: 1021308776}
   - component: {fileID: 1021308775}
   - component: {fileID: 1021308774}
-  - component: {fileID: 1021308777}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: Untagged
@@ -645,10 +644,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1021308773}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f3d7a3b2efc7c346b91b3f24966040d, type: 3}
+  m_Script: {fileID: 11500000, guid: 358f4ff58a4d251459b8dfad7c13641e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passengerPrefab: {fileID: 1386805009964118, guid: a4055e15180bfbc44a598fa07d485783,
+  passengerPrefab: {fileID: 1566643563918648, guid: a3107987c0d1cae4bbd956fb286b7ba9,
     type: 2}
   elevator: {fileID: 1539767165}
   cardManager: {fileID: 0}
@@ -688,7 +687,7 @@ MonoBehaviour:
   floorNumberCanvas: {fileID: 953889787}
   shaftMaterial: {fileID: 10756, guid: 0000000000000000e000000000000000, type: 0}
   lowestPositionOfElevator: -3.75
-  noOfFloors: 7
+  noOfFloors: 10
 --- !u!4 &1021308776
 Transform:
   m_ObjectHideFlags: 0
@@ -696,7 +695,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1021308773}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0.5075044, y: -0.57570595, z: -9.878906}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
