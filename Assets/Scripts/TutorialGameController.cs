@@ -35,15 +35,19 @@ public class TutorialGameController : GameController {
         }
     );
 
+    [SerializeField]
     private string currentText;
     private bool tutorialStateAcknowledged;
-    public bool readyForNextStage;
+
+    private AudioSource speaker;
+    public AudioClip dingSound;
+    public AudioClip exclaimSound;
     
 	// Use this for initialization
 	void Start () {
+        speaker = this.GetComponent<AudioSource>();
         elevator.enabled = false;
-        currentText = tutorialText.Dequeue();
-        Debug.Log(currentText);
+        AdvanceTutorial();
 	}
 	
 	// Update is called once per frame
@@ -54,24 +58,40 @@ public class TutorialGameController : GameController {
                 if (!tutorialStateAcknowledged)
                 {
                     tutorialStateAcknowledged = true;
-                    readyForNextStage = false;
                     //Do some stuff to make jim move on + AdvanceTutorial()...
-                    StartCoroutine(JimCoroutine());
+                    StartCoroutine(JimAppearCoroutine());
 
                 }
-                else if (readyForNextStage) AdvanceTutorial();
                 break;
             case "[jim_bing]":
-
+                if (!tutorialStateAcknowledged)
+                {
+                    tutorialStateAcknowledged = true;
+                    StartCoroutine(ThisIsJim());
+                }
                 break;
             case "[jim_into_lift]":
-
+                if (!tutorialStateAcknowledged)
+                {
+                    tutorialStateAcknowledged = true;
+                    StartCoroutine(JimEntersLift());
+                }
                 break;
             case "[lift_to_3]":
-
+                if (!tutorialStateAcknowledged) {
+                    tutorialStateAcknowledged = true;
+                    elevator.enabled = true;
+                }
+                if (elevator.GetFloor() == 3 && Mathf.Abs(elevator.Velocity()) < 3.0f)
+                {
+                    elevator.Lock();
+                    AdvanceTutorial();
+                }
                 break;
             case "[jim_exclaim]":
-
+                speaker.PlayOneShot(exclaimSound);
+                Debug.Log("!");
+                AdvanceTutorial();
                 break;
             case "[lift_to_2]":
 
@@ -122,7 +142,7 @@ public class TutorialGameController : GameController {
     /*These are all tutorial coroutines*/
     GameObject jim;
 
-    IEnumerator JimCoroutine()
+    IEnumerator JimAppearCoroutine()
     {
         jim = Instantiate(passengerPrefab, elevator.transform);
 
@@ -136,7 +156,32 @@ public class TutorialGameController : GameController {
             yield return null;
         }
 
-        readyForNextStage = true;
+        AdvanceTutorial();
+
+        yield return null;
+    }
+
+    IEnumerator ThisIsJim()
+    {
+        speaker.PlayOneShot(dingSound);
+        Debug.Log("\"ding\"");
+
+        yield return new WaitForSeconds(2.0f);
+
+        AdvanceTutorial();
+    }
+
+    IEnumerator JimEntersLift()
+    {
+        Vector3 toPosition = new Vector3(0.41f, -0.25f, -2);
+        var fromPosition = jim.transform.localPosition;
+        for (var t = 0f; t < 1; t += Time.deltaTime / 1)
+        {
+            jim.transform.localPosition = Vector3.Lerp(fromPosition, toPosition, t);
+            yield return null;
+        }
+
+        AdvanceTutorial();
 
         yield return null;
     }
