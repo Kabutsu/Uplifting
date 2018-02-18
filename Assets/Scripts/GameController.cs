@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour {
     [SerializeField]
     private Image fadeOutPanel;
 
+    private Text aMPMText;
     [SerializeField]
     private Text dayMarker;
     [SerializeField]
