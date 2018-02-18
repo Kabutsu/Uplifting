@@ -599,6 +599,7 @@ GameObject:
   - component: {fileID: 1021308776}
   - component: {fileID: 1021308775}
   - component: {fileID: 1021308774}
+  - component: {fileID: 1021308777}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: Untagged
@@ -662,7 +663,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1021308773}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5075044, y: -0.57570595, z: -9.878906}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
