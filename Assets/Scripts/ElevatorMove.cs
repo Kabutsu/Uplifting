@@ -266,4 +266,9 @@ public class ElevatorMove : MonoBehaviour {
     {
         return locked;
     }
+
+    public float Velocity()
+    {
+        return velocity;
+    }
 }

@@ -11,13 +11,13 @@ public class GameController : MonoBehaviour {
     private bool isEnding = false;
 
     [SerializeField]
-    private GameObject passengerPrefab;
+    protected GameObject passengerPrefab;
 
     [SerializeField]
-    private ElevatorMove elevator;
+    protected ElevatorMove elevator;
 
 	[SerializeField]
-	private CardManager cardManager;
+	protected CardManager cardManager;
 
     [SerializeField]
     private Text timeText;
