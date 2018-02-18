@@ -125,7 +125,7 @@ public class ElevatorMove : MonoBehaviour {
 
         //reduce velocity by acceleration/2
         velocity = (velocity > 0 ? velocity - acceleration / 2 : (velocity < 0 ? velocity + acceleration / 2 : velocity));
-        Debug.Log(velocity);
+        //Debug.Log(velocity);
     }
 
     //move the elevator to the same position as a floor in a specified time
@@ -178,5 +178,10 @@ public class ElevatorMove : MonoBehaviour {
     public bool Locked()
     {
         return locked;
+    }
+
+    public float Velocity()
+    {
+        return velocity;
     }
 }

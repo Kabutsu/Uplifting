@@ -5,16 +5,16 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
     [SerializeField]
-    private GameObject passengerPrefab;
+    protected GameObject passengerPrefab;
 
     [SerializeField]
-    private ElevatorMove elevator;
+    protected ElevatorMove elevator;
 
 	[SerializeField]
-	private CardManager cardManager;
+	protected CardManager cardManager;
 
-    List<Passenger> passengers;
-    int positionCount;
+    protected List<Passenger> passengers;
+    protected int positionCount;
 
 	//Getters and Setters
 	public CardManager GetCardManager(){return cardManager;}
@@ -31,7 +31,7 @@ public class GameController : MonoBehaviour {
 		
 	}
 
-    public void RequestPassenger()
+    public virtual void RequestPassenger()
     {
 		int toSpawn = 0;
 		int rand = Random.Range (0, 10);
