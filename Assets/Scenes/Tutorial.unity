@@ -688,7 +688,7 @@ MonoBehaviour:
   floorNumberCanvas: {fileID: 953889787}
   shaftMaterial: {fileID: 10756, guid: 0000000000000000e000000000000000, type: 0}
   lowestPositionOfElevator: -3.75
-  noOfFloors: 10
+  noOfFloors: 7
 --- !u!4 &1021308776
 Transform:
   m_ObjectHideFlags: 0
