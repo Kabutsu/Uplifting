@@ -14,7 +14,7 @@ public class Passenger : MonoBehaviour {
     private GameController controller;
 	private CardManager cardManager;
 
-	private Card card;
+	protected Card card;
 
     private string passengerName;
     private string job;
