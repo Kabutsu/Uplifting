@@ -302,7 +302,8 @@ MonoBehaviour:
   elevator: {fileID: 1539767165}
   cardManager: {fileID: 0}
   currentText: 
-  dingSound: {fileID: 8300000, guid: 267b8aeb3411c5e439c0e2f7d1ded011, type: 3}
+  jimDingSound: {fileID: 8300000, guid: 267b8aeb3411c5e439c0e2f7d1ded011, type: 3}
+  barbraDingSound: {fileID: 8300000, guid: 000d9e0674a8251438ef58f0506d5966, type: 3}
   exclaimSound: {fileID: 8300000, guid: 82b59a714f9e32147926cb1dfafff379, type: 3}
 --- !u!114 &1021308775
 MonoBehaviour:
