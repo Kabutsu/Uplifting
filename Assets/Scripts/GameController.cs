@@ -277,7 +277,7 @@ public class GameController : MonoBehaviour {
         passengers.Remove(passenger);
     }
 
-	public int GetPassengerCount(){return passengers.Count;}
+	public virtual int GetPassengerCount(){return passengers.Count;}
 
     public void FreezePassengers()
     {

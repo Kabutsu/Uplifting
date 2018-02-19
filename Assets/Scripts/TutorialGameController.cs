@@ -14,14 +14,16 @@ public class TutorialGameController : GameController {
         "[jim_bing]",
         "Jim works in accounting, which is on the 3rd Floor. Thankfully, he’s not in too much of a rush to get to his desk today, so I’ll get a chance to show you the ropes.",
         "[jim_into_lift]",
-        "Let's get a move on. Head on up to level 3. [Press {UP} to go up, and {DOWN} to go down].",
+        "Let's get a move on. Head on up to level 3. [Press {UP} to go up, and {DOWN} to go down].#",
         "[lift_to_3]",
         "Jim has just realised he needs the toilet. Quite urgently.",
         "[jim_exclaim]",
         "The nearest toilets are on the 2nd Floor. Let’s try and get him there as quick as we can.",
         "[lift_to_2]",
-        "We should probably let him out. Sooner rather than later. [Press {RIGHT} to open the doors]",
+        "We should probably let him out. Sooner rather than later. [Press {RIGHT} to open the doors]#",
+        "[let_jim_off]",
         "[jim_off_lift]",
+        "[barbra_walk_on]",
         "This is Barbra.",
         "[barbra_exclaim]",
         "Barbra is a Central Optimisation Associate, and so is obviously a very busy person. So busy in fact that she’s late to a meeting that hasn’t started yet on the 6th Floor.",
@@ -40,7 +42,8 @@ public class TutorialGameController : GameController {
     private bool tutorialStateAcknowledged;
 
     private AudioSource speaker;
-    public AudioClip dingSound;
+    public AudioClip jimDingSound;
+    public AudioClip barbraDingSound;
     public AudioClip exclaimSound;
     
 	// Use this for initialization
@@ -94,16 +97,55 @@ public class TutorialGameController : GameController {
                 AdvanceTutorial();
                 break;
             case "[lift_to_2]":
-
+                if(!tutorialStateAcknowledged)
+                {
+                    tutorialStateAcknowledged = true;
+                    elevator.Unlock();
+                }
+                if(elevator.GetFloor() == 2 && Mathf.Abs(elevator.Velocity()) < 3)
+                {
+                    elevator.Lock();
+                    AdvanceTutorial();
+                }
+                break;
+            case "[let_jim_off]":
+                if(!tutorialStateAcknowledged)
+                {
+                    tutorialStateAcknowledged = true;
+                   
+                }
+                if(Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    AdvanceTutorial();
+                }
                 break;
             case "[jim_off_lift]":
-
+                if (!tutorialStateAcknowledged)
+                {
+                    tutorialStateAcknowledged = true;
+                    StartCoroutine(JimLeavesLift());
+                }
+                break;
+            case "[barbra_walk_on]":
+                if (!tutorialStateAcknowledged)
+                {
+                    tutorialStateAcknowledged = true;
+                    StartCoroutine(BarbraAppear());
+                }
                 break;
             case "[barbra_exclaim]":
-
+                if (!tutorialStateAcknowledged)
+                {
+                    tutorialStateAcknowledged = true;
+                    StartCoroutine(ThisIsBarbra());
+                }
                 break;
             case "[barbra_on_lift]":
-
+                if(!tutorialStateAcknowledged)
+                {
+                    tutorialStateAcknowledged = true;
+                    StartCoroutine(BarbraEntersLift());
+                }
                 break;
             case "[lift_to_6]":
 
@@ -115,10 +157,16 @@ public class TutorialGameController : GameController {
                 if (!tutorialStateAcknowledged) {
                     tutorialStateAcknowledged = true;
                     if (!(currentText[0] == '['))
-                        Debug.Log(currentText);
-                }
-                
-                if(Input.GetKeyDown(KeyCode.Space))
+                        if (currentText[currentText.Length - 1] == '#')
+                        {
+                            currentText = currentText.Remove(currentText.Length - 1);
+                            Debug.Log(currentText);
+                            AdvanceTutorial();
+                        } else
+                        {
+                            Debug.Log(currentText);
+                        }
+                } else if(Input.GetKeyDown(KeyCode.Space))
                 {
                     AdvanceTutorial();
                 }
@@ -136,11 +184,23 @@ public class TutorialGameController : GameController {
 
     public override void RequestPassenger()
     {
+        return;
+    }
 
+    public override int GetPassengerCount()
+    {
+        return int.MaxValue;
+    }
+
+    public override void BroadcastFloor(int floorNo)
+    {
+        return;
     }
 
     /*These are all tutorial coroutines*/
     GameObject jim;
+    GameObject barbra;
+    Card barbraCard;
 
     IEnumerator JimAppearCoroutine()
     {
@@ -163,7 +223,7 @@ public class TutorialGameController : GameController {
 
     IEnumerator ThisIsJim()
     {
-        speaker.PlayOneShot(dingSound);
+        speaker.PlayOneShot(jimDingSound);
         Debug.Log("\"ding\"");
 
         yield return new WaitForSeconds(2.0f);
@@ -178,6 +238,64 @@ public class TutorialGameController : GameController {
         for (var t = 0f; t < 1; t += Time.deltaTime / 1)
         {
             jim.transform.localPosition = Vector3.Lerp(fromPosition, toPosition, t);
+            yield return null;
+        }
+
+        AdvanceTutorial();
+
+        yield return null;
+    }
+
+    IEnumerator JimLeavesLift()
+    {
+        Vector3 toPosition = new Vector3(12f, -0.25f, -2);
+        var fromPosition = jim.transform.localPosition;
+        for (var t = 0f; t < 1; t += Time.deltaTime / 1.5f)
+        {
+            jim.transform.localPosition = Vector3.Lerp(fromPosition, toPosition, t);
+            yield return null;
+        }
+        Destroy(jim);
+        AdvanceTutorial();
+
+        yield return null;
+    }
+
+    IEnumerator BarbraAppear()
+    {
+        Debug.Log("x");
+        barbra = Instantiate(passengerPrefab, elevator.transform);
+
+        //move Jim from off-screen to middle of corridor
+        barbra.transform.localPosition = new Vector3(12, -0.25f, -2);
+        Vector3 toPosition = new Vector3(6, -0.25f, -2);
+        var fromPosition = barbra.transform.localPosition;
+        for (var t = 0f; t < 1; t += Time.deltaTime / 1)
+        {
+            barbra.transform.localPosition = Vector3.Lerp(fromPosition, toPosition, t);
+            yield return null;
+        }
+
+        AdvanceTutorial();
+
+        yield return null;
+    }
+
+    IEnumerator ThisIsBarbra()
+    {
+        speaker.PlayOneShot(barbraDingSound);
+        yield return new WaitForSeconds(1f);
+        AdvanceTutorial();
+        yield return null;
+    }
+
+    IEnumerator BarbraEntersLift()
+    {
+        Vector3 toPosition = new Vector3(0.41f, -0.25f, -2);
+        var fromPosition = barbra.transform.localPosition;
+        for (var t = 0f; t < 1; t += Time.deltaTime / 1)
+        {
+            barbra.transform.localPosition = Vector3.Lerp(fromPosition, toPosition, t);
             yield return null;
         }
 
