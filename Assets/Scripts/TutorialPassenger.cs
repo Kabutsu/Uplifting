@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialPassenger : Passenger {
+public abstract class TutorialPassenger : Passenger {
 
     private bool cardStarted = false;
     new public const float TIME_TO_LIVE = 15f;
