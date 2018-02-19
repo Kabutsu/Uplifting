@@ -196,6 +196,7 @@ public class TutorialGameController : GameController {
                 }
                 if (elevator.GetFloor() == 3 && Mathf.Abs(elevator.Velocity()) < 2)
                 {
+                    Debug.Log("lock");
                     elevator.Lock();
                     AdvanceTutorial();
                 }
