@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TutorialGameController : GameController {
 
@@ -29,10 +30,13 @@ public class TutorialGameController : GameController {
         "Barbra is a Central Optimisation Associate, and so is obviously a very busy person. So busy in fact that she’s late to a meeting that hasn’t started yet on the 6th Floor.",
         "[barbra_on_lift]",
         "Thanks to the latest in Low-speed Electron Accretion technology we can measure our employee’s stress levels remotely.",
-        "This is Barbra’s stress-o-meter, all of your passengers will have one. The longer they have to wait until they get to their destination, the more stressed they’ll get. I’ve been asked to advice you not to let this get too high.",
+        "[stressometer]",
+        "This is Barbra’s stress-o-meter, all of your passengers will have one. You can see their stress, and their destination. The longer they have to wait until they get to their destination, the more stressed they’ll get. I’ve been asked to advice you not to let this get too high.",
         "We should probably get going. Get Barbra up to the 6th Floor ASAP.",
         "[lift_to_6]",
-        "Well, you seem to have got the hang of this quite quickly. I’d say that’s half an hour for lunch. It’ll probably be a bit busy when you get back so bring your “A” Game.",
+        "[barbra_exit_lift]",
+        "[evaluate]",
+        "[tutorial_repeat_choice]",
         "[fade_out]"
         }
     );
@@ -49,6 +53,7 @@ public class TutorialGameController : GameController {
 	// Use this for initialization
 	void Start () {
         speaker = this.GetComponent<AudioSource>();
+        cardManager = GameObject.Find("CardManager").GetComponent<CardManager>();
         elevator.enabled = false;
         AdvanceTutorial();
 	}
@@ -147,8 +152,54 @@ public class TutorialGameController : GameController {
                     StartCoroutine(BarbraEntersLift());
                 }
                 break;
+            case "[stressometer]":
+                if(!tutorialStateAcknowledged)
+                {
+                    tutorialStateAcknowledged = true;
+                    barbra.GetComponent<TutorialPassenger>().Card(cardManager.ConstructCard(barbra.GetComponent<TutorialPassenger>()));
+                    AdvanceTutorial();
+                }
+                break;
             case "[lift_to_6]":
+                if (!tutorialStateAcknowledged)
+                {
+                    tutorialStateAcknowledged = true;
+                    barbra.GetComponent<TutorialPassenger>().StartCard();
+                    elevator.Unlock();
+                } else if (elevator.GetFloor() == 6 && elevator.Velocity() < 3.0f && Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    AdvanceTutorial();
+                }
+                break;
+            case "[barbra_exit_lift]":
+                if (!tutorialStateAcknowledged)
+                {
+                    tutorialStateAcknowledged = true;
+                    StartCoroutine(BarbraLeavesLift());
+                }
+                break;
+            case "[evaluate]":
+                if (!tutorialStateAcknowledged)
+                {
+                    tutorialStateAcknowledged = true;
+                    StartCoroutine(ClosingStatements());
+                }
+                break;
 
+            case "[tutorial_repeat_choice]":
+                if (!tutorialStateAcknowledged)
+                {
+                    tutorialStateAcknowledged = true;
+                } else
+                {
+                    if (Input.GetKeyDown(KeyCode.UpArrow))
+                    {
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                    } else if (Input.GetKeyDown(KeyCode.DownArrow))
+                    {
+                        SceneManager.LoadScene(1);
+                    }
+                }
                 break;
             case "[fade_out]":
 
@@ -263,7 +314,6 @@ public class TutorialGameController : GameController {
 
     IEnumerator BarbraAppear()
     {
-        Debug.Log("x");
         barbra = Instantiate(passengerPrefab, elevator.transform);
 
         //move Jim from off-screen to middle of corridor
@@ -303,4 +353,40 @@ public class TutorialGameController : GameController {
 
         yield return null;
     }
+
+    IEnumerator BarbraLeavesLift()
+    {
+        cardManager.DismissCard(barbra.GetComponent<TutorialPassenger>().Card());
+        Vector3 toPosition = new Vector3(12.0f, -0.25f, -2);
+        var fromPosition = barbra.transform.localPosition;
+        for (var t = 0f; t < 1; t += Time.deltaTime / 1)
+        {
+            barbra.transform.localPosition = Vector3.Lerp(fromPosition, toPosition, t);
+            yield return null;
+        }
+
+        AdvanceTutorial();
+
+        yield return null;
+    }
+
+    IEnumerator ClosingStatements()
+    {
+        if (barbra.GetComponent<TutorialPassenger>().GetRage() == 100.0f)
+        {
+            Debug.Log("A good attempt although you might need a bit more practise.");
+            Debug.Log("We can give it another go if you want or I can leave you to it.");
+        } else
+        {
+            Debug.Log("Well, you seem to have got the hang of this quite quickly. I’d say that’s half an hour for lunch.");
+            Debug.Log("Unless you'd like me to go through it again, just to be sure?");
+        }
+
+        Debug.Log("You want to repeat the tutorial? {UP: Yes, DOWN: No}");
+        AdvanceTutorial();
+        yield return null;
+    }
 }
+
+
+// It’ll probably be a bit busy when you get back so bring your “A” Game.
