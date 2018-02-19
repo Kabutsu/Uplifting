@@ -19,16 +19,16 @@ public class Passenger : MonoBehaviour {
     private string passengerName;
     private string job;
     private int floor;
-    private float rage;
+    protected float rage;
     private float positionOnLift;
 	private float timeAlive;
 	private bool keyHolder; //Can unlock elevator?
 
 	//Getters and Setters
-	public string GetPassengerName(){return passengerName;}
-	public string GetPassengerJob(){return job;}
-	public int GetPassengerReqFloor(){return floor;}
-	public float GetRage(){return rage;}
+	public virtual string GetPassengerName(){return passengerName;}
+    public virtual string GetPassengerJob(){return job;}
+    public virtual int GetPassengerReqFloor(){return floor;}
+    public virtual float GetRage(){return rage;}
 
 
 	// Use this for initialization
