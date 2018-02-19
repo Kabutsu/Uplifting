@@ -2,15 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialPassenger : Passenger {
+public abstract class TutorialPassenger : Passenger {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+}
+
+public class BarbraTutorialPassenger : TutorialPassenger
+{
+
+    public override string GetPassengerName()
+    {
+        return "Barbra Stitt";
+    }
+
+    public override string GetPassengerJob()
+    {
+        return "Central Optimisation Associate";
+    }
+
+    public override int GetPassengerReqFloor()
+    {
+        return 6;
+    }
+
+    public override float GetRage()
+    {
+        return base.GetRage();
+    }
+
+    public void setRage()
+    {
+
+    }
 }

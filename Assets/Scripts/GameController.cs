@@ -110,7 +110,7 @@ public class GameController : MonoBehaviour {
 		}
     }
 
-    public void BroadcastFloor(int floorNo)
+    public virtual void BroadcastFloor(int floorNo)
     {
         List<Passenger> temp_passengers = new List<Passenger>(passengers);
         foreach(Passenger passenger in temp_passengers)
@@ -124,7 +124,7 @@ public class GameController : MonoBehaviour {
         passengers.Remove(passenger);
     }
 
-	public int GetPassengerCount(){return passengers.Count;}
+	public virtual int GetPassengerCount(){return passengers.Count;}
 
     public void FreezePassengers()
     {
