@@ -2,48 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TutorialGameController : GameController {
 
     Queue<string> tutorialText = new Queue<string>(new List<string>()
         {
         "Good morning and welcome to your new role as Green Meadows Waste Management Solutions Inc©’s new Elevation Consultant!",
-        "Your job will mean ensuring that employees can get to where they need to go in a safe and timely manner. I’ll be walking you through your first morning.",
+        "Your job will mean ensuring that employees can get to where they need to go in a safe and timely manner.\n\nI’ll be walking you through your first morning.",
         "Fortunately, last night was our Annual Mid-February Office Christmas party, so we’re expecting a slow morning.",
         "[jim_walk_on]",
-        "This is Jim.",
+        "This is Jim.#",
         "[jim_bing]",
-        "Jim works in accounting, which is on the 3rd Floor. Thankfully, he’s not in too much of a rush to get to his desk today, so I’ll get a chance to show you the ropes.",
+        "Jim works in accounting, which is on the 3rd Floor.\n\nThankfully, he’s not in too much of a rush to get to his desk today, so I’ll get a chance to show you the ropes.",
         "[jim_into_lift]",
-        "Let's get a move on. Head on up to level 3. [Press {UP} to go up, and {DOWN} to go down].#",
+        "Let's get a move on. Head on up to level 3.\n\n[Press {UP} to go up, and {DOWN} to go down].#",
         "[lift_to_3]",
         "Jim has just realised he needs the toilet. Quite urgently.",
         "[jim_exclaim]",
-        "The nearest toilets are on the 2nd Floor. Let’s try and get him there as quick as we can.",
+        "The nearest toilets are on the 2nd Floor. Let’s try and get him there as quick as we can.#",
         "[lift_to_2]",
-        "We should probably let him out. Sooner rather than later. [Press {RIGHT} to open the doors]#",
+        "We should probably let him out. Sooner rather than later.\n\n[Press {RIGHT} to open the doors]#",
         "[let_jim_off]",
         "[jim_off_lift]",
         "[barbra_walk_on]",
         "This is Barbra.",
         "[barbra_exclaim]",
-        "Barbra is a Central Optimisation Associate, and so is obviously a very busy person. So busy in fact that she’s late to a meeting that hasn’t started yet on the 6th Floor.",
+        "Barbra is a Central Optimisation Associate, and so is obviously a very busy person.\n\nSo busy in fact that she’s late to a meeting on the 6th Floor.",
         "[barbra_on_lift]",
         "Thanks to the latest in Low-speed Electron Accretion technology we can measure our employee’s stress levels remotely.",
         "[stressometer]",
-        "This is Barbra’s stress-o-meter, all of your passengers will have one. You can see their stress, and their destination. The longer they have to wait until they get to their destination, the more stressed they’ll get. I’ve been asked to advice you not to let this get too high.",
-        "We should probably get going. Get Barbra up to the 6th Floor ASAP.",
+        "This is Barbra’s stress-o-meter, all of your passengers will have one.\n\nYou can see their stress, and their destination.",
+        "The longer they have to wait until they get to their destination, the more stressed they’ll get.\n\nI’ve been asked to advice you not to let this get too high.",
+        "We should probably get going. Get Barbra up to the 6th Floor ASAP.\n\n[Press {UP} to go up, and {DOWN} to go down]#",
         "[lift_to_6]",
         "[barbra_exit_lift]",
         "[evaluate]",
-        "[tutorial_repeat_choice]",
-        "[fade_out]"
         }
     );
 
     [SerializeField]
     private string currentText;
     private bool tutorialStateAcknowledged;
+
+    public Text textbox;
 
     private AudioSource speaker;
     public AudioClip jimDingSound;
@@ -98,7 +100,6 @@ public class TutorialGameController : GameController {
                 break;
             case "[jim_exclaim]":
                 speaker.PlayOneShot(exclaimSound);
-                Debug.Log("!");
                 AdvanceTutorial();
                 break;
             case "[lift_to_2]":
@@ -211,11 +212,11 @@ public class TutorialGameController : GameController {
                         if (currentText[currentText.Length - 1] == '#')
                         {
                             currentText = currentText.Remove(currentText.Length - 1);
-                            Debug.Log(currentText);
+                            textbox.text = currentText;
                             AdvanceTutorial();
                         } else
                         {
-                            Debug.Log(currentText);
+                            textbox.text = currentText;
                         }
                 } else if(Input.GetKeyDown(KeyCode.Space))
                 {
@@ -275,7 +276,6 @@ public class TutorialGameController : GameController {
     IEnumerator ThisIsJim()
     {
         speaker.PlayOneShot(jimDingSound);
-        Debug.Log("\"ding\"");
 
         yield return new WaitForSeconds(2.0f);
 
@@ -333,6 +333,7 @@ public class TutorialGameController : GameController {
 
     IEnumerator ThisIsBarbra()
     {
+        yield return new WaitForSeconds(0.4f);
         speaker.PlayOneShot(barbraDingSound);
         yield return new WaitForSeconds(1f);
         AdvanceTutorial();
@@ -374,15 +375,17 @@ public class TutorialGameController : GameController {
     {
         if (barbra.GetComponent<TutorialPassenger>().GetRage() == 100.0f)
         {
-            Debug.Log("A good attempt although you might need a bit more practise.");
-            Debug.Log("We can give it another go if you want or I can leave you to it.");
+            tutorialText.Enqueue("A good attempt although you might need a bit more practise.");
+            tutorialText.Enqueue("We can give it another go if you want or I can leave you to it.");
         } else
         {
-            Debug.Log("Well, you seem to have got the hang of this quite quickly. I’d say that’s half an hour for lunch.");
-            Debug.Log("Unless you'd like me to go through it again, just to be sure?");
+            tutorialText.Enqueue("Well, you seem to have got the hang of this quite quickly. I’d say that’s half an hour for lunch.");
+            tutorialText.Enqueue("Unless you'd like me to go through it again, just to be sure?");
         }
 
-        Debug.Log("You want to repeat the tutorial? {UP: Yes, DOWN: No}");
+        tutorialText.Enqueue("You want to repeat the tutorial? {UP: Yes, DOWN: No}#");
+        tutorialText.Enqueue("[tutorial_repeat_choice]");
+
         AdvanceTutorial();
         yield return null;
     }
