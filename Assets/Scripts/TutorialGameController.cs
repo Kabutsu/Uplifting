@@ -159,7 +159,7 @@ public class TutorialGameController : GameController {
                 if(!tutorialStateAcknowledged)
                 {
                     tutorialStateAcknowledged = true;
-                    StartCoroutine(MoveText(new Vector3(271.2f, 880), 0.35f));
+                    StartCoroutine(MoveText(new Vector3(271.2f, -200.0f), 0.35f));
                     barbra.GetComponent<TutorialPassenger>().Card(cardManager.ConstructCard(barbra.GetComponent<TutorialPassenger>()));
                     AdvanceTutorial();
                 }
@@ -178,7 +178,7 @@ public class TutorialGameController : GameController {
             case "[barbra_exit_lift]":
                 if (!tutorialStateAcknowledged)
                 {
-                    StartCoroutine(MoveText(new Vector3(271.2f, 1020), 0.8f));
+                    StartCoroutine(MoveText(new Vector3(271.2f, -60.0f), 0.8f));
                     tutorialStateAcknowledged = true;
                     StartCoroutine(BarbraLeavesLift());
                 }
@@ -361,10 +361,11 @@ public class TutorialGameController : GameController {
 
     IEnumerator MoveText(Vector3 toPosition, float inTime)
     {
-        Vector3 fromPosition = textbox.transform.position;
+        Vector3 fromPosition = textbox.GetComponent<RectTransform>().anchoredPosition;
+        Debug.Log(fromPosition);
         for(var t = 0f; t < 1; t+= Time.deltaTime / inTime)
         {
-            textbox.transform.position = Vector3.Lerp(fromPosition, toPosition, t);
+            textbox.GetComponent<RectTransform>().anchoredPosition = Vector3.Lerp(fromPosition, toPosition, t);
             yield return null;
         }
     }
