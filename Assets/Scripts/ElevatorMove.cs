@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ElevatorMove : MonoBehaviour {
     
@@ -58,6 +59,12 @@ public class ElevatorMove : MonoBehaviour {
     private Sprite boostSprite;
     [SerializeField]
     private Sprite boostSpriteFaded;
+    [SerializeField]
+    private Text freezeCountdown;
+    [SerializeField]
+    private Image frozenPanel;
+    [SerializeField]
+    private Text boostCountdown;
 
     // Use this for initialization
     void Start () {
@@ -181,10 +188,19 @@ public class ElevatorMove : MonoBehaviour {
         freezeUI.GetComponent<SpriteRenderer>().sprite = freezeSpriteFaded;
         freezeAvailable = false;
         controller.FreezePassengers();
+        frozenPanel.transform.localScale = new Vector3(1f, 1f, 1f);
         yield return new WaitForSeconds(forTime);
         controller.UnfreezePassengers();
-        yield return new WaitForSeconds(POWERUP_REFRESH_TIME);
+        frozenPanel.transform.localScale = new Vector3(0f, 0f, 0f);
+        forTime = POWERUP_REFRESH_TIME;
+        while (forTime > 0.0f)
+        {
+            forTime -= Time.deltaTime;
+            freezeCountdown.text = ((int)Mathf.Round(forTime)).ToString();
+            yield return new WaitForEndOfFrame();
+        }
         freezeAvailable = true;
+        freezeCountdown.text = "";
         freezeUI.GetComponent<SpriteRenderer>().sprite = freezeSprite;
     }
 
@@ -198,8 +214,15 @@ public class ElevatorMove : MonoBehaviour {
         yield return new WaitForSeconds(forTime);
         boosting = false;
         velocity = 3 * originalVelocity / 4;
-        yield return new WaitForSeconds(POWERUP_REFRESH_TIME);
+        forTime = POWERUP_REFRESH_TIME;
+        while (forTime > 0.0f)
+        {
+            forTime -= Time.deltaTime;
+            boostCountdown.text = ((int)Mathf.Round(forTime)).ToString();
+            yield return new WaitForEndOfFrame();
+        }
         boostAvailable = true;
+        boostCountdown.text = "";
         boostUI.GetComponent<SpriteRenderer>().sprite = boostSprite;
     }
 
