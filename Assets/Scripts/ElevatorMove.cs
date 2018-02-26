@@ -40,12 +40,17 @@ public class ElevatorMove : MonoBehaviour {
 
     private bool locked;
 
+    private bool boostAvailable;
+    private bool boosting;
+
 	// Use this for initialization
 	void Start () {
         elevatorX = transform.position.x;
         cameraHeight = mainCamera.pixelHeight;
         cameraMoveDownAt = cameraHeight / 4f;
         cameraMoveUpAt = 3f * cameraMoveDownAt;
+
+        boostAvailable = true;
 
         velocity = 0;
         SetLastFloor(0);
@@ -67,15 +72,20 @@ public class ElevatorMove : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //move elevator up
-		if(!Locked() && Input.GetKey(KeyCode.UpArrow))
+		if(Input.GetKey(KeyCode.UpArrow) && !Locked() && !boosting)
         {
             velocity = (velocity < maxSpeed ? (velocity < 0 ? velocity + acceleration * 2 : velocity + acceleration) : velocity);
         }
 
         //move elevator down
-        if (!Locked() && Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.DownArrow) && !Locked() && !boosting)
         {
             velocity = (velocity > 0-maxSpeed ? (velocity > 0 ? velocity - acceleration * 2 : velocity - acceleration) : velocity);
+        }
+
+        if(Input.GetKey(KeyCode.Alpha2) && boostAvailable && velocity != 0)
+        {
+            StartCoroutine(BoostElevator(4, 1));
         }
 
         //snap the elevator to a floor if it is within a certain distance of the floor
@@ -123,8 +133,8 @@ public class ElevatorMove : MonoBehaviour {
                 mainCamera.transform.Translate(new Vector3(0, moveAmount));
         }
 
-        //reduce velocity by acceleration/2
-        velocity = (velocity > 0 ? velocity - acceleration / 2 : (velocity < 0 ? velocity + acceleration / 2 : velocity));
+        //reduce velocity by acceleration/2 each frame if not boosting
+        if(!boosting) velocity = (velocity > 0 ? velocity - acceleration / 2 : (velocity < 0 ? velocity + acceleration / 2 : velocity));
         Debug.Log(velocity);
     }
 
@@ -137,6 +147,19 @@ public class ElevatorMove : MonoBehaviour {
             transform.position = Vector3.Lerp(fromPosition, toPosition, t);
             yield return null;
         }
+    }
+
+    IEnumerator BoostElevator(float byAmount, float forTime)
+    {
+        float originalVelocity = velocity;
+        velocity *= byAmount;
+        boosting = true;
+        boostAvailable = false;
+        yield return new WaitForSeconds(forTime);
+        boosting = false;
+        velocity = 3 * originalVelocity / 4;
+        yield return new WaitForSeconds(forTime * 3.5f);
+        boostAvailable = true;
     }
 
     public int GetFloor()
