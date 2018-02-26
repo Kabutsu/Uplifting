@@ -40,7 +40,9 @@ public class ElevatorMove : MonoBehaviour {
 
     private bool locked;
 
+    private bool freezeAvailable;
     private bool boostAvailable;
+    private bool stopAvailable;
     private bool boosting;
 
 	// Use this for initialization
@@ -54,6 +56,8 @@ public class ElevatorMove : MonoBehaviour {
 
         velocity = 0;
         SetLastFloor(0);
+
+        freezeAvailable = true;
 
         locked = false;
         controller = GameObject.Find("Game Controller").GetComponent<GameController>();
@@ -83,13 +87,19 @@ public class ElevatorMove : MonoBehaviour {
             velocity = (velocity > 0-maxSpeed ? (velocity > 0 ? velocity - acceleration * 2 : velocity - acceleration) : velocity);
         }
 
+        //Powerups/Freeze
+        if(Input.GetKeyDown(KeyCode.Alpha1) && freezeAvailable)
+        {
+            StartCoroutine(FreezePassengers(2f));
+        }
+    
         if(Input.GetKey(KeyCode.Alpha2) && boostAvailable && velocity != 0)
         {
             StartCoroutine(BoostElevator(4, 1));
         }
 
         //snap the elevator to a floor if it is within a certain distance of the floor
-        if(Input.GetKeyDown(KeyCode.RightArrow) && Mathf.Abs(velocity) <= maxSpeed/3 && GetFloor() != LastFloor())
+        if (Input.GetKeyDown(KeyCode.RightArrow) && Mathf.Abs(velocity) <= maxSpeed/3 && GetFloor() != LastFloor())
         {
             foreach(GameObject floor in floors)
             {
@@ -133,6 +143,7 @@ public class ElevatorMove : MonoBehaviour {
                 mainCamera.transform.Translate(new Vector3(0, moveAmount));
         }
 
+
         //reduce velocity by acceleration/2 each frame if not boosting
         if(!boosting) velocity = (velocity > 0 ? velocity - acceleration / 2 : (velocity < 0 ? velocity + acceleration / 2 : velocity));
         Debug.Log(velocity);
@@ -149,6 +160,17 @@ public class ElevatorMove : MonoBehaviour {
         }
     }
 
+    IEnumerator FreezePassengers(float forTime)
+    {
+        freezeAvailable = false;
+        controller.FreezePassengers();
+        yield return new WaitForSeconds(forTime);
+        Debug.Log("Unfreeze");
+        controller.UnfreezePassengers();
+        yield return new WaitForSeconds(forTime * 3.5f);
+        freezeAvailable = true;
+        Debug.Log("Available");
+}
     IEnumerator BoostElevator(float byAmount, float forTime)
     {
         float originalVelocity = velocity;
