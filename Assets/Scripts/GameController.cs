@@ -35,7 +35,7 @@ public class GameController : MonoBehaviour {
     {
 		int toSpawn = 0;
 		int rand = Random.Range (0, 10);
-		if (passengers.Count < 5) {
+		if (passengers.Count < 4) {
 			if (rand < 4) {
 				toSpawn = 3;
 			} else if (rand < 7) {
@@ -43,13 +43,13 @@ public class GameController : MonoBehaviour {
 			} else {
 				toSpawn = 1;
 			}
-		} else if (passengers.Count < 6) {
+		} else if (passengers.Count < 5) {
 			if (rand < 6) {
 				toSpawn = 2;
 			} else {
 				toSpawn = 1;
 			}
-		} else if(passengers.Count < 7){
+		} else if(passengers.Count < 6){
 			toSpawn = 1;
         }
 
