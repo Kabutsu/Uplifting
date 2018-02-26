@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour {
 	void Start () {
         passengers = new List<Passenger>();
 		cardManager = GameObject.Find ("CardManager").GetComponent<CardManager> ();
+        RequestPassenger();
 	}
 	
 	// Update is called once per frame
