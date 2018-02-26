@@ -8,38 +8,63 @@ public class TutorialGameController : GameController {
 
     Queue<string> tutorialText = new Queue<string>(new List<string>()
         {
-        "Good morning and welcome to your new role as Green Meadows Waste Management Solutions Inc©’s new Elevation Consultant!\n\n[Press {SPACE} to continue]",
-        "Your job will mean ensuring that employees can get to where they need to go in a safe and timely manner.\n\nI’ll be walking you through your first morning.\n\n[Press {SPACE} to continue]",
-        "Fortunately, last night was our Annual Mid-February Office Christmas party, so we’re expecting a slow morning.\n\n[Press {SPACE} to continue]",
+        "Good morning and welcome to your new role as Green Meadows Waste Management Solutions Inc©’s new Elevation Consultant!\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Your job will mean ensuring that employees can get to where they need to go in a safe and timely manner.\n\nI’ll be walking you through your first morning.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Fortunately, last night was our Annual Mid-February Office Christmas party, so we’re expecting a slow morning.\n\n\n\n<b>Press {SPACE} to continue</b>",
         "[jim_walk_on]",
         "This is Jim.#",
         "[jim_bing]",
-        "Jim works in accounting, which is on the 3rd Floor.\n\nThankfully, he’s not in too much of a rush to get to his desk today, so I’ll get a chance to show you the ropes.\n\n[Press {SPACE} to continue]",
+        "Jim works in accounting, which is on the 3rd Floor.\n\nThankfully, he’s not in too much of a rush to get to his desk today, so I’ll get a chance to show you the ropes.\n\n\n\n<b>Press {SPACE} to continue</b>",
         "[jim_into_lift]",
-        "Let's get a move on. Head on up to level 3.\n\n[Press the {UP} key to go up. Press {DOWN} to move down if you overshoot].#",
+        "Let's get a move on. Head on up to level 3.\n\n\n\n<b>Press the {UP} key to go up.\nPress {DOWN} to move down if you overshoot.</b>#",
         "[lift_to_3]",
-        "Jim has just realised he needs the toilet. Quite urgently.\n\n[Press {SPACE} to continue]",
+        "Jim has just realised he needs the toilet. Quite urgently.\n\n\n\n<b>Press {SPACE} to continue</b>",
         "[jim_exclaim]",
-        "The nearest toilets are on the 2nd Floor. Let’s try and get him there as quick as we can.\n\n[Press the {DOWN} key to go down].#",
+        "The nearest toilets are on the 2nd Floor. Let’s try and get him there as quick as we can.\n\n\n\n<b>Press the {DOWN} key to go down.</b>#",
         "[lift_to_2]",
-        "We should probably let him out. Sooner rather than later.\n\n[Press the {RIGHT} key to open the doors]#",
+        "We should probably let him out. Sooner rather than later.\n\n\n\n<b>Press the {RIGHT} key to open the doors</b>#",
         "[let_jim_off]",
         "[jim_off_lift]",
         "[barbra_walk_on]",
         "This is Barbra.#",
         "[barbra_exclaim]",
-        "Barbra is a Central Optimisation Associate, and so is obviously a very busy person.\n\nSo busy in fact that she’s late to a meeting on the 6th Floor.\n\n[Press {SPACE} to continue]",
+        "Barbra is a Central Optimisation Associate, and so is obviously a very busy person.\n\nSo busy in fact that she’s late to a meeting on the 6th Floor.\n\n\n\n<b>Press {SPACE} to continue</b>",
         "[barbra_on_lift]",
-        "Thanks to the latest in Low-speed Electron Accretion technology we can measure our employee’s stress levels remotely.\n\n[Press {SPACE} to continue]",
+        "Thanks to the latest in Low-speed Electron Accretion technology we can measure our employee’s stress levels remotely.\n\n\n\n<b>Press {SPACE} to continue</b>",
         "[stressometer]",
-        "This is Barbra’s stress-o-meter, all of your passengers will have one.\n\nYou can see their stress, and their destination.\n\n[Press {SPACE} to continue]",
-        "The longer they have to wait until they get to their destination, the more stressed they’ll get.\n\nI’ve been asked to advice you not to let this get too high.\n\n[Press {SPACE} to continue]",
-        "We should probably get going. Get Barbra up to the 6th Floor ASAP.\n\n[Press {UP} to go up, {DOWN} to go down, and {RIGHT} to open the doors].#",
+        "This is Barbra’s stress-o-meter, all of your passengers will have one.\n\nYou can see their stress, and their destination.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "The longer they have to wait until they get to their destination, the more stressed they’ll get.\n\nI’ve been asked to advice you not to let this get too high.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "We should probably get going. Get Barbra up to the <b>6th Floor</b> ASAP.\n\n\n\n<b>• {UP} to go up\n• {DOWN} to go down\n• {RIGHT} to open the doors.</b>#",
         "[lift_to_6]",
         "[barbra_exit_lift]",
-        "[evaluate]",
+        "Well, you seem to have got the hang of this quite quickly. I’d say that’s half an hour for lunch.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Unless you'd like me to go through it again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
+        "[tutorial_repeat_choice]"
         }
     );
+
+    List<string>failBarbra = new List<string>()
+    {
+        "Oh no! Barbra's rage meter filled! Maybe we should go back in time to before we met her?\n\n\n\n<b>[Press {SPACE} to continue]</b>",
+        "[barbra_reset]",
+        "[barbra_walk_on]",
+        "This is Barbra.#",
+        "[barbra_exclaim]",
+        "Barbra is a Central Optimisation Associate, and so is obviously a very busy person.\n\nSo busy in fact that she’s late to a meeting on the 6th Floor.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "[barbra_on_lift]",
+        "Thanks to the latest in Low-speed Electron Accretion technology we can measure our employee’s stress levels remotely.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "[stressometer]",
+        "This is Barbra’s stress-o-meter, all of your passengers will have one.\n\nYou can see their stress, and their destination.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "The longer they have to wait until they get to their destination, the more stressed they’ll get.\n\nI’ve been asked to advice you not to let this get too high.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "We should probably get going. Get Barbra up to the 6th Floor ASAP.\n\n\n\n<b>Press {UP} to go up\nPress {DOWN} to go down\nPress {RIGHT} to open the doors.</b>#",
+        "[lift_to_6]",
+        "[barbra_exit_lift]",
+        "Well, you seem to have got the hang of this quite quickly. I’d say that’s half an hour for lunch.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Unless you'd like me to go through it again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
+        "[tutorial_repeat_choice]"
+    };
 
     [SerializeField]
     private string currentText;
@@ -170,6 +195,12 @@ public class TutorialGameController : GameController {
                     tutorialStateAcknowledged = true;
                     barbra.GetComponent<TutorialPassenger>().StartCard();
                     elevator.Unlock();
+                    
+                } else if (barbra.GetComponent<TutorialPassenger>().GetRage() >= 100.0f)
+                {
+                    elevator.Lock();
+                    tutorialText = new Queue<string>(failBarbra);
+                    AdvanceTutorial();
                 } else if (elevator.GetFloor() == 6 && elevator.Velocity() < 3.0f && Input.GetKeyDown(KeyCode.RightArrow))
                 {
                     AdvanceTutorial();
@@ -183,14 +214,6 @@ public class TutorialGameController : GameController {
                     StartCoroutine(BarbraLeavesLift());
                 }
                 break;
-            case "[evaluate]":
-                if (!tutorialStateAcknowledged)
-                {
-                    tutorialStateAcknowledged = true;
-                    StartCoroutine(ClosingStatements());
-                }
-                break;
-
             case "[tutorial_repeat_choice]":
                 if (!tutorialStateAcknowledged)
                 {
@@ -208,6 +231,14 @@ public class TutorialGameController : GameController {
                 break;
             case "[fade_out]":
 
+                break;
+
+            case "[barbra_reset]":
+                if(!tutorialStateAcknowledged)
+                {
+                    tutorialStateAcknowledged = true;
+                    StartCoroutine(BarbraReset());
+                }
                 break;
             default:
                 if (!tutorialStateAcknowledged) {
@@ -228,7 +259,10 @@ public class TutorialGameController : GameController {
                 }
                 break;
         }
-	}
+
+        
+
+    }
 
     private void AdvanceTutorial()
     {
@@ -386,21 +420,13 @@ public class TutorialGameController : GameController {
         yield return null;
     }
 
-    IEnumerator ClosingStatements()
+    IEnumerator BarbraReset()
     {
-        if (barbra.GetComponent<TutorialPassenger>().GetRage() == 100.0f)
-        {
-            tutorialText.Enqueue("A good attempt although you might need a bit more practise.\n\n[Press {SPACE} to continue]");
-            tutorialText.Enqueue("We can give it another go if you want or I can leave you to it.\n\n[Press {SPACE} to continue]");
-        } else
-        {
-            tutorialText.Enqueue("Well, you seem to have got the hang of this quite quickly. I’d say that’s half an hour for lunch.\n\n[Press {SPACE} to continue]");
-            tutorialText.Enqueue("Unless you'd like me to go through it again, just to be sure?\n\n[Press {SPACE} to continue]");
-        }
-
-        tutorialText.Enqueue("Do you want to repeat the tutorial? {UP: Yes, DOWN: No}#");
-        tutorialText.Enqueue("[tutorial_repeat_choice]");
-
+        cardManager.DismissCard(barbra.GetComponent<TutorialPassenger>().Card());
+        Destroy(barbra);
+        textbox.GetComponent<RectTransform>().anchoredPosition = new Vector3(271.2f, -60.0f);
+        elevator.transform.position = new Vector3(-2.5f, -1.25f);
+        GameObject.Find("Main Camera").transform.position = new Vector3(0, 0, -10);
         AdvanceTutorial();
         yield return null;
     }
