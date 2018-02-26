@@ -42,11 +42,25 @@ public class ElevatorMove : MonoBehaviour {
 
     private bool freezeAvailable;
     private bool boostAvailable;
-    private bool stopAvailable;
     private bool boosting;
+    private const int POWERUP_REFRESH_TIME = 6;
 
-	// Use this for initialization
-	void Start () {
+    [SerializeField]
+    private GameObject freezeUI;
+    [SerializeField]
+    private GameObject boostUI;
+
+    [SerializeField]
+    private Sprite freezeSprite;
+    [SerializeField]
+    private Sprite freezeSpriteFaded;
+    [SerializeField]
+    private Sprite boostSprite;
+    [SerializeField]
+    private Sprite boostSpriteFaded;
+
+    // Use this for initialization
+    void Start () {
         elevatorX = transform.position.x;
         cameraHeight = mainCamera.pixelHeight;
         cameraMoveDownAt = cameraHeight / 4f;
@@ -61,6 +75,9 @@ public class ElevatorMove : MonoBehaviour {
 
         locked = false;
         controller = GameObject.Find("Game Controller").GetComponent<GameController>();
+
+        freezeUI.GetComponent<SpriteRenderer>().sprite = freezeSprite;
+        boostUI.GetComponent<SpriteRenderer>().sprite = boostSprite;
     }
 
     //called by Initialize script; sets objects used by the elevator to objects created by Initialize script
@@ -86,16 +103,16 @@ public class ElevatorMove : MonoBehaviour {
         {
             velocity = (velocity > 0-maxSpeed ? (velocity > 0 ? velocity - acceleration * 2 : velocity - acceleration) : velocity);
         }
-
-        //Powerups/Freeze
-        if(Input.GetKeyDown(KeyCode.Alpha1) && freezeAvailable)
-        {
-            StartCoroutine(FreezePassengers(2f));
-        }
-    
-        if(Input.GetKey(KeyCode.Alpha2) && boostAvailable && velocity != 0)
+        
+        if(Input.GetKey(KeyCode.Alpha1) && boostAvailable && velocity != 0)
         {
             StartCoroutine(BoostElevator(4, 1));
+        }
+
+        //Powerups/Freeze
+        if (Input.GetKeyDown(KeyCode.Alpha2) && freezeAvailable)
+        {
+            StartCoroutine(FreezePassengers(2f));
         }
 
         //snap the elevator to a floor if it is within a certain distance of the floor
@@ -146,7 +163,6 @@ public class ElevatorMove : MonoBehaviour {
 
         //reduce velocity by acceleration/2 each frame if not boosting
         if(!boosting) velocity = (velocity > 0 ? velocity - acceleration / 2 : (velocity < 0 ? velocity + acceleration / 2 : velocity));
-        Debug.Log(velocity);
     }
 
     //move the elevator to the same position as a floor in a specified time
@@ -162,17 +178,19 @@ public class ElevatorMove : MonoBehaviour {
 
     IEnumerator FreezePassengers(float forTime)
     {
+        freezeUI.GetComponent<SpriteRenderer>().sprite = freezeSpriteFaded;
         freezeAvailable = false;
         controller.FreezePassengers();
         yield return new WaitForSeconds(forTime);
-        Debug.Log("Unfreeze");
         controller.UnfreezePassengers();
-        yield return new WaitForSeconds(forTime * 3.5f);
+        yield return new WaitForSeconds(POWERUP_REFRESH_TIME);
         freezeAvailable = true;
-        Debug.Log("Available");
-}
+        freezeUI.GetComponent<SpriteRenderer>().sprite = freezeSprite;
+    }
+
     IEnumerator BoostElevator(float byAmount, float forTime)
     {
+        boostUI.GetComponent<SpriteRenderer>().sprite = boostSpriteFaded;
         float originalVelocity = velocity;
         velocity *= byAmount;
         boosting = true;
@@ -180,8 +198,9 @@ public class ElevatorMove : MonoBehaviour {
         yield return new WaitForSeconds(forTime);
         boosting = false;
         velocity = 3 * originalVelocity / 4;
-        yield return new WaitForSeconds(forTime * 3.5f);
+        yield return new WaitForSeconds(POWERUP_REFRESH_TIME);
         boostAvailable = true;
+        boostUI.GetComponent<SpriteRenderer>().sprite = boostSprite;
     }
 
     public int GetFloor()
