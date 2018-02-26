@@ -5,7 +5,7 @@ using UnityEngine;
 public class TutorialPassenger : Passenger {
 
     private bool cardStarted = false;
-    new public const float TIME_TO_LIVE = 30f;
+    new public const float TIME_TO_LIVE = 15f;
     private float timeAlive;
 
     private void Update()
