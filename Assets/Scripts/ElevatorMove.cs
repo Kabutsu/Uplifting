@@ -41,8 +41,8 @@ public class ElevatorMove : MonoBehaviour {
 
     private bool locked;
 
-    private bool freezeAvailable;
-    private bool boostAvailable;
+    private bool freezeAvailable = true;
+    private bool boostAvailable = true;
     private bool boosting;
     private const int POWERUP_REFRESH_TIME = 6;
 
@@ -76,26 +76,17 @@ public class ElevatorMove : MonoBehaviour {
         cameraMoveDownAt = cameraHeight / 4f;
         cameraMoveUpAt = 3f * cameraMoveDownAt;
 
-        boostAvailable = true;
-
         velocity = 0;
         SetLastFloor(0);
-
-        freezeAvailable = true;
 
         locked = false;
         controller = GameObject.Find("Game Controller").GetComponent<GameController>();
 
-        try
-        {
-            freezeUI.GetComponent<SpriteRenderer>().sprite = freezeSprite;
-            boostUI.GetComponent<SpriteRenderer>().sprite = boostSprite;
-        } catch (UnassignedReferenceException)
-        {
-            boss = GameObject.Find("Boss");
-            speechBubble = GameObject.Find("Speech Bubble");
-        }
+        freezeUI.GetComponent<SpriteRenderer>().sprite = freezeSprite;
+        boostUI.GetComponent<SpriteRenderer>().sprite = boostSprite;
         
+        boss = GameObject.Find("Boss");
+        speechBubble = GameObject.Find("Speech Bubble");
     }
 
     //called by Initialize script; sets objects used by the elevator to objects created by Initialize script
@@ -289,5 +280,21 @@ public class ElevatorMove : MonoBehaviour {
     public float Velocity()
     {
         return velocity;
+    }
+
+    public bool Boosting()
+    {
+        return boosting;
+    }
+
+    public void StartTutorial()
+    {
+        boostAvailable = false;
+        freezeAvailable = false;
+    }
+
+    public void MakeBoostAvailable()
+    {
+        boostAvailable = true;
     }
 }
