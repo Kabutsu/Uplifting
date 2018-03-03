@@ -185,6 +185,7 @@ public class TutorialGameController : GameController {
                 {
                     tutorialStateAcknowledged = true;
                     StartCoroutine(MoveText(new Vector3(271.2f, -200.0f), 0.35f));
+                    StartCoroutine(MoveBossAndSpeechBubble(-1.31f, 0.35f));
                     barbra.GetComponent<TutorialPassenger>().Card(cardManager.ConstructCard(barbra.GetComponent<TutorialPassenger>()));
                     AdvanceTutorial();
                 }
@@ -210,6 +211,7 @@ public class TutorialGameController : GameController {
                 if (!tutorialStateAcknowledged)
                 {
                     StartCoroutine(MoveText(new Vector3(271.2f, -60.0f), 0.8f));
+                    StartCoroutine(MoveBossAndSpeechBubble(1.31f, 0.8f));
                     tutorialStateAcknowledged = true;
                     StartCoroutine(BarbraLeavesLift());
                 }
@@ -396,10 +398,28 @@ public class TutorialGameController : GameController {
     IEnumerator MoveText(Vector3 toPosition, float inTime)
     {
         Vector3 fromPosition = textbox.GetComponent<RectTransform>().anchoredPosition;
-        Debug.Log(fromPosition);
         for(var t = 0f; t < 1; t+= Time.deltaTime / inTime)
         {
             textbox.GetComponent<RectTransform>().anchoredPosition = Vector3.Lerp(fromPosition, toPosition, t);
+            yield return null;
+        }
+    }
+
+    IEnumerator MoveBossAndSpeechBubble(float byYAmount, float inTime)
+    {
+        GameObject boss = GameObject.Find("Boss");
+        GameObject speech = GameObject.Find("Speech Bubble");
+
+        Vector3 bossFrom = boss.transform.position;
+        Vector3 speechFrom = speech.transform.position;
+
+        Vector3 bossTo = bossFrom + new Vector3(0, byYAmount);
+        Vector3 speechTo = speechFrom + new Vector3(0, byYAmount);
+
+        for (var t = 0f; t < 1; t += Time.deltaTime / inTime)
+        {
+            boss.transform.position = Vector3.Lerp(bossFrom, bossTo, t);
+            speech.transform.position = Vector3.Lerp(speechFrom, speechTo, t);
             yield return null;
         }
     }
