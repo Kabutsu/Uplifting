@@ -37,6 +37,11 @@ public class TutorialGameController : GameController {
         "We should probably get going. Get Barbra up to the <b>6th Floor</b> ASAP.\n\n\n\n<b>• {UP} to go up\n• {DOWN} to go down\n• {RIGHT} to open the doors.</b>#",
         "[lift_to_6]",
         "[barbra_exit_lift]",
+        "Fantastic! Just one more thing before I hand you the reigns...\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "We've modded your elevator just a little bit.\n\nTry it out - <b>press {1}</b> while moving to activate turbo boosting!#",
+        "[boost_tutorial]",
+        "See how much fun that is?! \n\n\n\n<b>Press {SPACE} to continue</b>",
+        "We've got one more mod for you, but you'll need to wait until there are people in your lift to try it out.\n\nJust remember to <b>press {2}</b> if you're in a bit of a pickle if you want to see what it does! \n\n\n\n<b>Press {SPACE} to continue</b>",
         "Well, you seem to have got the hang of this quite quickly. I’d say that’s half an hour for lunch.\n\n\n\n<b>Press {SPACE} to continue</b>",
         "Unless you'd like me to go through it again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
         "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
@@ -60,6 +65,11 @@ public class TutorialGameController : GameController {
         "We should probably get going. Get Barbra up to the 6th Floor ASAP.\n\n\n\n<b>Press {UP} to go up\nPress {DOWN} to go down\nPress {RIGHT} to open the doors.</b>#",
         "[lift_to_6]",
         "[barbra_exit_lift]",
+        "Fantastic! Just one more thing before I hand you the reigns...\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "We've modded your elevator just a little bit.\n\nTry it out - <b>press {1}</b> while moving to activate turbo boosting!#",
+        "[boost_tutorial]",
+        "See how much fun that is?! \n\n\n\n<b>Press {SPACE} to continue</b>",
+        "We've got one more mod for you, but you'll need to wait until there are people in your lift to try it out.\n\nJust remember to <b>press {2}</b> if you're in a bit of a pickle if you want to see what it does! \n\n\n\n<b>Press {SPACE} to continue</b>",
         "Well, you seem to have got the hang of this quite quickly. I’d say that’s half an hour for lunch.\n\n\n\n<b>Press {SPACE} to continue</b>",
         "Unless you'd like me to go through it again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
         "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
@@ -76,14 +86,21 @@ public class TutorialGameController : GameController {
     public AudioClip jimDingSound;
     public AudioClip barbraDingSound;
     public AudioClip exclaimSound;
-    
+
+    [SerializeField]
+    private GameObject powerupsUI;
+
+    [SerializeField]
+    private GameObject boostSprite;
+    [SerializeField]
+    private GameObject freezeSprite;
+
 	// Use this for initialization
 	void Start () {
         speaker = this.GetComponent<AudioSource>();
         cardManager = GameObject.Find("CardManager").GetComponent<CardManager>();
         elevator.enabled = false;
         AdvanceTutorial();
-        Debug.Log(textbox.transform.position);
 	}
 	
 	// Update is called once per frame
@@ -117,6 +134,7 @@ public class TutorialGameController : GameController {
                 if (!tutorialStateAcknowledged) {
                     tutorialStateAcknowledged = true;
                     elevator.enabled = true;
+                    elevator.StartTutorial();
                 }
                 if (elevator.GetFloor() == 3 && Mathf.Abs(elevator.Velocity()) < 2)
                 {
@@ -214,6 +232,18 @@ public class TutorialGameController : GameController {
                     StartCoroutine(MoveBossAndSpeechBubble(1.31f, 0.8f));
                     tutorialStateAcknowledged = true;
                     StartCoroutine(BarbraLeavesLift());
+                }
+                break;
+
+            case "[boost_tutorial]":
+                if(!tutorialStateAcknowledged)
+                {
+                    StartCoroutine(ShowPowerups());
+                    elevator.MakeBoostAvailable();
+                    tutorialStateAcknowledged = true;
+                } else if (elevator.Boosting() == true)
+                {
+                    AdvanceTutorial();
                 }
                 break;
             case "[tutorial_repeat_choice]":
@@ -434,7 +464,7 @@ public class TutorialGameController : GameController {
             barbra.transform.localPosition = Vector3.Lerp(fromPosition, toPosition, t);
             yield return null;
         }
-
+        elevator.Unlock();
         AdvanceTutorial();
 
         yield return null;
@@ -447,8 +477,27 @@ public class TutorialGameController : GameController {
         textbox.GetComponent<RectTransform>().anchoredPosition = new Vector3(271.2f, -60.0f);
         elevator.transform.position = new Vector3(-2.5f, -1.25f);
         GameObject.Find("Main Camera").transform.position = new Vector3(0, 0, -10);
+        GameObject.Find("Boss").transform.position = new Vector3(-8.039978f, -1.15f);
+        GameObject.Find("Speech Bubble").transform.position = new Vector3(-6.475952f, 2.36f);
         AdvanceTutorial();
         yield return null;
+    }
+
+    IEnumerator ShowPowerups()
+    {
+        Debug.Log("showPowerups");
+        Vector3 panelStart = powerupsUI.transform.position;
+        Vector3 boostStart = boostSprite.transform.localPosition;
+
+        Vector3 panelTo = panelStart + new Vector3(0, 180.4f);
+        Vector3 boostTo = new Vector3(-6.9344f, -4.25f, 1);
+
+        for(var t = 0f; t < 1; t += Time.deltaTime / 0.8f)
+        {
+            powerupsUI.transform.position = Vector3.Lerp(panelStart, panelTo, t);
+            boostSprite.transform.localPosition = Vector3.Lerp(boostStart, boostTo, t);
+            yield return null;
+        }
     }
 }
 
