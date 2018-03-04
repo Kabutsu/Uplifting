@@ -74,4 +74,19 @@ public class TutorialPassenger : Passenger {
         cardStarted = false;
 
     }
+
+    protected override IEnumerator MoveToPosition(Vector3 toPosition, float inTime, bool destroy)
+    {
+        var fromPosition = transform.localPosition;
+        for (var t = 0f; t < 1; t += Time.deltaTime / inTime)
+        {
+            transform.localPosition = Vector3.Lerp(fromPosition, toPosition, t);
+            yield return null;
+        }
+
+        GameObject.Find("Elevator").GetComponent<ElevatorMove>().Unlock();
+
+        timeAlive = 0.0f;
+        if (destroy) Destroy(this.gameObject);
+    }
 }
