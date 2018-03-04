@@ -66,7 +66,12 @@ public class GameController : MonoBehaviour {
         if (isRunning)
         {
             isRunning = false;
-            gameOverScreen.ShowScreen(LevelController.levelController.level, timePlaying);
+            gameOverScreen.ShowScreen(LevelController.GetLevel() - 1, timePlaying);
+        } else
+        {
+            if (Input.GetKeyUp(KeyCode.Space)){
+                LevelController.RestartGame();
+            }
         }
     }
 
@@ -159,5 +164,14 @@ public class GameController : MonoBehaviour {
             + (timeSeconds < 10 ? "0" + timeSeconds.ToString() : timeSeconds.ToString());
     }
 
+    public void RequestGameRestart()
+    {
+        LevelController.RestartGame();
+    }
+
+    public void RequestMainMenu()
+    {
+        LevelController.GoToMainMenu();
+    }
 
 }
