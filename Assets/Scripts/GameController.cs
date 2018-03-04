@@ -1,8 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
+
+    private bool isRunning = false;
+    private float timePlaying = 0.0f;
 
     [SerializeField]
     private GameObject passengerPrefab;
@@ -12,6 +16,14 @@ public class GameController : MonoBehaviour {
 
 	[SerializeField]
 	private CardManager cardManager;
+
+    [SerializeField]
+    private Text timeText;
+    [SerializeField]
+    private Text aMPMText;
+
+    [SerializeField]
+    private GameOverScreen gameOverScreen;
 
     List<Passenger> passengers;
     int positionCount;
@@ -24,12 +36,39 @@ public class GameController : MonoBehaviour {
 	void Start () {
         passengers = new List<Passenger>();
 		cardManager = GameObject.Find ("CardManager").GetComponent<CardManager> ();
+        isRunning = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (isRunning)
+        {
+            timePlaying += Time.deltaTime * 5.0f;
+            bool isAm;
+            timeText.text = ToClockString(timePlaying, out isAm, 540.0f);
+            if (isAm)
+            {
+                aMPMText.text = "AM";
+            } else
+            {
+                aMPMText.text = "PM";
+            }
+        }
+
+        if (timePlaying >= 480)
+        {
+            LevelController.LoadNextLevel();
+        }
 	}
+
+    public void GameOver()
+    {
+        if (isRunning)
+        {
+            isRunning = false;
+            gameOverScreen.ShowScreen(LevelController.levelController.level, timePlaying);
+        }
+    }
 
     public void RequestPassenger()
     {
@@ -82,10 +121,6 @@ public class GameController : MonoBehaviour {
 
 	public int GetPassengerCount(){return passengers.Count;}
 
-	public void GameOver(){
-		Debug.Break ();
-	}
-
     public void FreezePassengers()
     {
         foreach(Passenger passenger in passengers)
@@ -101,5 +136,28 @@ public class GameController : MonoBehaviour {
             passenger.Unfreeze();
         }
     }
+
+    private string ToClockString(float time, out bool isAm)
+    {
+        return ToClockString(time, out isAm, 0.0f);
+    }
+
+    private string ToClockString(float time, out bool isAm, float offset)
+    {
+        time += offset;
+        time = Mathf.FloorToInt(time);
+
+        int timeHours = Mathf.FloorToInt(time / 720);
+        isAm = ((timeHours % 2) == 0);
+
+        int timeMinutes = (Mathf.FloorToInt(time / 60) % 24);
+        timeMinutes = (timeMinutes == 0 ? 12 : timeMinutes);
+        int timeSeconds = ((int) time % 60);
+
+        return (timeMinutes < 10 ? "0" + timeMinutes.ToString() : timeMinutes.ToString()) 
+            + ":" 
+            + (timeSeconds < 10 ? "0" + timeSeconds.ToString() : timeSeconds.ToString());
+    }
+
 
 }
