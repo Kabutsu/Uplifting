@@ -6,11 +6,21 @@ using UnityEngine.SceneManagement;
 public class LevelController : MonoBehaviour {
 
     public int level { get; private set; }
-    public static LevelController levelController { get; set; }
+    private static LevelController levelController;
+       
+    private static void CreateInstanceIfNoneExists()
+    {
+        if (levelController == null)
+        {
+            GameObject go = Instantiate(new GameObject());
+            go.name = "Level Controller";
+            levelController = go.AddComponent<LevelController>();
+        }
+    }
 
 	// Use this for initialization
 	void Start () {
-        level = 1;
+
 	}
 
     //Setup persistance
@@ -22,11 +32,41 @@ public class LevelController : MonoBehaviour {
     private void NextLevel()
     {
         level++;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("level");
+    }
+
+    private void Restart()
+    {
+        level = 1;
+        SceneManager.LoadScene("level");
+    }
+
+    private void LoadMainMenu()
+    {
+        LevelController.CreateInstanceIfNoneExists();
+        SceneManager.LoadScene("main");
     }
 
     public static void LoadNextLevel()
     {
+        LevelController.CreateInstanceIfNoneExists();
         levelController.NextLevel();
+    }
+
+    public static void RestartGame()
+    {
+        LevelController.CreateInstanceIfNoneExists();
+        levelController.Restart();
+    }
+
+    public static void GoToMainMenu()
+    {
+        LevelController.CreateInstanceIfNoneExists();
+        levelController.LoadMainMenu();
+    }
+
+    public static int GetLevel()
+    {
+        return LevelController.levelController.level;
     }
 }
