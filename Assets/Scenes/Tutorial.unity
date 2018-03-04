@@ -617,7 +617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f3d7a3b2efc7c346b91b3f24966040d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passengerPrefab: {fileID: 1386805009964118, guid: a4055e15180bfbc44a598fa07d485783,
+  passengerPrefab: {fileID: 1566643563918648, guid: a3107987c0d1cae4bbd956fb286b7ba9,
     type: 2}
   elevator: {fileID: 1539767165}
   cardManager: {fileID: 0}
