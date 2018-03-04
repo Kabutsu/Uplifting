@@ -22,8 +22,6 @@ public class TutorialPassenger : Passenger {
                 else
                 {
                     rage = 100.0f;
-                    Debug.Log("You probably shouldn't let the rage-meter fill up next time - I'm told the other employees aren't as fogiving as Barbra!");
-                    Debug.Log("Lets get a move on and get her to where she needs to go.");
                     cardStarted = false;
                 }
             }
@@ -80,5 +78,20 @@ public class TutorialPassenger : Passenger {
     {
         cardStarted = false;
 
+    }
+
+    protected override IEnumerator MoveToPosition(Vector3 toPosition, float inTime, bool destroy)
+    {
+        var fromPosition = transform.localPosition;
+        for (var t = 0f; t < 1; t += Time.deltaTime / inTime)
+        {
+            transform.localPosition = Vector3.Lerp(fromPosition, toPosition, t);
+            yield return null;
+        }
+
+        GameObject.Find("Elevator").GetComponent<ElevatorMove>().Unlock();
+
+        timeAlive = 0.0f;
+        if (destroy) Destroy(this.gameObject);
     }
 }

@@ -272,7 +272,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void RemovePassenger(Passenger passenger)
+    public virtual void RemovePassenger(Passenger passenger)
     {
         passengers.Remove(passenger);
     }
