@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Initialize : MonoBehaviour {
 
+    private LevelController levelController;
+
     [SerializeField]
     private GameObject corridorPrefab;
 
@@ -27,6 +29,10 @@ public class Initialize : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        levelController = LevelController.levelController;
+        noOfFloors = levelController.level + 6;
+
         floors = new GameObject[noOfFloors];
         
         float corridorHeight = 2.5f;

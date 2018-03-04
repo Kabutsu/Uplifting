@@ -25,6 +25,12 @@ public class MainMenuController : MonoBehaviour {
 
     private void StartGame(bool includeTutorial)
     {
+        GameObject levelControllerGo = Instantiate(new GameObject());
+        levelControllerGo.name = "Level Controller";
+        levelControllerGo.AddComponent<LevelController>();
+        LevelController.levelController = levelControllerGo.GetComponent<LevelController>();
+
+
         if (includeTutorial)
         {
             throw new System.NotSupportedException();
