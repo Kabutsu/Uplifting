@@ -126,7 +126,7 @@ public class GameController : MonoBehaviour {
 
 	public virtual int GetPassengerCount(){return passengers.Count;}
 
-    public void FreezePassengers()
+    public virtual void FreezePassengers()
     {
         foreach(Passenger passenger in passengers)
         {

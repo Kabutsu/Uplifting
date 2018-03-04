@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Initialize : MonoBehaviour {
 
@@ -28,8 +29,14 @@ public class Initialize : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        noOfFloors = LevelController.GetLevel() + 6;
-
+        if(SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            noOfFloors = 7;
+        } else
+        {
+            noOfFloors = LevelController.GetLevel() + 6;
+        }
+        
         floors = new GameObject[noOfFloors];
         
         float corridorHeight = 2.5f;

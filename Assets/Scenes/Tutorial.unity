@@ -622,6 +622,9 @@ MonoBehaviour:
     type: 2}
   elevator: {fileID: 1539767165}
   cardManager: {fileID: 0}
+  timeText: {fileID: 0}
+  aMPMText: {fileID: 0}
+  gameOverScreen: {fileID: 0}
   tutorialPassengerPrefab: {fileID: 1386805009964118, guid: a4055e15180bfbc44a598fa07d485783,
     type: 2}
   currentText: 
@@ -1297,11 +1300,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: df78aa5bd0273e14eaef5d4861f1f2ea, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
