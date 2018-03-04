@@ -417,6 +417,12 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &219440556 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114828814776316638, guid: d301bc2bbafaadd40ac30b37e5b06bd6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1505828759}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &342846989
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,10 +618,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f3d7a3b2efc7c346b91b3f24966040d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passengerPrefab: {fileID: 1386805009964118, guid: a4055e15180bfbc44a598fa07d485783,
+  passengerPrefab: {fileID: 1566643563918648, guid: a3107987c0d1cae4bbd956fb286b7ba9,
     type: 2}
   elevator: {fileID: 1539767165}
   cardManager: {fileID: 0}
+  tutorialPassengerPrefab: {fileID: 1386805009964118, guid: a4055e15180bfbc44a598fa07d485783,
+    type: 2}
   currentText: 
   textbox: {fileID: 182362269}
   jimDingSound: {fileID: 8300000, guid: 267b8aeb3411c5e439c0e2f7d1ded011, type: 3}
@@ -624,6 +632,7 @@ MonoBehaviour:
   powerupsUI: {fileID: 1763609797}
   boostSprite: {fileID: 1813979618}
   freezeSprite: {fileID: 1094501644}
+  twoText: {fileID: 219440556}
 --- !u!114 &1021308775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -860,7 +869,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1520432405585270, guid: d301bc2bbafaadd40ac30b37e5b06bd6, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d301bc2bbafaadd40ac30b37e5b06bd6, type: 2}
@@ -870,6 +879,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4082449386684216, guid: d301bc2bbafaadd40ac30b37e5b06bd6,
     type: 2}
   m_PrefabInternal: {fileID: 1505828759}
+--- !u!114 &1505828761 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114502037901905764, guid: d301bc2bbafaadd40ac30b37e5b06bd6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1505828759}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1539767164
 GameObject:
   m_ObjectHideFlags: 0
@@ -910,7 +925,7 @@ MonoBehaviour:
   boostSprite: {fileID: 21300000, guid: 682b00fd7a8f57f4786732e5313d66c5, type: 3}
   boostSpriteFaded: {fileID: 21300000, guid: 0d8c60e9d653b24489e0561ced95e09e, type: 3}
   freezeCountdown: {fileID: 1990862143}
-  frozenPanel: {fileID: 1669495426}
+  frozenPanel: {fileID: 1505828761}
   boostCountdown: {fileID: 1315681334}
 --- !u!212 &1539767166
 SpriteRenderer:
@@ -969,12 +984,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1669495426 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114183904116994714, guid: d301bc2bbafaadd40ac30b37e5b06bd6,
-    type: 2}
-  m_PrefabInternal: {fileID: 1505828759}
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1763609797 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1170159526371712, guid: d301bc2bbafaadd40ac30b37e5b06bd6,
