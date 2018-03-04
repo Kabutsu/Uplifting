@@ -76,7 +76,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void RemovePassenger(Passenger passenger)
+    public virtual void RemovePassenger(Passenger passenger)
     {
         passengers.Remove(passenger);
     }
@@ -87,7 +87,7 @@ public class GameController : MonoBehaviour {
 		Debug.Break ();
 	}
 
-    public void FreezePassengers()
+    public virtual void FreezePassengers()
     {
         foreach(Passenger passenger in passengers)
         {

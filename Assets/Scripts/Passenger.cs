@@ -77,7 +77,7 @@ public class Passenger : MonoBehaviour {
 		keyHolder = true;
 	}
 
-    IEnumerator MoveToPosition(Vector3 toPosition, float inTime, bool destroy)
+    protected virtual IEnumerator MoveToPosition(Vector3 toPosition, float inTime, bool destroy)
     {
         var fromPosition = transform.localPosition;
         for (var t = 0f; t < 1; t += Time.deltaTime / inTime)
@@ -101,8 +101,8 @@ public class Passenger : MonoBehaviour {
     {
 		timeAlive = -1.0f;
         cardManager.DismissCard (card);
-        controller.RemovePassenger(this);
         elevator.Lock();
+        controller.RemovePassenger(this);
         StartCoroutine(MoveToPosition(new Vector3(6, -0.25f, -1), 1.0f, true));
     }
 

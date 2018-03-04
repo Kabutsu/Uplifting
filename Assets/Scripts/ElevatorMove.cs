@@ -297,4 +297,14 @@ public class ElevatorMove : MonoBehaviour {
     {
         boostAvailable = true;
     }
+
+    public void MakeFreezeAvailable()
+    {
+        freezeAvailable = true;
+    }
+
+    public GameObject[] Floors()
+    {
+        return floors;
+    }
 }
