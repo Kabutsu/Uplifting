@@ -8,13 +8,12 @@ public class TutorialGameController : GameController {
 
     Queue<string> tutorialText = new Queue<string>(new List<string>()
         {
-        "Good morning and welcome to your new role as Green Meadows Waste Management Solutions Inc©’s new Elevation Consultant!\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "Your job will mean ensuring that employees can get to where they need to go in a safe and timely manner.\n\nI’ll be walking you through your first morning.\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "Fortunately, last night was our Annual Mid-February Office Christmas party, so we’re expecting a slow morning.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Good morning and welcome to your new role as Green Meadows Waste Management Solutions Inc©’s new Elevation Consultant!@",
+        "It's your job to make sure our employees don't get so stressed they revolt!\n\nI’ll be walking you through your first morning.@",
         "[jim_walk_on]",
         "This is Jim.#",
         "[jim_bing]",
-        "Jim works in accounting, which is on the 2rd Floor.\n\nLet's get him up there.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Jim works in accounting, which is on the 2rd Floor.\n\nLet's get him up there.@",
         "[jim_into_lift]",
         "[lift_to_2]",
         "We should probably let him out. Don't want him waiting here forever!#",
@@ -23,26 +22,26 @@ public class TutorialGameController : GameController {
         "[barbra_walk_on]",
         "This is Barbra.#",
         "[barbra_on_lift]",
-        "Barbra is just a *little* bit stressed right now.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Barbra is just a *little* bit stressed right now.@",
         "[stressometer]",
-        "This is Barbra’s Stress-O-Meter.\n\nIt show's her stress and her destination.\n\nDon't let her stress get too high or bad things will happen!\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "We should get up to the <b>6th Floor</b> ASAP.\n\n\n\n<b>• {UP} to go up\n• {DOWN} to go down\n• {RIGHT} to open the doors.</b>#",
+        "This is Barbra’s Stress-O-Meter.\n\nIt show's her stress and her destination.\n\nDon't let her stress get too high or bad things will happen!@",
+        "We should get up to the <b>6th Floor</b> ASAP.#",
         "[lift_to_6]",
         "[barbra_exit_lift]",
-        "Fantastic! I'll just pop off for my coffee break - I'll be back, but let's see how you do without me.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Fantastic! I'll just pop off for my coffee break - I'll be back, but let's see how you do without me.@",
         "[boss_leave]",
         "[boss_return]",
-        "Great job! Just one more thing before I hand you the reigns...\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "We've modded your elevator just a little bit.\n\nFirst of all, turbo injection boosting!\n\n\n\n<b>Press {1} while moving to BOOST</b>#",
+        "Great job! Just one more thing before I hand you the reigns...@",
+        "We've modded your elevator just a little bit.\n\nFirst of all, turbo injection boosting! Try it out!\n\n\n\n<b>Press {1} while moving to BOOST</b>#",
         "[boost_tutorial]",
-        "See how much fun that is?!\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "See how much fun that is?!@",
         "[add_freeze]",
-        "We've also added the latest cryogenic technology to freeze your passengers' Stress-O-Meters for a few seconds.\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "I'll let you try it out while I take another coffee break.\n\n\n\n<b>• Press {2} while you have passengers to FREEZE</b>\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "We've also added the latest cryogenic technology to freeze your passengers' Stress-O-Meters for a few seconds.@",
+        "I'll let you try it out while I take another coffee break.\n\n\n\n<b>Press {2} while you have passengers to FREEZE</b>@",
         "[boss_leave_2]",
         "[boss_return_2]",
-        "Time for you to fly solo.\n\nRemeber each day starts at 9am and ends at 5pm - remember to let all passengers off at the end of the day or they'll get mad!\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "Unless you'd like me to go through it all again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Time for you to fly solo.\n\nRemeber each day starts at 9am and ends at 5pm - make sure you let all passengers off at the end of the day or they'll get mad!@",
+        "Unless you'd like me to go through it all again, just to be sure?@",
         "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
         "[tutorial_repeat_choice]"
         }
@@ -50,31 +49,31 @@ public class TutorialGameController : GameController {
 
     List<string>failBarbra = new List<string>()
     {
-        "Oh no! Barbra's rage meter filled! Maybe we should go back in time to before we met her?\n\n\n\n<b>[Press {SPACE} to continue]</b>",
+        "Oh no! Barbra's rage meter filled! Maybe we should go back in time to before we met her?@",
         "[barbra_reset]",
         "[barbra_walk_on]",
         "This is Barbra.#",
         "[barbra_on_lift]",
-        "Barbra is just a *little* bit stressed right now.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Barbra is just a *little* bit stressed right now.@",
         "[stressometer]",
-        "This is Barbra’s Stress-O-Meter.\n\nIt show's her stress and her destination.\n\nDon't let her stress get too high or bad things will happen!\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "We should get up to the <b>6th Floor</b> ASAP.\n\n\n\n<b>• {UP} to go up\n• {DOWN} to go down\n• {RIGHT} to open the doors.</b>#",
+        "This is Barbra’s Stress-O-Meter.\n\nIt show's her stress and her destination.\n\nDon't let her stress get too high or bad things will happen!@",
+        "We should get up to the <b>6th Floor</b> ASAP.#",
         "[lift_to_6]",
         "[barbra_exit_lift]",
-        "Fantastic! I'll just pop off for my coffee break - I'll be back, but let's see how you do without me.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Fantastic! I'll just pop off for my coffee break - I'll be back, but let's see how you do without me.@",
         "[boss_leave]",
         "[boss_return]",
-        "Great job! Just one more thing before I hand you the reigns...\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "We've modded your elevator just a little bit.\n\nFirst of all, turbo injection boosting!\n\n\n\n<b>Press {1} while moving to BOOST</b>#",
+        "Great job! Just one more thing before I hand you the reigns...@",
+        "We've modded your elevator just a little bit.\n\nFirst of all, turbo injection boosting! Try it out!\n\n\n\n<b>Press {1} while moving to BOOST</b>#",
         "[boost_tutorial]",
-        "See how much fun that is?!\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "See how much fun that is?!@",
         "[add_freeze]",
-        "We've also added the latest cryogenic technology to freeze your passengers' Stress-O-Meters for a few seconds.\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "I'll let you try it out while I take another coffee break.\n\n\n\n<b>• Press {2} while you have passengers to FREEZE</b>\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "We've also added the latest cryogenic technology to freeze your passengers' Stress-O-Meters for a few seconds.@",
+        "I'll let you try it out while I take another coffee break.\n\n\n\n<b>• Press {2} while you have passengers to FREEZE</b>@",
         "[boss_leave_2]",
         "[boss_return_2]",
-        "Time for you to fly solo.\n\nRemeber each day starts at 9am and ends at 5pm - remember to let all passengers off at the end of the day or they'll get mad!\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "Unless you'd like me to go through it all again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Time for you to fly solo.\n\nRemeber each day starts at 9am and ends at 5pm - make sure you let all passengers off at the end of the day or they'll get mad!@",
+        "Unless you'd like me to go through it all again, just to be sure?@",
         "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
         "[tutorial_repeat_choice]"
     };
@@ -82,22 +81,22 @@ public class TutorialGameController : GameController {
     List<string> failFirstPassengers = new List<string>()
     {
         "[boss_return_2]",
-        "Oh no! You let them get too angry!\n\nNot to worry.\n\nWe'll just travel back to before I left so you can have another go.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Oh no! You let them get too angry!\n\nNot to worry.\n\nWe'll just travel back to before I left so you can have another go.@",
         "[passenger_1_reset]",
-        "So I'm just off for my coffee break - let's see if you can keep these employees from rioting in the lift!\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "So I'm just off for my coffee break - let's see if you can keep these employees from rioting in the lift!@",
         "[boss_leave]",
         "[boss_return]",
-        "Great job! Just one more thing before I hand you the reigns...\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "We've modded your elevator just a little bit.\n\nFirst of all, turbo injection boosting!\n\n\n\n<b>Press {1} while moving to BOOST</b>#",
+        "Great job! Just one more thing before I hand you the reigns...@",
+        "We've modded your elevator just a little bit.\n\nFirst of all, turbo injection boosting! Try it out!\n\n\n\n<b>Press {1} while moving to BOOST</b>#",
         "[boost_tutorial]",
-        "See how much fun that is?!\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "See how much fun that is?!@",
         "[add_freeze]",
-        "We've also added the latest cryogenic technology to freeze your passengers' Stress-O-Meters for a few seconds.\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "I'll let you try it out while I take another coffee break.\n\n\n\n<b>• Press {2} while you have passengers to FREEZE</b>\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "We've also added the latest cryogenic technology to freeze your passengers' Stress-O-Meters for a few seconds.@",
+        "I'll let you try it out while I take another coffee break.\n\n\n\n<b>• Press {2} while you have passengers to FREEZE</b>@",
         "[boss_leave_2]",
         "[boss_return_2]",
-        "Time for you to fly solo.\n\nRemeber each day starts at 9am and ends at 5pm - remember to let all passengers off at the end of the day or they'll get mad!\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "Unless you'd like me to go through it all again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Time for you to fly solo.\n\nRemeber each day starts at 9am and ends at 5pm - make sure you let all passengers off at the end of the day or they'll get mad!@",
+        "Unless you'd like me to go through it all again, just to be sure?@",
         "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
         "[tutorial_repeat_choice]"
     };
@@ -105,12 +104,12 @@ public class TutorialGameController : GameController {
     List<string> failSecondPassengers = new List<string>()
     {
         "[boss_return_2]",
-        "Not to worry - let's have another go!\n\nRemember, if you're in a pickle:\n<b>• Press {1} for BOOST</b>\n<b>• Press {2} for FREEZE</b>\n\nGood luck!\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Not to worry - let's have another go!\n\nRemember, if you're in a pickle:\n<b>• Press {1} for BOOST</b>\n<b>• Press {2} for FREEZE</b>\n\nGood luck!@",
         "[passenger_2_reset]",
         "[boss_leave_2]",
         "[boss_return_2]",
-        "Time for you to fly solo.\n\nRemeber each day starts at 9am and ends at 5pm - remember to let all passengers off at the end of the day or they'll get mad!\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "Unless you'd like me to go through it all again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Time for you to fly solo.\n\nRemeber each day starts at 9am and ends at 5pm - make sure you let all passengers off at the end of the day or they'll get mad!@",
+        "Unless you'd like me to go through it all again, just to be sure?@",
         "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
         "[tutorial_repeat_choice]"
     };
@@ -140,6 +139,11 @@ public class TutorialGameController : GameController {
     [SerializeField]
     private UnityEngine.UI.Text twoText;
 
+    private SpriteRenderer key_space;
+    private SpriteRenderer key_up;
+    private SpriteRenderer key_right;
+    private SpriteRenderer key_down;
+
     private bool onYourOwn;
     private int passengersDelivered;
     private int passengersToDeliver;
@@ -156,6 +160,16 @@ public class TutorialGameController : GameController {
         passengers = new List<Passenger>();
         elevator.enabled = false;
         AdvanceTutorial();
+
+        key_space = GameObject.Find("Key_Space").GetComponent<SpriteRenderer>();
+        key_up = GameObject.Find("Key_Up").GetComponent<SpriteRenderer>();
+        key_right = GameObject.Find("Key_Right").GetComponent<SpriteRenderer>();
+        key_down = GameObject.Find("Key_Down").GetComponent<SpriteRenderer>();
+
+        key_space.enabled = false;
+        key_up.enabled = false;
+        key_right.enabled = false;
+        key_down.enabled = false;
 
         failFirstPassengers.AddRange(failSecondPassengers);
         failBarbra.AddRange(failFirstPassengers);
@@ -191,8 +205,7 @@ public class TutorialGameController : GameController {
             case "[lift_to_3]":
                 if (!tutorialStateAcknowledged) {
                     tutorialStateAcknowledged = true;
-                    elevator.enabled = true;
-                    elevator.StartTutorial();
+                    
                 }
                 if (elevator.GetFloor() == 3 && Mathf.Abs(elevator.Velocity()) < 2)
                 {
@@ -208,22 +221,40 @@ public class TutorialGameController : GameController {
                 if(!tutorialStateAcknowledged)
                 {
                     tutorialStateAcknowledged = true;
+                    elevator.enabled = true;
+                    elevator.StartTutorial();
+                    key_up.enabled = true;
+                    key_space.enabled = false;
                     elevator.Unlock();
                 }
-                if(elevator.GetFloor() == 2 && Mathf.Abs(elevator.Velocity()) < 1.5f)
+                if (elevator.GetFloor() == 2)
                 {
-                    elevator.Lock();
-                    AdvanceTutorial();
-                }
+                    key_up.enabled = false;
+                    key_down.enabled = false;
+                    if (Mathf.Abs(elevator.Velocity()) < 1.5f)
+                    {
+                        elevator.Lock();
+                        AdvanceTutorial();
+                    }
+                } else if (elevator.GetFloor() > 2 || (elevator.GetFloor() == 0 && elevator.LastFloor() > 2))
+                {
+                    key_down.enabled = true;
+                    key_up.enabled = false;
+                } else if (elevator.GetFloor() < 2 || (elevator.GetFloor() == 0 && elevator.LastFloor() < 2))
+                {
+                    key_up.enabled = true;
+                    key_down.enabled = false;
+                } 
                 break;
             case "[let_jim_off]":
                 if(!tutorialStateAcknowledged)
                 {
                     tutorialStateAcknowledged = true;
-                   
+                    key_right.enabled = true;
                 }
                 if(Input.GetKeyDown(KeyCode.RightArrow))
                 {
+                    key_right.enabled = false;
                     AdvanceTutorial();
                 }
                 break;
@@ -269,22 +300,51 @@ public class TutorialGameController : GameController {
                 if (!tutorialStateAcknowledged)
                 {
                     tutorialStateAcknowledged = true;
+                    key_space.enabled = false;
                     barbra.GetComponent<TutorialPassenger>().StartCard();
                     elevator.Unlock();
                     
                 } else if (barbra.GetComponent<TutorialPassenger>().GetRage() >= 100.0f)
                 {
                     elevator.Lock();
+                    key_right.enabled = false;
+                    key_down.enabled = false;
+                    key_up.enabled = false;
                     tutorialText = new Queue<string>(failBarbra);
                     AdvanceTutorial();
-                } else if (elevator.GetFloor() == 6 && elevator.Velocity() < 3.0f && Input.GetKeyDown(KeyCode.RightArrow))
+                } else if (elevator.GetFloor() == 6)
                 {
-                    AdvanceTutorial();
+                    key_up.enabled = false;
+                    key_down.enabled = false;
+
+                    key_right.enabled = true;
+                    if (elevator.Velocity() < 3.0f && Input.GetKeyDown(KeyCode.RightArrow))
+                    {
+                        elevator.Lock();
+                        AdvanceTutorial();
+                    }
+                    
+                } else if (elevator.GetFloor() > 6 || (elevator.GetFloor() == 0 && elevator.LastFloor() > 6))
+                {
+                    key_down.enabled = true;
+                    key_up.enabled = false;
+
+                    key_right.enabled = false;
                 }
+                else if (elevator.GetFloor() < 6 || (elevator.GetFloor() == 0 && elevator.LastFloor() < 6))
+                {
+                    key_up.enabled = true;
+                    key_down.enabled = false;
+
+                    key_right.enabled = false;
+                }
+
+
                 break;
             case "[barbra_exit_lift]":
                 if (!tutorialStateAcknowledged)
                 {
+                    key_right.enabled = false;
                     StartCoroutine(MoveText(new Vector3(271.2f, -60.0f), 0.8f));
                     StartCoroutine(MoveBossAndSpeechBubble(1.31f, 0.8f, false));
                     tutorialStateAcknowledged = true;
@@ -397,15 +457,28 @@ public class TutorialGameController : GameController {
                 if (!tutorialStateAcknowledged) {
                     tutorialStateAcknowledged = true;
                     if (!(currentText[0] == '['))
+                    {
                         if (currentText[currentText.Length - 1] == '#')
                         {
                             currentText = currentText.Remove(currentText.Length - 1);
                             textbox.text = currentText;
+                            key_space.enabled = false;
                             AdvanceTutorial();
-                        } else
+                        }
+                        else
                         {
+                            if (currentText[currentText.Length - 1] == '@')
+                            {
+                                key_space.enabled = true;
+                                currentText = currentText.Remove(currentText.Length - 1);
+                            }
+                            else key_space.enabled = false;
+
                             textbox.text = currentText;
                         }
+                    }
+                    else key_space.enabled = false;
+                    
                 } else if(Input.GetKeyDown(KeyCode.Space))
                 {
                     AdvanceTutorial();
@@ -582,6 +655,8 @@ public class TutorialGameController : GameController {
             yield return null;
         }
 
+        textbox.text = "Jim works in accounting, which is on the 2rd Floor.\n\nLet's get him up there.";
+
         AdvanceTutorial();
 
         yield return null;
@@ -657,6 +732,7 @@ public class TutorialGameController : GameController {
 
     IEnumerator MoveBossAndSpeechBubble(float byYAmount, float inTime, bool advanceInThis)
     {
+        key_space.enabled = false;
         GameObject bossBubble = GameObject.Find("BossUI");
 
         Vector3 bossFrom = bossBubble.transform.localPosition;
@@ -667,6 +743,8 @@ public class TutorialGameController : GameController {
             bossBubble.transform.localPosition = Vector3.Lerp(bossFrom, bossTo, t);
             yield return null;
         }
+
+        key_space.enabled = true;
 
         if (advanceInThis) AdvanceTutorial();
     }
