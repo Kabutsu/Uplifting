@@ -109,7 +109,7 @@ public class ElevatorMove : MonoBehaviour {
         
         if(Input.GetKey(KeyCode.Alpha1) && boostAvailable && velocity != 0)
         {
-            StartCoroutine(BoostElevator(4, 1));
+            StartCoroutine(BoostElevator(1));
         }
 
         //Powerups/Freeze
@@ -203,11 +203,11 @@ public class ElevatorMove : MonoBehaviour {
         freezeUI.GetComponent<SpriteRenderer>().sprite = freezeSprite;
     }
 
-    IEnumerator BoostElevator(float byAmount, float forTime)
+    IEnumerator BoostElevator(float forTime)
     {
         boostUI.GetComponent<SpriteRenderer>().sprite = boostSpriteFaded;
         float originalVelocity = velocity;
-        velocity *= byAmount;
+        velocity = (velocity > 0 ? 20 : -20);
         boosting = true;
         boostAvailable = false;
         yield return new WaitForSeconds(forTime);
