@@ -50,7 +50,8 @@ public class TutorialGameController : GameController {
         "[boss_leave_2]",
         "[boss_return_2]",
         "Well, you seem to have got the hang of this quite quickly. I’d say that’s half an hour for lunch.\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "Unless you'd like me to go through it again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Time for you to fly solo.\n\nRemeber each day starts at 9am and ends at 5pm - remember to let all passengers off at the end of the day or they'll get mad!\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Unless you'd like me to go through it all again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
         "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
         "[tutorial_repeat_choice]"
         }
@@ -85,7 +86,8 @@ public class TutorialGameController : GameController {
         "[boss_leave_2]",
         "[boss_return_2]",
         "Well, you seem to have got the hang of this quite quickly. I’d say that’s half an hour for lunch.\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "Unless you'd like me to go through it again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Time for you to fly solo.\n\nRemeber each day starts at 9am and ends at 5pm - remember to let all passengers off at the end of the day or they'll get mad!\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Unless you'd like me to go through it all again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
         "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
         "[tutorial_repeat_choice]"
     };
@@ -108,7 +110,8 @@ public class TutorialGameController : GameController {
         "[boss_leave_2]",
         "[boss_return_2]",
         "Well, you seem to have got the hang of this quite quickly. I’d say that’s half an hour for lunch.\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "Unless you'd like me to go through it again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Time for you to fly solo.\n\nRemeber each day starts at 9am and ends at 5pm - remember to let all passengers off at the end of the day or they'll get mad!\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Unless you'd like me to go through it all again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
         "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
         "[tutorial_repeat_choice]"
     };
@@ -121,7 +124,8 @@ public class TutorialGameController : GameController {
         "[boss_leave_2]",
         "[boss_return_2]",
         "Well, you seem to have got the hang of this quite quickly. I’d say that’s half an hour for lunch.\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "Unless you'd like me to go through it again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Time for you to fly solo.\n\nRemeber each day starts at 9am and ends at 5pm - remember to let all passengers off at the end of the day or they'll get mad!\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Unless you'd like me to go through it all again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
         "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
         "[tutorial_repeat_choice]"
     };
@@ -383,10 +387,10 @@ public class TutorialGameController : GameController {
                     tutorialStateAcknowledged = true;
                 } else
                 {
-                    if (Input.GetKeyDown(KeyCode.UpArrow))
+                    if (elevator.Velocity() >= 4.5f)
                     {
                         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-                    } else if (Input.GetKeyDown(KeyCode.DownArrow))
+                    } else if (elevator.Velocity() <= -2.5f)
                     {
                         LevelController.GoToMainMenu();
                     }
