@@ -10,6 +10,8 @@ public class Passenger : MonoBehaviour {
     private ElevatorMove elevator;
 	[SerializeField]
 	public const float TIME_TO_LIVE = 15.0f;
+    [SerializeField]
+    protected Sprite[] sprites = new Sprite[2];
 
     private GameController controller;
 	private CardManager cardManager;
@@ -35,6 +37,7 @@ public class Passenger : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        gameObject.GetComponent<SpriteRenderer>().sprite = sprites[Random.Range(0, sprites.Length)];
         frozen = false;
 
         controller = GameObject.Find("Game Controller").GetComponent<GameController>();

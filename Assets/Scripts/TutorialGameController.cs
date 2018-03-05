@@ -683,6 +683,7 @@ public class TutorialGameController : GameController {
     IEnumerator JimAppearCoroutine()
     {
         jim = Instantiate(tutorialPassengerPrefab, elevator.transform);
+        jim.GetComponent<TutorialPassenger>().SetSprite(0);
 
         //move Jim from off-screen to middle of corridor
         jim.transform.localPosition = new Vector3(12, -0.25f, -2);
@@ -743,6 +744,7 @@ public class TutorialGameController : GameController {
     IEnumerator BarbraAppear()
     {
         barbra = Instantiate(tutorialPassengerPrefab, elevator.transform);
+        barbra.GetComponent<TutorialPassenger>().SetSprite(1);
 
         //move Jim from off-screen to middle of corridor
         barbra.transform.localPosition = new Vector3(12, -0.25f, -2);
