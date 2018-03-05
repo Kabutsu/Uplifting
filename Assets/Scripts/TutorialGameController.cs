@@ -14,42 +14,33 @@ public class TutorialGameController : GameController {
         "[jim_walk_on]",
         "This is Jim.#",
         "[jim_bing]",
-        "Jim works in accounting, which is on the 3rd Floor.\n\nThankfully, he’s not in too much of a rush to get to his desk today, so I’ll get a chance to show you the ropes.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Jim works in accounting, which is on the 2rd Floor.\n\nLet's get him up there.\n\n\n\n<b>Press {SPACE} to continue</b>",
         "[jim_into_lift]",
-        "Let's get a move on. Head on up to level 3.\n\n\n\n<b>Press the {UP} key to go up.\nPress {DOWN} to move down if you overshoot.</b>#",
-        "[lift_to_3]",
-        "Jim has just realised he needs the toilet. Quite urgently.\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "[jim_exclaim]",
-        "The nearest toilets are on the 2nd Floor. Let’s try and get him there as quick as we can.\n\n\n\n<b>Press the {DOWN} key to go down.</b>#",
         "[lift_to_2]",
-        "We should probably let him out. Sooner rather than later.\n\n\n\n<b>Press the {RIGHT} key to open the doors</b>#",
+        "We should probably let him out. Don't want him waiting here forever!#",
         "[let_jim_off]",
         "[jim_off_lift]",
         "[barbra_walk_on]",
         "This is Barbra.#",
-        "[barbra_exclaim]",
-        "Barbra is a Central Optimisation Associate, and so is obviously a very busy person.\n\nSo busy in fact that she’s late to a meeting on the 6th Floor.\n\n\n\n<b>Press {SPACE} to continue</b>",
         "[barbra_on_lift]",
-        "Thanks to the latest in Low-speed Electron Accretion technology we can measure our employee’s stress levels remotely.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Barbra is just a *little* bit stressed right now.\n\n\n\n<b>Press {SPACE} to continue</b>",
         "[stressometer]",
-        "This is Barbra’s Stress-O-Meter, all of your passengers will have one.\n\nYou can see their stress, and their destination.\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "The longer they have to wait until they get to their destination, the more stressed they’ll get.\n\nI’ve been asked to advice you not to let this get too high.\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "We should probably get going. Get Barbra up to the <b>6th Floor</b> ASAP.\n\n\n\n<b>• {UP} to go up\n• {DOWN} to go down\n• {RIGHT} to open the doors.</b>#",
+        "This is Barbra’s Stress-O-Meter.\n\nIt show's her stress and her destination.\n\nDon't let her stress get too high or bad things will happen!\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "We should get up to the <b>6th Floor</b> ASAP.\n\n\n\n<b>• {UP} to go up\n• {DOWN} to go down\n• {RIGHT} to open the doors.</b>#",
         "[lift_to_6]",
         "[barbra_exit_lift]",
         "Fantastic! I'll just pop off for my coffee break - I'll be back, but let's see how you do without me.\n\n\n\n<b>Press {SPACE} to continue</b>",
         "[boss_leave]",
         "[boss_return]",
         "Great job! Just one more thing before I hand you the reigns...\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "We've modded your elevator just a little bit.\n\nTry it out - <b>press {1}</b> while moving to activate turbo boosting!#",
+        "We've modded your elevator just a little bit.\n\nFirst of all, turbo injection boosting!\n\n\n\n<b>Press {1} while moving to BOOST</b>#",
         "[boost_tutorial]",
         "See how much fun that is?!\n\n\n\n<b>Press {SPACE} to continue</b>",
         "[add_freeze]",
         "We've also added the latest cryogenic technology to freeze your passengers' Stress-O-Meters for a few seconds.\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "Just remember to <b>press {2}</b> if you're in a bit of a pickle if you want to see what it does!\n\nI'll let you try it out while I take another coffee break.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "I'll let you try it out while I take another coffee break.\n\n\n\n<b>• Press {2} while you have passengers to FREEZE</b>\n\n\n\n<b>Press {SPACE} to continue</b>",
         "[boss_leave_2]",
         "[boss_return_2]",
-        "Well, you seem to have got the hang of this quite quickly. I’d say that’s half an hour for lunch.\n\n\n\n<b>Press {SPACE} to continue</b>",
         "Time for you to fly solo.\n\nRemeber each day starts at 9am and ends at 5pm - remember to let all passengers off at the end of the day or they'll get mad!\n\n\n\n<b>Press {SPACE} to continue</b>",
         "Unless you'd like me to go through it all again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
         "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
@@ -63,29 +54,25 @@ public class TutorialGameController : GameController {
         "[barbra_reset]",
         "[barbra_walk_on]",
         "This is Barbra.#",
-        "[barbra_exclaim]",
-        "Barbra is a Central Optimisation Associate, and so is obviously a very busy person.\n\nSo busy in fact that she’s late to a meeting on the 6th Floor.\n\n\n\n<b>Press {SPACE} to continue</b>",
         "[barbra_on_lift]",
-        "Thanks to the latest in Low-speed Electron Accretion technology we can measure our employee’s stress levels remotely.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Barbra is just a *little* bit stressed right now.\n\n\n\n<b>Press {SPACE} to continue</b>",
         "[stressometer]",
-        "This is Barbra’s stress-o-meter, all of your passengers will have one.\n\nYou can see their stress, and their destination.\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "The longer they have to wait until they get to their destination, the more stressed they’ll get.\n\nI’ve been asked to advice you not to let this get too high.\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "We should probably get going. Get Barbra up to the 6th Floor ASAP.\n\n\n\n<b>• Press {UP} to go up\n• Press {DOWN} to go down\n• Press {RIGHT} to open the doors.</b>#",
+        "This is Barbra’s Stress-O-Meter.\n\nIt show's her stress and her destination.\n\nDon't let her stress get too high or bad things will happen!\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "We should get up to the <b>6th Floor</b> ASAP.\n\n\n\n<b>• {UP} to go up\n• {DOWN} to go down\n• {RIGHT} to open the doors.</b>#",
         "[lift_to_6]",
         "[barbra_exit_lift]",
         "Fantastic! I'll just pop off for my coffee break - I'll be back, but let's see how you do without me.\n\n\n\n<b>Press {SPACE} to continue</b>",
         "[boss_leave]",
         "[boss_return]",
         "Great job! Just one more thing before I hand you the reigns...\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "We've modded your elevator just a little bit.\n\nTry it out - <b>press {1}</b> while moving to activate turbo boosting!#",
+        "We've modded your elevator just a little bit.\n\nFirst of all, turbo injection boosting!\n\n\n\n<b>Press {1} while moving to BOOST</b>#",
         "[boost_tutorial]",
         "See how much fun that is?!\n\n\n\n<b>Press {SPACE} to continue</b>",
         "[add_freeze]",
         "We've also added the latest cryogenic technology to freeze your passengers' Stress-O-Meters for a few seconds.\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "Just remember to <b>press {2}</b> if you're in a bit of a pickle if you want to see what it does!\n\nI'll let you try it out while I take another coffee break.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "I'll let you try it out while I take another coffee break.\n\n\n\n<b>• Press {2} while you have passengers to FREEZE</b>\n\n\n\n<b>Press {SPACE} to continue</b>",
         "[boss_leave_2]",
         "[boss_return_2]",
-        "Well, you seem to have got the hang of this quite quickly. I’d say that’s half an hour for lunch.\n\n\n\n<b>Press {SPACE} to continue</b>",
         "Time for you to fly solo.\n\nRemeber each day starts at 9am and ends at 5pm - remember to let all passengers off at the end of the day or they'll get mad!\n\n\n\n<b>Press {SPACE} to continue</b>",
         "Unless you'd like me to go through it all again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
         "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
@@ -101,15 +88,14 @@ public class TutorialGameController : GameController {
         "[boss_leave]",
         "[boss_return]",
         "Great job! Just one more thing before I hand you the reigns...\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "We've modded your elevator just a little bit.\n\nTry it out - <b>press {1}</b> while moving to activate turbo boosting!#",
+        "We've modded your elevator just a little bit.\n\nFirst of all, turbo injection boosting!\n\n\n\n<b>Press {1} while moving to BOOST</b>#",
         "[boost_tutorial]",
         "See how much fun that is?!\n\n\n\n<b>Press {SPACE} to continue</b>",
         "[add_freeze]",
         "We've also added the latest cryogenic technology to freeze your passengers' Stress-O-Meters for a few seconds.\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "Just remember to <b>press {2}</b> if you're in a bit of a pickle if you want to see what it does!\n\nI'll let you try it out while I take another coffee break.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "I'll let you try it out while I take another coffee break.\n\n\n\n<b>• Press {2} while you have passengers to FREEZE</b>\n\n\n\n<b>Press {SPACE} to continue</b>",
         "[boss_leave_2]",
         "[boss_return_2]",
-        "Well, you seem to have got the hang of this quite quickly. I’d say that’s half an hour for lunch.\n\n\n\n<b>Press {SPACE} to continue</b>",
         "Time for you to fly solo.\n\nRemeber each day starts at 9am and ends at 5pm - remember to let all passengers off at the end of the day or they'll get mad!\n\n\n\n<b>Press {SPACE} to continue</b>",
         "Unless you'd like me to go through it all again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
         "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
@@ -123,7 +109,6 @@ public class TutorialGameController : GameController {
         "[passenger_2_reset]",
         "[boss_leave_2]",
         "[boss_return_2]",
-        "Well, you seem to have got the hang of this quite quickly. I’d say that’s half an hour for lunch.\n\n\n\n<b>Press {SPACE} to continue</b>",
         "Time for you to fly solo.\n\nRemeber each day starts at 9am and ends at 5pm - remember to let all passengers off at the end of the day or they'll get mad!\n\n\n\n<b>Press {SPACE} to continue</b>",
         "Unless you'd like me to go through it all again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
         "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
@@ -312,7 +297,8 @@ public class TutorialGameController : GameController {
                     textbox.text = "";
                     StartCoroutine(MoveBossAndSpeechBubble(-10f, 1.2f, false));
                     tutorialStateAcknowledged = true;
-                    passengersToDeliver = 6;
+                    passengersToDeliver = 4;
+                    elevator.SetMaxPassengers(4);
                     onYourOwn = true;
                     elevator.Unlock();
                     gameOver = false;
@@ -341,7 +327,6 @@ public class TutorialGameController : GameController {
                 if (!tutorialStateAcknowledged)
                 {
                     StartCoroutine(ShowFreeze());
-                    elevator.MakeFreezeAvailable();
                     tutorialStateAcknowledged = true;
                 }
                 break;
@@ -351,7 +336,8 @@ public class TutorialGameController : GameController {
                     textbox.text = "";
                     StartCoroutine(MoveBossAndSpeechBubble(-10f, 1.2f, false));
                     tutorialStateAcknowledged = true;
-                    passengersToDeliver = 15;
+                    passengersToDeliver = 7;
+                    elevator.MakeFreezeAvailable();
                     onYourOwn = true;
                     elevator.Unlock();
                     gameOver = false;
@@ -390,7 +376,7 @@ public class TutorialGameController : GameController {
                     if (elevator.Velocity() >= 4.5f)
                     {
                         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-                    } else if (elevator.Velocity() <= -2.5f)
+                    } else if (Input.GetKeyDown(KeyCode.DownArrow))
                     {
                         LevelController.GoToMainMenu();
                     }
@@ -441,12 +427,50 @@ public class TutorialGameController : GameController {
 
     public override void RequestPassenger()
     {
-        if(!onYourOwn)
+        if (!onYourOwn)
         {
             return;
-        } else if (passengersDelivered < passengersToDeliver)
+        }
+        else if (passengersDelivered < passengersToDeliver)
         {
-            base.RequestPassenger();
+            int toSpawn = 0;
+            int rand = Random.Range(0, 10);
+            if (passengers.Count < 2)
+            {
+                if (rand < 5)
+                {
+                    toSpawn = 2;
+                }
+                else
+                {
+                    toSpawn = 1;
+                }
+            }
+            else if (passengers.Count < 4)
+            {
+                if (rand < 3)
+                {
+                    toSpawn = 2;
+                }
+                else
+                {
+                    toSpawn = 1;
+                }
+            }
+
+            for (int i = 0; i < toSpawn; i++)
+            {
+                GameObject passenger = Instantiate(passengerPrefab, elevator.transform);
+
+                passenger.transform.localPosition = new Vector3(6, -0.25f, -1);
+
+                if (i == toSpawn - 1)
+                {
+                    passenger.GetComponent<Passenger>().AssignAsKeyHolder();
+                }
+
+                passengers.Add(passenger.GetComponent<Passenger>());
+            }
         }
     }
 
@@ -495,11 +519,11 @@ public class TutorialGameController : GameController {
             gameOver = true;
             elevator.Lock();
 
-            if (passengersToDeliver == 6)
+            if (passengersToDeliver == 4)
             {
                 tutorialText = new Queue<string>(failFirstPassengers);
             }
-            else if (passengersToDeliver == 15)
+            else if (passengersToDeliver == 7)
             {
                 tutorialText = new Queue<string>(failSecondPassengers);
             }
