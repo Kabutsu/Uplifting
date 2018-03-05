@@ -95,7 +95,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void RequestPassenger()
+    public virtual void RequestPassenger()
     {
 		int toSpawn = 0;
 		int rand = Random.Range (0, 10);
