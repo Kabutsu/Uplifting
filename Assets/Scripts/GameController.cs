@@ -80,11 +80,11 @@ public class GameController : MonoBehaviour {
         if (isRunning || isEnding)
         {
             isRunning = false;
-            gameOverScreen.ShowScreen(LevelController.GetLevel() - 1, timePlaying);
+            StartCoroutine(GameOverFadeOutIn());
         } else
         {
             if (Input.GetKeyUp(KeyCode.Space)){
-                LevelController.RestartGame();
+                RequestGameRestart();
             }
         }
     }
@@ -109,6 +109,24 @@ public class GameController : MonoBehaviour {
             yield return null;
         }
         fadeOutPanel.color = new Color(0f, 0f, 0f, 0f);
+    }
+
+    IEnumerator GameOverFadeOutIn()
+    {
+        for (float i = 0f; i < 1f; i += Time.deltaTime)
+        {
+            fadeOutPanel.color = new Color(0f, 0f, 0f, i);
+            yield return null;
+        }
+        fadeOutPanel.color = new Color(0f, 0f, 0f, 1f);
+        gameOverScreen.ShowScreen(LevelController.GetLevel() - 1, timePlaying);
+        for (float i = 1f; i > 0f; i -= Time.deltaTime)
+        {
+            fadeOutPanel.color = new Color(0f, 0f, 0f, i);
+            yield return null;
+        }
+        fadeOutPanel.color = new Color(0f, 0f, 0f, 0f);
+        fadeOutPanel.GetComponentInParent<Canvas>().sortingOrder = 0;
     }
 
     IEnumerator EndDayFadeOut()
@@ -225,6 +243,18 @@ public class GameController : MonoBehaviour {
 
     public void RequestGameRestart()
     {
+        StartCoroutine(FadeOutAndRestart());
+    }
+
+    IEnumerator FadeOutAndRestart()
+    {
+        fadeOutPanel.GetComponentInParent<Canvas>().sortingOrder = 2;
+        for (float i = 0f; i < 1f; i += Time.deltaTime)
+        {
+            fadeOutPanel.color = new Color(0f, 0f, 0f, i);
+            yield return null;
+        }
+        fadeOutPanel.color = new Color(0f, 0f, 0f, 1f);
         LevelController.RestartGame();
     }
 
