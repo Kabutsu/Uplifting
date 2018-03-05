@@ -249,7 +249,7 @@ public class ElevatorMove : MonoBehaviour {
         lastFloor = floor;
     }
 
-    private int LastFloor()
+    public int LastFloor()
     {
         return lastFloor;
     }
