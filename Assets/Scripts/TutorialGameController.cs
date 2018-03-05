@@ -677,7 +677,7 @@ public class TutorialGameController : GameController {
         Vector3 panelStart = powerupsUI.transform.position;
         Vector3 boostStart = boostSprite.transform.localPosition;
 
-        Vector3 panelTo = panelStart + new Vector3(0, 180.4f);
+        Vector3 panelTo = panelStart + new Vector3(0, 100);
         Vector3 boostTo = new Vector3(-6.9344f, -4.25f, 1);
 
         twoText.enabled = false;
