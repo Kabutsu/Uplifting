@@ -84,9 +84,6 @@ public class ElevatorMove : MonoBehaviour {
 
         freezeUI.GetComponent<SpriteRenderer>().sprite = freezeSprite;
         boostUI.GetComponent<SpriteRenderer>().sprite = boostSprite;
-        
-        boss = GameObject.Find("Boss");
-        speechBubble = GameObject.Find("Speech Bubble");
     }
 
     //called by Initialize script; sets objects used by the elevator to objects created by Initialize script
