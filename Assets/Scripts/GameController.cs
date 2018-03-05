@@ -51,7 +51,6 @@ public class GameController : MonoBehaviour {
         dayMarker.text = "Day " + LevelController.GetLevel().ToString();
         floorsText.text = (LevelController.GetLevel() + 6).ToString() + " Floors";
         StartCoroutine(FadeInMessageOfTheDay());
-        isRunning = true;
         StartCoroutine(StartDayFadeIn());
 	}
 
@@ -70,9 +69,9 @@ public class GameController : MonoBehaviour {
                 aMPMText.text = "PM";
             }
         } else {
-            if (!isOver)
+            if (!isRunning)
             {
-                if (Input.GetKeyDown(KeyCode.RightArrow))
+                if (Input.GetKeyDown(KeyCode.RightArrow) && !isEnding)
                 {
                     StartCoroutine(FadeOutMessageOfTheDay());
                     isRunning = true;
@@ -80,9 +79,9 @@ public class GameController : MonoBehaviour {
                     
             } else
             {
-                if (Input.GetKeyUp(KeyCode.Space))
+                if (Input.GetKeyUp(KeyCode.Space) && isOver)
                 {
-                    LevelController.RestartGame();
+                    RequestGameRestart();
                 }
             }
                 
@@ -116,11 +115,6 @@ public class GameController : MonoBehaviour {
                 RequestGameRestart();
             }
         }
-
-        c.a = 1f;
-        dayMarker.color = c;
-        floorsText.color = c;
-        startInstructText.color = c;
     }
     
     private IEnumerator FadeInMessageOfTheDay()
