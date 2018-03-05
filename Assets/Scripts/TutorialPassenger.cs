@@ -31,6 +31,7 @@ public class TutorialPassenger : Passenger {
     private void Start()
     {
         timeAlive = -1;
+        //gameObject.GetComponent<SpriteRenderer>().sprite = sprites[0];
     }
 
     public override string GetPassengerName()
@@ -73,5 +74,10 @@ public class TutorialPassenger : Passenger {
     {
         cardStarted = false;
 
+    }
+
+    public void SetSprite(int spriteNo)
+    {
+        gameObject.GetComponent<SpriteRenderer>().sprite = sprites[spriteNo];
     }
 }
