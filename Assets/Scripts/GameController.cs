@@ -150,7 +150,6 @@ public class GameController : MonoBehaviour {
         for (float i = 1f; i > 0f; i -= Time.deltaTime * 5f)
         {
             c.a = Mathf.Lerp(0f, 1f, i);
-            Debug.Log(c.a);
             dayMarker.color = c;
             floorsText.color = c;
             startInstructText.color = c;

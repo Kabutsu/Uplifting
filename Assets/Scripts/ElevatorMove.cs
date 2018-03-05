@@ -137,10 +137,11 @@ public class ElevatorMove : MonoBehaviour {
             if (GetFloor() != 0)
             {
                 controller.BroadcastFloor(GetFloor());
+                if (controller.GetPassengerCount() <= maxPassengers && GetFloor() != LastFloor())
+                {
+                    controller.RequestPassenger();
+                }
                 SetLastFloor(GetFloor());
-				if (controller.GetPassengerCount () <= maxPassengers && GetFloor() != LastFloor()) {
-					controller.RequestPassenger();
-				}
             }
         }
 
