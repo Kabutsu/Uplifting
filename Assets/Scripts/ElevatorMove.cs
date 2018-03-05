@@ -66,8 +66,11 @@ public class ElevatorMove : MonoBehaviour {
     [SerializeField]
     private Text boostCountdown;
 
+    private int maxPassengers;
+
     // Use this for initialization
     void Start () {
+        maxPassengers = 6;
         elevatorX = transform.position.x;
         cameraHeight = mainCamera.pixelHeight;
         cameraMoveDownAt = cameraHeight / 4f;
@@ -113,7 +116,7 @@ public class ElevatorMove : MonoBehaviour {
         }
 
         //Powerups/Freeze
-        if (Input.GetKeyDown(KeyCode.Alpha2) && freezeAvailable)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && freezeAvailable && controller.GetPassengerCount() > 0)
         {
             StartCoroutine(FreezePassengers(2f));
         }
@@ -135,7 +138,7 @@ public class ElevatorMove : MonoBehaviour {
             {
                 controller.BroadcastFloor(GetFloor());
                 SetLastFloor(GetFloor());
-				if (controller.GetPassengerCount () < 7) {
+				if (controller.GetPassengerCount () <= maxPassengers) {
 					controller.RequestPassenger();
 				}
             }
@@ -295,5 +298,10 @@ public class ElevatorMove : MonoBehaviour {
     public GameObject[] Floors()
     {
         return floors;
+    }
+
+    public void SetMaxPassengers(int max)
+    {
+        maxPassengers = (max > 0 ? max : maxPassengers);
     }
 }
