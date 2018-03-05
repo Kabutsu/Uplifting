@@ -152,6 +152,8 @@ public class TutorialGameController : GameController {
 
     private GameObject bossUI;
 
+    private GameObject bigArrowDown;
+
     private bool onYourOwn;
     private int passengersDelivered;
     private int passengersToDeliver;
@@ -163,12 +165,15 @@ public class TutorialGameController : GameController {
         onYourOwn = false;
         gameOver = false;
         passengersDelivered = 0;
+
         speaker = this.GetComponent<AudioSource>();
         cardManager = GameObject.Find("CardManager").GetComponent<CardManager>();
         bossUI = GameObject.Find("BossUI");
+        bigArrowDown = GameObject.Find("BigArrowDown");
+
         passengers = new List<Passenger>();
-        elevator.enabled = false;
-        AdvanceTutorial();
+
+        bigArrowDown.GetComponent<SpriteRenderer>().enabled = false;
 
         key_space = GameObject.Find("Key_Space").GetComponent<SpriteRenderer>();
         key_up = GameObject.Find("Key_Up").GetComponent<SpriteRenderer>();
@@ -190,7 +195,10 @@ public class TutorialGameController : GameController {
 
         failFirstPassengers.AddRange(failSecondPassengers);
         failBarbra.AddRange(failFirstPassengers);
-	}
+        
+        elevator.enabled = false;
+        AdvanceTutorial();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -371,6 +379,7 @@ public class TutorialGameController : GameController {
             case "[boss_leave]":
                 if (!tutorialStateAcknowledged)
                 {
+                    Destroy(bigArrowDown);
                     textbox.text = "";
                     StartCoroutine(MoveBossAndSpeechBubble(-10f, 1.2f, false));
                     tutorialStateAcknowledged = true;
@@ -702,9 +711,12 @@ public class TutorialGameController : GameController {
 
     IEnumerator ThisIsJim()
     {
+        bigArrowDown.GetComponent<SpriteRenderer>().enabled = true;
         speaker.PlayOneShot(jimDingSound);
 
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(2f);
+
+        bigArrowDown.GetComponent<SpriteRenderer>().enabled = false;
 
         AdvanceTutorial();
     }
@@ -764,8 +776,11 @@ public class TutorialGameController : GameController {
     IEnumerator ThisIsBarbra()
     {
         yield return new WaitForSeconds(0.4f);
+        bigArrowDown.transform.position = new Vector3(3.57f, 0.3f, -1);
+        bigArrowDown.GetComponent<SpriteRenderer>().enabled = true;
         speaker.PlayOneShot(barbraDingSound);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
+        bigArrowDown.GetComponent<SpriteRenderer>().enabled = false;
         AdvanceTutorial();
         yield return null;
     }
