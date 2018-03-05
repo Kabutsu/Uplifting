@@ -10,31 +10,34 @@ public class Passenger : MonoBehaviour {
     private ElevatorMove elevator;
 	[SerializeField]
 	public const float TIME_TO_LIVE = 15.0f;
+    [SerializeField]
+    protected Sprite[] sprites = new Sprite[2];
 
     private GameController controller;
 	private CardManager cardManager;
 
-	private Card card;
+	protected Card card;
 
     private string passengerName;
     private string job;
     private int floor;
-    private float rage;
+    protected float rage;
     private float positionOnLift;
-	private float timeAlive;
+	protected float timeAlive;
 	private bool keyHolder; //Can unlock elevator?
 
     private bool frozen;
 
 	//Getters and Setters
-	public string GetPassengerName(){return passengerName;}
-	public string GetPassengerJob(){return job;}
-	public int GetPassengerReqFloor(){return floor;}
-	public float GetRage(){return rage;}
+	public virtual string GetPassengerName(){return passengerName;}
+    public virtual string GetPassengerJob(){return job;}
+    public virtual int GetPassengerReqFloor(){return floor;}
+    public virtual float GetRage(){return rage;}
 
 
 	// Use this for initialization
 	void Start () {
+        gameObject.GetComponent<SpriteRenderer>().sprite = sprites[Random.Range(0, sprites.Length)];
         frozen = false;
 
         controller = GameObject.Find("Game Controller").GetComponent<GameController>();
@@ -77,7 +80,7 @@ public class Passenger : MonoBehaviour {
 		keyHolder = true;
 	}
 
-    IEnumerator MoveToPosition(Vector3 toPosition, float inTime, bool destroy)
+    protected IEnumerator MoveToPosition(Vector3 toPosition, float inTime, bool destroy)
     {
         var fromPosition = transform.localPosition;
         for (var t = 0f; t < 1; t += Time.deltaTime / inTime)
@@ -85,9 +88,9 @@ public class Passenger : MonoBehaviour {
             transform.localPosition = Vector3.Lerp(fromPosition, toPosition, t);
             yield return null;
         }
-		if (keyHolder) {
-			elevator.Unlock();
-		}
+
+		elevator.Unlock();
+
 		timeAlive = 0.0f;
         if (destroy) Destroy(this.gameObject);
     }
@@ -101,8 +104,8 @@ public class Passenger : MonoBehaviour {
     {
 		timeAlive = -1.0f;
         cardManager.DismissCard (card);
-        controller.RemovePassenger(this);
         elevator.Lock();
+        controller.RemovePassenger(this);
         StartCoroutine(MoveToPosition(new Vector3(6, -0.25f, -1), 1.0f, true));
     }
 
@@ -119,5 +122,10 @@ public class Passenger : MonoBehaviour {
     public bool Frozen()
     {
         return frozen;
+    }
+
+    public Card Card()
+    {
+        return card;
     }
 }

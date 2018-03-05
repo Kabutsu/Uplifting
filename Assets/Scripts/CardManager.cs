@@ -19,9 +19,7 @@ public class CardManager : MonoBehaviour {
 	}
 		
 	public void DismissCard (Card cardToDismiss){
-		Debug.Log ("Dismissing");
 		int indexBeingDismissed = cardToDismiss.GetIndex ();
-		Debug.Log ("Index: " + indexBeingDismissed);
 
 
 		currentCards.Remove (cardToDismiss);

@@ -41,8 +41,8 @@ public class ElevatorMove : MonoBehaviour {
 
     private bool locked;
 
-    private bool freezeAvailable;
-    private bool boostAvailable;
+    private bool freezeAvailable = true;
+    private bool boostAvailable = true;
     private bool boosting;
     private const int POWERUP_REFRESH_TIME = 6;
 
@@ -66,19 +66,18 @@ public class ElevatorMove : MonoBehaviour {
     [SerializeField]
     private Text boostCountdown;
 
+    private int maxPassengers;
+
     // Use this for initialization
     void Start () {
+        maxPassengers = 6;
         elevatorX = transform.position.x;
         cameraHeight = mainCamera.pixelHeight;
         cameraMoveDownAt = cameraHeight / 4f;
         cameraMoveUpAt = 3f * cameraMoveDownAt;
 
-        boostAvailable = true;
-
         velocity = 0;
         SetLastFloor(0);
-
-        freezeAvailable = true;
 
         locked = false;
         controller = GameObject.Find("Game Controller").GetComponent<GameController>();
@@ -113,17 +112,17 @@ public class ElevatorMove : MonoBehaviour {
         
         if(Input.GetKey(KeyCode.Alpha1) && boostAvailable && velocity != 0)
         {
-            StartCoroutine(BoostElevator(4, 1));
+            StartCoroutine(BoostElevator(1));
         }
 
         //Powerups/Freeze
-        if (Input.GetKeyDown(KeyCode.Alpha2) && freezeAvailable)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && freezeAvailable && controller.GetPassengerCount() > 0)
         {
             StartCoroutine(FreezePassengers(2f));
         }
 
         //snap the elevator to a floor if it is within a certain distance of the floor
-        if (Input.GetKeyDown(KeyCode.RightArrow) && Mathf.Abs(velocity) <= maxSpeed/3 && GetFloor() != LastFloor())
+        if (Input.GetKeyDown(KeyCode.RightArrow) && Mathf.Abs(velocity) <= maxSpeed/3)
         {
             foreach(GameObject floor in floors)
             {
@@ -139,7 +138,7 @@ public class ElevatorMove : MonoBehaviour {
             {
                 controller.BroadcastFloor(GetFloor());
                 SetLastFloor(GetFloor());
-				if (controller.GetPassengerCount () < 7) {
+				if (controller.GetPassengerCount () <= maxPassengers && GetFloor() != LastFloor()) {
 					controller.RequestPassenger();
 				}
             }
@@ -164,7 +163,17 @@ public class ElevatorMove : MonoBehaviour {
             if (noOfFloors > 4 &&
                 (velocity < 0 && mainCamera.transform.position.y > 0 && mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position).y <= cameraMoveDownAt) ^
                 (velocity > 0 && mainCamera.transform.position.y < ((noOfFloors - 4) * 2.5f) && mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position).y >= cameraMoveUpAt))
+            {
                 mainCamera.transform.Translate(new Vector3(0, moveAmount));
+                if(mainCamera.transform.position.y < 0)
+                {
+                    mainCamera.transform.position = new Vector3(0, 0, -10);
+                } else if (mainCamera.transform.position.y > (noOfFloors - 4) * 2.5f)
+                {
+                    mainCamera.transform.position = new Vector3(0, (noOfFloors - 4) * 2.5f, -10);
+                }
+            }
+                
         }
 
 
@@ -204,11 +213,11 @@ public class ElevatorMove : MonoBehaviour {
         freezeUI.GetComponent<SpriteRenderer>().sprite = freezeSprite;
     }
 
-    IEnumerator BoostElevator(float byAmount, float forTime)
+    IEnumerator BoostElevator(float forTime)
     {
         boostUI.GetComponent<SpriteRenderer>().sprite = boostSpriteFaded;
         float originalVelocity = velocity;
-        velocity *= byAmount;
+        velocity = (velocity > 0 ? 20 : -20);
         boosting = true;
         boostAvailable = false;
         yield return new WaitForSeconds(forTime);
@@ -265,5 +274,41 @@ public class ElevatorMove : MonoBehaviour {
     public bool Locked()
     {
         return locked;
+    }
+
+    public float Velocity()
+    {
+        return velocity;
+    }
+
+    public bool Boosting()
+    {
+        return boosting;
+    }
+
+    public void StartTutorial()
+    {
+        boostAvailable = false;
+        freezeAvailable = false;
+    }
+
+    public void MakeBoostAvailable()
+    {
+        boostAvailable = true;
+    }
+
+    public void MakeFreezeAvailable()
+    {
+        freezeAvailable = true;
+    }
+
+    public GameObject[] Floors()
+    {
+        return floors;
+    }
+
+    public void SetMaxPassengers(int max)
+    {
+        maxPassengers = (max > 0 ? max : maxPassengers);
     }
 }

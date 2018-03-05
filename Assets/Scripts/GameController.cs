@@ -11,34 +11,34 @@ public class GameController : MonoBehaviour {
     private bool isEnding = false;
 
     [SerializeField]
-    private GameObject passengerPrefab;
+    protected GameObject passengerPrefab;
 
     [SerializeField]
-    private ElevatorMove elevator;
+    protected ElevatorMove elevator;
 
 	[SerializeField]
-	private CardManager cardManager;
+	protected CardManager cardManager;
 
     [SerializeField]
     private Text timeText;
     [SerializeField]
-    private Text aMPMText;
 
+    private Text aMPMText;
     [SerializeField]
     private Image fadeOutPanel;
-
+    
     [SerializeField]
     private Text dayMarker;
     [SerializeField]
     private Text floorsText;
     [SerializeField]
     private Text startInstructText;
-
+    
     [SerializeField]
     private GameOverScreen gameOverScreen;
 
-    List<Passenger> passengers;
-    int positionCount;
+    protected List<Passenger> passengers;
+    protected int positionCount;
 
 	//Getters and Setters
 	public CardManager GetCardManager(){return cardManager;}
@@ -102,7 +102,7 @@ public class GameController : MonoBehaviour {
         }
 	}
 
-    public void GameOver()
+    public virtual void GameOver()
     {
         if (isRunning || isEnding)
         {
@@ -176,7 +176,7 @@ public class GameController : MonoBehaviour {
             yield return new WaitForSeconds(0.25f);
         }
     }
-
+    
     IEnumerator StartDayFadeIn()
     {
         for (float i = 1f; i > 0f; i -= Time.deltaTime)
@@ -216,7 +216,7 @@ public class GameController : MonoBehaviour {
         LevelController.LoadNextLevel();
     }
 
-    public void RequestPassenger()
+    public virtual void RequestPassenger()
     {
 		int toSpawn = 0;
 		int rand = Random.Range (0, 10);
@@ -256,14 +256,14 @@ public class GameController : MonoBehaviour {
 			passengers.Add(passenger.GetComponent<Passenger>());
 		}
     }
-
+    
     IEnumerator UnlockAfterTime(float seconds)
     {
         yield return new WaitForSeconds(seconds);
         elevator.Unlock();
     }
 
-    public void BroadcastFloor(int floorNo)
+    public virtual void BroadcastFloor(int floorNo)
     {
         List<Passenger> temp_passengers = new List<Passenger>(passengers);
         foreach(Passenger passenger in temp_passengers)
@@ -272,14 +272,14 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void RemovePassenger(Passenger passenger)
+    public virtual void RemovePassenger(Passenger passenger)
     {
         passengers.Remove(passenger);
     }
 
-	public int GetPassengerCount(){return passengers.Count;}
+	public virtual int GetPassengerCount(){return passengers.Count;}
 
-    public void FreezePassengers()
+    public virtual void FreezePassengers()
     {
         foreach(Passenger passenger in passengers)
         {
