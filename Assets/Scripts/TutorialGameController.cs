@@ -21,6 +21,7 @@ public class TutorialGameController : GameController {
         "[jim_off_lift]",
         "[barbra_walk_on]",
         "This is Barbra.#",
+        "[barbra_exclaim]",
         "[barbra_on_lift]",
         "Barbra is just a *little* bit stressed right now.@",
         "[stressometer]",
@@ -32,17 +33,17 @@ public class TutorialGameController : GameController {
         "[boss_leave]",
         "[boss_return]",
         "Great job! Just one more thing before I hand you the reigns...@",
-        "We've modded your elevator just a little bit.\n\nFirst of all, turbo injection boosting! Try it out!\n\n\n\n<b>Press {1} while moving to BOOST</b>#",
+        "%We've modded your elevator just a little bit.\n\nFirst of all, turbo injection boosting! Try it out!\n\n\n\n<b>Press     while moving to BOOST</b>#",
         "[boost_tutorial]",
         "See how much fun that is?!@",
         "[add_freeze]",
         "We've also added the latest cryogenic technology to freeze your passengers' Stress-O-Meters for a few seconds.@",
-        "I'll let you try it out while I take another coffee break.\n\n\n\n<b>Press {2} while you have passengers to FREEZE</b>@",
+        "$I'll let you try it out while I take another coffee break.\n\n\n\n<b>Press     while you have passengers to FREEZE</b>@",
         "[boss_leave_2]",
         "[boss_return_2]",
         "Time for you to fly solo.\n\nRemeber each day starts at 9am and ends at 5pm - make sure you let all passengers off at the end of the day or they'll get mad!@",
         "Unless you'd like me to go through it all again, just to be sure?@",
-        "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
+        "^Do you want to repeat the tutorial? \n\n\n<b>   : Yes\n\n   : No</b>#",
         "[tutorial_repeat_choice]"
         }
     );
@@ -53,6 +54,7 @@ public class TutorialGameController : GameController {
         "[barbra_reset]",
         "[barbra_walk_on]",
         "This is Barbra.#",
+        "[barbra_exclaim]",
         "[barbra_on_lift]",
         "Barbra is just a *little* bit stressed right now.@",
         "[stressometer]",
@@ -64,17 +66,17 @@ public class TutorialGameController : GameController {
         "[boss_leave]",
         "[boss_return]",
         "Great job! Just one more thing before I hand you the reigns...@",
-        "We've modded your elevator just a little bit.\n\nFirst of all, turbo injection boosting! Try it out!\n\n\n\n<b>Press {1} while moving to BOOST</b>#",
+        "%We've modded your elevator just a little bit.\n\nFirst of all, turbo injection boosting! Try it out!\n\n\n\n<b>Press     while moving to BOOST</b>#",
         "[boost_tutorial]",
         "See how much fun that is?!@",
         "[add_freeze]",
         "We've also added the latest cryogenic technology to freeze your passengers' Stress-O-Meters for a few seconds.@",
-        "I'll let you try it out while I take another coffee break.\n\n\n\n<b>• Press {2} while you have passengers to FREEZE</b>@",
+        "$I'll let you try it out while I take another coffee break.\n\n\n\n<b>• Press     while you have passengers to FREEZE</b>@",
         "[boss_leave_2]",
         "[boss_return_2]",
         "Time for you to fly solo.\n\nRemeber each day starts at 9am and ends at 5pm - make sure you let all passengers off at the end of the day or they'll get mad!@",
         "Unless you'd like me to go through it all again, just to be sure?@",
-        "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
+        "^Do you want to repeat the tutorial? \n\n\n<b>   : Yes\n\n   : No</b>#",
         "[tutorial_repeat_choice]"
     };
 
@@ -87,30 +89,30 @@ public class TutorialGameController : GameController {
         "[boss_leave]",
         "[boss_return]",
         "Great job! Just one more thing before I hand you the reigns...@",
-        "We've modded your elevator just a little bit.\n\nFirst of all, turbo injection boosting! Try it out!\n\n\n\n<b>Press {1} while moving to BOOST</b>#",
+        "%We've modded your elevator just a little bit.\n\nFirst of all, turbo injection boosting! Try it out!\n\n\n\n<b>Press     while moving to BOOST</b>#",
         "[boost_tutorial]",
         "See how much fun that is?!@",
         "[add_freeze]",
         "We've also added the latest cryogenic technology to freeze your passengers' Stress-O-Meters for a few seconds.@",
-        "I'll let you try it out while I take another coffee break.\n\n\n\n<b>• Press {2} while you have passengers to FREEZE</b>@",
+        "$I'll let you try it out while I take another coffee break.\n\n\n\n<b>• Press     while you have passengers to FREEZE</b>@",
         "[boss_leave_2]",
         "[boss_return_2]",
         "Time for you to fly solo.\n\nRemeber each day starts at 9am and ends at 5pm - make sure you let all passengers off at the end of the day or they'll get mad!@",
         "Unless you'd like me to go through it all again, just to be sure?@",
-        "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
+        "^Do you want to repeat the tutorial? \n\n\n<b>   : Yes\n\n   : No</b>#",
         "[tutorial_repeat_choice]"
     };
 
     List<string> failSecondPassengers = new List<string>()
     {
         "[boss_return_2]",
-        "Not to worry - let's have another go!\n\nRemember, if you're in a pickle:\n<b>• Press {1} for BOOST</b>\n<b>• Press {2} for FREEZE</b>\n\nGood luck!@",
+        "*Not to worry - let's have another go!\n\nRemember, if you're in a pickle:\n\n<b>• Press     for BOOST</b>\n\n<b>• Press     for FREEZE</b>\n\n\nGood luck!@",
         "[passenger_2_reset]",
         "[boss_leave_2]",
         "[boss_return_2]",
         "Time for you to fly solo.\n\nRemeber each day starts at 9am and ends at 5pm - make sure you let all passengers off at the end of the day or they'll get mad!@",
         "Unless you'd like me to go through it all again, just to be sure?@",
-        "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
+        "^Do you want to repeat the tutorial? \n\n\n<b>   : Yes\n\n   : No</b>#",
         "[tutorial_repeat_choice]"
     };
 
@@ -143,6 +145,12 @@ public class TutorialGameController : GameController {
     private SpriteRenderer key_up;
     private SpriteRenderer key_right;
     private SpriteRenderer key_down;
+    private SpriteRenderer key_1;
+    private SpriteRenderer key_2;
+    private SpriteRenderer key_up_option;
+    private SpriteRenderer key_down_option;
+
+    private GameObject bossUI;
 
     private bool onYourOwn;
     private int passengersDelivered;
@@ -157,6 +165,7 @@ public class TutorialGameController : GameController {
         passengersDelivered = 0;
         speaker = this.GetComponent<AudioSource>();
         cardManager = GameObject.Find("CardManager").GetComponent<CardManager>();
+        bossUI = GameObject.Find("BossUI");
         passengers = new List<Passenger>();
         elevator.enabled = false;
         AdvanceTutorial();
@@ -165,11 +174,19 @@ public class TutorialGameController : GameController {
         key_up = GameObject.Find("Key_Up").GetComponent<SpriteRenderer>();
         key_right = GameObject.Find("Key_Right").GetComponent<SpriteRenderer>();
         key_down = GameObject.Find("Key_Down").GetComponent<SpriteRenderer>();
+        key_1 = GameObject.Find("Key_1").GetComponent<SpriteRenderer>();
+        key_2 = GameObject.Find("Key_2").GetComponent<SpriteRenderer>();
+        key_up_option = GameObject.Find("Key_Up_Option").GetComponent<SpriteRenderer>();
+        key_down_option = GameObject.Find("Key_Down_Option").GetComponent<SpriteRenderer>();
 
         key_space.enabled = false;
         key_up.enabled = false;
         key_right.enabled = false;
         key_down.enabled = false;
+        key_1.enabled = false;
+        key_2.enabled = false;
+        key_up_option.enabled = false;
+        key_down_option.enabled = false;
 
         failFirstPassengers.AddRange(failSecondPassengers);
         failBarbra.AddRange(failFirstPassengers);
@@ -236,11 +253,11 @@ public class TutorialGameController : GameController {
                         elevator.Lock();
                         AdvanceTutorial();
                     }
-                } else if (elevator.GetFloor() > 2 || (elevator.GetFloor() == 0 && elevator.LastFloor() > 2))
+                } else if (NearestFloor() > 2)
                 {
                     key_down.enabled = true;
                     key_up.enabled = false;
-                } else if (elevator.GetFloor() < 2 || (elevator.GetFloor() == 0 && elevator.LastFloor() < 2))
+                } else if (NearestFloor() < 2)
                 {
                     key_up.enabled = true;
                     key_down.enabled = false;
@@ -324,14 +341,14 @@ public class TutorialGameController : GameController {
                         AdvanceTutorial();
                     }
                     
-                } else if (elevator.GetFloor() > 6 || (elevator.GetFloor() == 0 && elevator.LastFloor() > 6))
+                } else if (NearestFloor() > 6)
                 {
                     key_down.enabled = true;
                     key_up.enabled = false;
 
                     key_right.enabled = false;
                 }
-                else if (elevator.GetFloor() < 6 || (elevator.GetFloor() == 0 && elevator.LastFloor() < 6))
+                else if (NearestFloor() < 6)
                 {
                     key_up.enabled = true;
                     key_down.enabled = false;
@@ -394,9 +411,10 @@ public class TutorialGameController : GameController {
                 if (!tutorialStateAcknowledged)
                 {
                     textbox.text = "";
+                    key_2.enabled = false;
                     StartCoroutine(MoveBossAndSpeechBubble(-10f, 1.2f, false));
                     tutorialStateAcknowledged = true;
-                    passengersToDeliver = 7;
+                    passengersToDeliver = 6;
                     elevator.MakeFreezeAvailable();
                     onYourOwn = true;
                     elevator.Unlock();
@@ -433,7 +451,7 @@ public class TutorialGameController : GameController {
                     tutorialStateAcknowledged = true;
                 } else
                 {
-                    if (elevator.Velocity() >= 4.5f)
+                    if (Input.GetKeyDown(KeyCode.UpArrow))
                     {
                         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                     } else if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -458,6 +476,52 @@ public class TutorialGameController : GameController {
                     tutorialStateAcknowledged = true;
                     if (!(currentText[0] == '['))
                     {
+                        if (currentText[0] == '%')
+                        {
+                            key_1.enabled = true;
+                            key_2.enabled = false;
+                            currentText = currentText.Substring(1);
+
+                            if (bossUI.transform.localPosition.y < 1)
+                                bossUI.transform.localPosition = Vector3.zero;
+                        }
+                        else if (currentText[0] == '$')
+                        {
+                            key_2.enabled = true;
+                            key_1.enabled = false;
+                            currentText = currentText.Substring(1);
+
+                            if (bossUI.transform.localPosition.y < 1)
+                                bossUI.transform.localPosition = Vector3.zero;
+                        }
+                        else if (currentText[0] == '*')
+                        {
+                            currentText = currentText.Substring(1);
+
+                            if (bossUI.transform.localPosition.y < 1)
+                                bossUI.transform.localPosition = Vector3.zero;
+
+                            key_1.gameObject.transform.localPosition = new Vector3(-7.4f, 3.25f, 9);
+                            key_2.gameObject.transform.localPosition = new Vector3(-7.4f, 2.75f, 9);
+
+                            key_1.enabled = true;
+                            key_2.enabled = true;
+
+                        } else
+                        {
+                            key_1.enabled = false;
+                            key_2.enabled = false;
+                            if(currentText[0] == '^')
+                            {
+                                key_up_option.enabled = true;
+                                key_down_option.enabled = true;
+                                currentText = currentText.Substring(1);
+
+                                if (bossUI.transform.localPosition.y < 1)
+                                    bossUI.transform.localPosition = Vector3.zero;
+                            }
+                        }
+
                         if (currentText[currentText.Length - 1] == '#')
                         {
                             currentText = currentText.Remove(currentText.Length - 1);
@@ -476,6 +540,8 @@ public class TutorialGameController : GameController {
 
                             textbox.text = currentText;
                         }
+
+                        
                     }
                     else key_space.enabled = false;
                     
@@ -485,9 +551,6 @@ public class TutorialGameController : GameController {
                 }
                 break;
         }
-
-        
-
     }
 
     private void AdvanceTutorial()
@@ -510,7 +573,7 @@ public class TutorialGameController : GameController {
             int rand = Random.Range(0, 10);
             if (passengers.Count < 2)
             {
-                if (rand < 5)
+                if (rand < 4)
                 {
                     toSpawn = 2;
                 }
@@ -521,7 +584,7 @@ public class TutorialGameController : GameController {
             }
             else if (passengers.Count < 4)
             {
-                if (rand < 3)
+                if (rand < 2)
                 {
                     toSpawn = 2;
                 }
@@ -596,7 +659,7 @@ public class TutorialGameController : GameController {
             {
                 tutorialText = new Queue<string>(failFirstPassengers);
             }
-            else if (passengersToDeliver == 7)
+            else if (passengersToDeliver == 6)
             {
                 tutorialText = new Queue<string>(failSecondPassengers);
             }
@@ -733,14 +796,15 @@ public class TutorialGameController : GameController {
     IEnumerator MoveBossAndSpeechBubble(float byYAmount, float inTime, bool advanceInThis)
     {
         key_space.enabled = false;
-        GameObject bossBubble = GameObject.Find("BossUI");
-
-        Vector3 bossFrom = bossBubble.transform.localPosition;
+        key_1.enabled = false;
+        key_2.enabled = false;
+        
+        Vector3 bossFrom = bossUI.transform.localPosition;
         Vector3 bossTo = bossFrom + new Vector3(0, byYAmount);
 
         for (var t = 0f; t < 1; t += Time.deltaTime / inTime)
         {
-            bossBubble.transform.localPosition = Vector3.Lerp(bossFrom, bossTo, t);
+            bossUI.transform.localPosition = Vector3.Lerp(bossFrom, bossTo, t);
             yield return null;
         }
 
