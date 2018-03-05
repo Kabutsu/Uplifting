@@ -122,7 +122,7 @@ public class ElevatorMove : MonoBehaviour {
         }
 
         //snap the elevator to a floor if it is within a certain distance of the floor
-        if (Input.GetKeyDown(KeyCode.RightArrow) && Mathf.Abs(velocity) <= maxSpeed/3 && GetFloor() != LastFloor())
+        if (Input.GetKeyDown(KeyCode.RightArrow) && Mathf.Abs(velocity) <= maxSpeed/3)
         {
             foreach(GameObject floor in floors)
             {
@@ -138,7 +138,7 @@ public class ElevatorMove : MonoBehaviour {
             {
                 controller.BroadcastFloor(GetFloor());
                 SetLastFloor(GetFloor());
-				if (controller.GetPassengerCount () <= maxPassengers) {
+				if (controller.GetPassengerCount () <= maxPassengers && GetFloor() != LastFloor()) {
 					controller.RequestPassenger();
 				}
             }
