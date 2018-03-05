@@ -22,23 +22,18 @@ public class GameController : MonoBehaviour {
     [SerializeField]
     private Text timeText;
     [SerializeField]
-<<<<<<< HEAD
 
     private Text aMPMText;
     [SerializeField]
     private Image fadeOutPanel;
-
-    private Text aMPMText;
+    
     [SerializeField]
     private Text dayMarker;
     [SerializeField]
     private Text floorsText;
     [SerializeField]
     private Text startInstructText;
-=======
->>>>>>> Tutorial
-
-    private Text aMPMText;
+    
     [SerializeField]
     private GameOverScreen gameOverScreen;
 
@@ -181,8 +176,7 @@ public class GameController : MonoBehaviour {
             yield return new WaitForSeconds(0.25f);
         }
     }
-
-<<<<<<< HEAD
+    
     IEnumerator StartDayFadeIn()
     {
         for (float i = 1f; i > 0f; i -= Time.deltaTime)
@@ -222,8 +216,6 @@ public class GameController : MonoBehaviour {
         LevelController.LoadNextLevel();
     }
 
-=======
->>>>>>> Tutorial
     public virtual void RequestPassenger()
     {
 		int toSpawn = 0;
@@ -264,18 +256,14 @@ public class GameController : MonoBehaviour {
 			passengers.Add(passenger.GetComponent<Passenger>());
 		}
     }
-
-<<<<<<< HEAD
+    
     IEnumerator UnlockAfterTime(float seconds)
     {
         yield return new WaitForSeconds(seconds);
         elevator.Unlock();
     }
 
-    public void BroadcastFloor(int floorNo)
-=======
     public virtual void BroadcastFloor(int floorNo)
->>>>>>> Tutorial
     {
         List<Passenger> temp_passengers = new List<Passenger>(passengers);
         foreach(Passenger passenger in temp_passengers)
