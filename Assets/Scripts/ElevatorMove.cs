@@ -165,6 +165,13 @@ public class ElevatorMove : MonoBehaviour {
                 (velocity > 0 && mainCamera.transform.position.y < ((noOfFloors - 4) * 2.5f) && mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position).y >= cameraMoveUpAt))
             {
                 mainCamera.transform.Translate(new Vector3(0, moveAmount));
+                if(mainCamera.transform.position.y < 0)
+                {
+                    mainCamera.transform.position = new Vector3(0, 0, -10);
+                } else if (mainCamera.transform.position.y > (noOfFloors - 4) * 2.5f)
+                {
+                    mainCamera.transform.position = new Vector3(0, (noOfFloors - 4) * 2.5f, -10);
+                }
             }
                 
         }
@@ -249,7 +256,7 @@ public class ElevatorMove : MonoBehaviour {
         lastFloor = floor;
     }
 
-    public int LastFloor()
+    private int LastFloor()
     {
         return lastFloor;
     }
