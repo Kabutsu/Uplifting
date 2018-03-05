@@ -376,7 +376,7 @@ public class TutorialGameController : GameController {
                     if (elevator.Velocity() >= 4.5f)
                     {
                         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-                    } else if (Input.GetKeyDown(KeyCode.DownArrow))
+                    } else if (elevator.Velocity() <= -2.5f)
                     {
                         LevelController.GoToMainMenu();
                     }
