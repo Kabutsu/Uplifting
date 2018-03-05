@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 
     private bool isRunning = false;
+    private bool isOver = false;
     private float timePlaying = 0.0f;
     private bool isEnding = false;
 
@@ -27,6 +28,13 @@ public class GameController : MonoBehaviour {
     private Image fadeOutPanel;
 
     [SerializeField]
+    private Text dayMarker;
+    [SerializeField]
+    private Text floorsText;
+    [SerializeField]
+    private Text startInstructText;
+
+    [SerializeField]
     private GameOverScreen gameOverScreen;
 
     List<Passenger> passengers;
@@ -40,6 +48,9 @@ public class GameController : MonoBehaviour {
 	void Start () {
         passengers = new List<Passenger>();
 		cardManager = GameObject.Find ("CardManager").GetComponent<CardManager> ();
+        dayMarker.text = "Day " + LevelController.GetLevel().ToString();
+        floorsText.text = (LevelController.GetLevel() + 6).ToString() + " Floors";
+        StartCoroutine(FadeInMessageOfTheDay());
         isRunning = true;
         StartCoroutine(StartDayFadeIn());
 	}
@@ -58,6 +69,23 @@ public class GameController : MonoBehaviour {
             {
                 aMPMText.text = "PM";
             }
+        } else {
+            if (!isOver)
+            {
+                if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    StartCoroutine(FadeOutMessageOfTheDay());
+                    isRunning = true;
+                }
+                    
+            } else
+            {
+                if (Input.GetKeyUp(KeyCode.Space))
+                {
+                    LevelController.RestartGame();
+                }
+            }
+                
         }
 
         if (isRunning && timePlaying >= 480)
@@ -80,6 +108,7 @@ public class GameController : MonoBehaviour {
         if (isRunning || isEnding)
         {
             isRunning = false;
+            isOver = true;
             StartCoroutine(GameOverFadeOutIn());
         } else
         {
@@ -87,7 +116,60 @@ public class GameController : MonoBehaviour {
                 RequestGameRestart();
             }
         }
+
+        c.a = 1f;
+        dayMarker.color = c;
+        floorsText.color = c;
+        startInstructText.color = c;
     }
+    
+    private IEnumerator FadeInMessageOfTheDay()
+    {
+        Color c = new Color(0f, 0f, 0f, 0f);
+        dayMarker.color = c;
+        floorsText.color = c;
+        startInstructText.color = c;
+
+        for (float i = 0f; i < 1f; i += Time.deltaTime)
+        {
+            c.a = Mathf.Lerp(0f, 1f, i);
+            dayMarker.color = c;
+            floorsText.color = c;
+            startInstructText.color = c;
+            yield return null;
+        }
+
+        c.a = 1f;
+        dayMarker.color = c;
+        floorsText.color = c;
+        startInstructText.color = c;
+    }
+    
+    private IEnumerator FadeOutMessageOfTheDay()
+    {
+        Debug.Log("fade");
+        Color c = new Color(0f, 0f, 0f, 1f);
+        dayMarker.color = c;
+        floorsText.color = c;
+        startInstructText.color = c;
+
+        for (float i = 1f; i > 0f; i -= Time.deltaTime * 5f)
+        {
+            c.a = Mathf.Lerp(0f, 1f, i);
+            Debug.Log(c.a);
+            dayMarker.color = c;
+            floorsText.color = c;
+            startInstructText.color = c;
+            yield return null;
+        }
+
+        c.a = 0f;
+        dayMarker.color = c;
+        floorsText.color = c;
+        startInstructText.color = c;
+    }
+
+
 
     IEnumerator FlashClock()
     {
@@ -235,6 +317,7 @@ public class GameController : MonoBehaviour {
         int timeMinutes = (Mathf.FloorToInt(time / 60) % 24);
         timeMinutes = (timeMinutes == 0 ? 12 : timeMinutes);
         int timeSeconds = ((int) time % 60);
+        timeSeconds -= (timeSeconds % 5);
 
         return (timeMinutes < 10 ? "0" + timeMinutes.ToString() : timeMinutes.ToString()) 
             + ":" 
