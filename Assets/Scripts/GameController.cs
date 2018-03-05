@@ -102,7 +102,7 @@ public class GameController : MonoBehaviour {
         }
 	}
 
-    public void GameOver()
+    public virtual void GameOver()
     {
         if (isRunning || isEnding)
         {

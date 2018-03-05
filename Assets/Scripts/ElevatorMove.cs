@@ -66,9 +66,6 @@ public class ElevatorMove : MonoBehaviour {
     [SerializeField]
     private Text boostCountdown;
 
-    private GameObject boss;
-    private GameObject speechBubble;
-
     // Use this for initialization
     void Start () {
         elevatorX = transform.position.x;
@@ -84,9 +81,6 @@ public class ElevatorMove : MonoBehaviour {
 
         freezeUI.GetComponent<SpriteRenderer>().sprite = freezeSprite;
         boostUI.GetComponent<SpriteRenderer>().sprite = boostSprite;
-        
-        boss = GameObject.Find("Boss");
-        speechBubble = GameObject.Find("Speech Bubble");
     }
 
     //called by Initialize script; sets objects used by the elevator to objects created by Initialize script
@@ -168,11 +162,6 @@ public class ElevatorMove : MonoBehaviour {
                 (velocity > 0 && mainCamera.transform.position.y < ((noOfFloors - 4) * 2.5f) && mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position).y >= cameraMoveUpAt))
             {
                 mainCamera.transform.Translate(new Vector3(0, moveAmount));
-                if(boss != null && speechBubble != null)
-                {
-                    boss.transform.Translate(new Vector3(0, moveAmount));
-                    speechBubble.transform.Translate(new Vector3(0, moveAmount));
-                }
             }
                 
         }
