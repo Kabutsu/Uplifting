@@ -23,7 +23,7 @@ public class Passenger : MonoBehaviour {
     private int floor;
     protected float rage;
     private float positionOnLift;
-	private float timeAlive;
+	protected float timeAlive;
 	private bool keyHolder; //Can unlock elevator?
 
     private bool frozen;

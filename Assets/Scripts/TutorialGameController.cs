@@ -351,14 +351,14 @@ public class TutorialGameController : GameController {
                     
                 } else if (NearestFloor() > 6)
                 {
-                    key_down.enabled = true;
+                    key_down.enabled = (Input.GetKey(KeyCode.DownArrow) ? false : true);
                     key_up.enabled = false;
 
                     key_right.enabled = false;
                 }
                 else if (NearestFloor() < 6)
                 {
-                    key_up.enabled = true;
+                    key_up.enabled = (Input.GetKey(KeyCode.UpArrow) ? false : true);
                     key_down.enabled = false;
 
                     key_right.enabled = false;
