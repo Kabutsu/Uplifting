@@ -24,6 +24,9 @@ public class GameController : MonoBehaviour {
     private Text aMPMText;
 
     [SerializeField]
+    private Image fadeOutPanel;
+
+    [SerializeField]
     private GameOverScreen gameOverScreen;
 
     List<Passenger> passengers;
@@ -38,6 +41,7 @@ public class GameController : MonoBehaviour {
         passengers = new List<Passenger>();
 		cardManager = GameObject.Find ("CardManager").GetComponent<CardManager> ();
         isRunning = true;
+        StartCoroutine(StartDayFadeIn());
 	}
 
     // Update is called once per frame
@@ -65,7 +69,9 @@ public class GameController : MonoBehaviour {
 
         if (isEnding && passengers.Count == 0)
         {
-            LevelController.LoadNextLevel();
+            isEnding = false;
+            elevator.Lock();
+            StartCoroutine(EndDayFadeOut());
         }
 	}
 
@@ -95,6 +101,27 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    IEnumerator StartDayFadeIn()
+    {
+        for (float i = 1f; i > 0f; i -= Time.deltaTime)
+        {
+            fadeOutPanel.color = new Color(0f, 0f, 0f, i);
+            yield return null;
+        }
+        fadeOutPanel.color = new Color(0f, 0f, 0f, 0f);
+    }
+
+    IEnumerator EndDayFadeOut()
+    {
+        for (float i = 0f; i < 1f; i += Time.deltaTime)
+        {
+            fadeOutPanel.color = new Color(0f, 0f, 0f, i);
+            yield return null;
+        }
+        fadeOutPanel.color = new Color(0f, 0f, 0f, 1f);
+        LevelController.LoadNextLevel();
+    }
+
     public void RequestPassenger()
     {
 		int toSpawn = 0;
@@ -120,7 +147,7 @@ public class GameController : MonoBehaviour {
         if (isEnding)
         {
             toSpawn = 0;
-            elevator.Unlock();
+            StartCoroutine(UnlockAfterTime(1f));
         }
 
 		for (int i = 0; i < toSpawn; i++) {
@@ -134,6 +161,12 @@ public class GameController : MonoBehaviour {
 
 			passengers.Add(passenger.GetComponent<Passenger>());
 		}
+    }
+
+    IEnumerator UnlockAfterTime(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        elevator.Unlock();
     }
 
     public void BroadcastFloor(int floorNo)
