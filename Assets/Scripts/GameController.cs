@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour {
 
     private bool isRunning = false;
     private float timePlaying = 0.0f;
+    private bool isEnding = false;
 
     [SerializeField]
     private GameObject passengerPrefab;
@@ -38,12 +39,12 @@ public class GameController : MonoBehaviour {
 		cardManager = GameObject.Find ("CardManager").GetComponent<CardManager> ();
         isRunning = true;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (isRunning)
+
+    // Update is called once per frame
+    void Update() {
+        if (isRunning)
         {
-            timePlaying += Time.deltaTime * 5.0f;
+            timePlaying += Time.deltaTime * 40.0f;
             bool isAm;
             timeText.text = ToClockString(timePlaying, out isAm, 540.0f);
             if (isAm)
@@ -55,7 +56,14 @@ public class GameController : MonoBehaviour {
             }
         }
 
-        if (timePlaying >= 480)
+        if (isRunning && timePlaying >= 480)
+        {
+            isRunning = false;
+            isEnding = true;
+            StartCoroutine(FlashClock());
+        }
+
+        if (isEnding && passengers.Count == 0)
         {
             LevelController.LoadNextLevel();
         }
@@ -63,7 +71,7 @@ public class GameController : MonoBehaviour {
 
     public void GameOver()
     {
-        if (isRunning)
+        if (isRunning || isEnding)
         {
             isRunning = false;
             gameOverScreen.ShowScreen(LevelController.GetLevel() - 1, timePlaying);
@@ -72,6 +80,18 @@ public class GameController : MonoBehaviour {
             if (Input.GetKeyUp(KeyCode.Space)){
                 LevelController.RestartGame();
             }
+        }
+    }
+
+    IEnumerator FlashClock()
+    {
+        bool state = true;
+        while (true)
+        {
+            state = !state;
+            timeText.enabled = state;
+            aMPMText.enabled = state;
+            yield return new WaitForSeconds(0.25f);
         }
     }
 
@@ -95,6 +115,12 @@ public class GameController : MonoBehaviour {
 			}
 		} else if(passengers.Count < 6){
 			toSpawn = 1;
+        }
+
+        if (isEnding)
+        {
+            toSpawn = 0;
+            elevator.Unlock();
         }
 
 		for (int i = 0; i < toSpawn; i++) {
