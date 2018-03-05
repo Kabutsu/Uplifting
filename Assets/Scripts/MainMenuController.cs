@@ -35,7 +35,7 @@ public class MainMenuController : MonoBehaviour {
     {
         if (includeTutorial)
         {
-            throw new System.NotSupportedException();
+            SceneManager.LoadScene("Tutorial");
         } else
         {
             LevelController.RestartGame();
