@@ -62,10 +62,8 @@ public class Card : MonoBehaviour {
 	}
 
 	public void ShiftUp(){
-		Debug.Log ("Shifting");
 		if (index != 0) {
 			index--;
-			Debug.Log ("new index:" + index);
 			StartCoroutine(ReevaluatePosition ());
 		} else {
 			Debug.LogError ("Trying to shift while index is 0");

@@ -77,7 +77,7 @@ public class Passenger : MonoBehaviour {
 		keyHolder = true;
 	}
 
-    protected virtual IEnumerator MoveToPosition(Vector3 toPosition, float inTime, bool destroy)
+    protected IEnumerator MoveToPosition(Vector3 toPosition, float inTime, bool destroy)
     {
         var fromPosition = transform.localPosition;
         for (var t = 0f; t < 1; t += Time.deltaTime / inTime)
@@ -85,9 +85,9 @@ public class Passenger : MonoBehaviour {
             transform.localPosition = Vector3.Lerp(fromPosition, toPosition, t);
             yield return null;
         }
-		if (keyHolder) {
-			elevator.Unlock();
-		}
+
+		elevator.Unlock();
+
 		timeAlive = 0.0f;
         if (destroy) Destroy(this.gameObject);
     }
@@ -119,5 +119,10 @@ public class Passenger : MonoBehaviour {
     public bool Frozen()
     {
         return frozen;
+    }
+
+    public Card Card()
+    {
+        return card;
     }
 }

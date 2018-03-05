@@ -69,7 +69,7 @@ public class TutorialGameController : GameController {
         "[stressometer]",
         "This is Barbra’s stress-o-meter, all of your passengers will have one.\n\nYou can see their stress, and their destination.\n\n\n\n<b>Press {SPACE} to continue</b>",
         "The longer they have to wait until they get to their destination, the more stressed they’ll get.\n\nI’ve been asked to advice you not to let this get too high.\n\n\n\n<b>Press {SPACE} to continue</b>",
-        "We should probably get going. Get Barbra up to the 6th Floor ASAP.\n\n\n\n<b>Press {UP} to go up\nPress {DOWN} to go down\nPress {RIGHT} to open the doors.</b>#",
+        "We should probably get going. Get Barbra up to the 6th Floor ASAP.\n\n\n\n<b>• Press {UP} to go up\n• Press {DOWN} to go down\n• Press {RIGHT} to open the doors.</b>#",
         "[lift_to_6]",
         "[barbra_exit_lift]",
         "Fantastic! I'll just pop off for my coffee break - I'll be back, but let's see how you do without me.\n\n\n\n<b>Press {SPACE} to continue</b>",
@@ -92,12 +92,38 @@ public class TutorialGameController : GameController {
 
     List<string> failFirstPassengers = new List<string>()
     {
-        "Oh no!"
+        "[boss_return_2]",
+        "Oh no! You let them get too angry!\n\nNot to worry.\n\nWe'll just travel back to before I left so you can have another go.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "[passenger_1_reset]",
+        "So I'm just off for my coffee break - let's see if you can keep these employees from rioting in the lift!\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "[boss_leave]",
+        "[boss_return]",
+        "Great job! Just one more thing before I hand you the reigns...\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "We've modded your elevator just a little bit.\n\nTry it out - <b>press {1}</b> while moving to activate turbo boosting!#",
+        "[boost_tutorial]",
+        "See how much fun that is?!\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "[add_freeze]",
+        "We've also added the latest cryogenic technology to freeze your passengers' Stress-O-Meters for a few seconds.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Just remember to <b>press {2}</b> if you're in a bit of a pickle if you want to see what it does!\n\nI'll let you try it out while I take another coffee break.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "[boss_leave_2]",
+        "[boss_return_2]",
+        "Well, you seem to have got the hang of this quite quickly. I’d say that’s half an hour for lunch.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Unless you'd like me to go through it again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
+        "[tutorial_repeat_choice]"
     };
 
     List<string> failSecondPassengers = new List<string>()
     {
-
+        "[boss_return_2]",
+        "Not to worry - let's have another go!\n\nRemember, if you're in a pickle:\n<b>• Press {1} for BOOST</b>\n<b>• Press {2} for FREEZE</b>\n\nGood luck!\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "[passenger_2_reset]",
+        "[boss_leave_2]",
+        "[boss_return_2]",
+        "Well, you seem to have got the hang of this quite quickly. I’d say that’s half an hour for lunch.\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Unless you'd like me to go through it again, just to be sure?\n\n\n\n<b>Press {SPACE} to continue</b>",
+        "Do you want to repeat the tutorial? \n\n\n\n<b>{UP}: Yes\n{DOWN}: No</b>#",
+        "[tutorial_repeat_choice]"
     };
 
     [SerializeField]
@@ -128,12 +154,13 @@ public class TutorialGameController : GameController {
     private bool onYourOwn;
     private int passengersDelivered;
     private int passengersToDeliver;
-    private bool tutorialWantingFreeze;
+
+    private bool gameOver;
 
 	// Use this for initialization
 	void Start () {
         onYourOwn = false;
-        tutorialWantingFreeze = false;
+        gameOver = false;
         passengersDelivered = 0;
         speaker = this.GetComponent<AudioSource>();
         cardManager = GameObject.Find("CardManager").GetComponent<CardManager>();
@@ -180,7 +207,6 @@ public class TutorialGameController : GameController {
                 }
                 if (elevator.GetFloor() == 3 && Mathf.Abs(elevator.Velocity()) < 2)
                 {
-                    Debug.Log("lock");
                     elevator.Lock();
                     AdvanceTutorial();
                 }
@@ -280,18 +306,19 @@ public class TutorialGameController : GameController {
                 if (!tutorialStateAcknowledged)
                 {
                     textbox.text = "";
-                    StartCoroutine(MoveBossAndSpeechBubble(-10f, 1.4f, false));
+                    StartCoroutine(MoveBossAndSpeechBubble(-10f, 1.2f, false));
                     tutorialStateAcknowledged = true;
                     passengersToDeliver = 6;
                     onYourOwn = true;
                     elevator.Unlock();
+                    gameOver = false;
                     RequestPassenger();
                 }
                 break;
             case "[boss_return]":
                 if(!tutorialStateAcknowledged)
                 {
-                    StartCoroutine(MoveBossAndSpeechBubble(10f, 1.4f, true));
+                    StartCoroutine(MoveBossAndSpeechBubble(10f, 1.2f, true));
                     tutorialStateAcknowledged = true;
                 }
                 break;
@@ -318,21 +345,38 @@ public class TutorialGameController : GameController {
                 if (!tutorialStateAcknowledged)
                 {
                     textbox.text = "";
-                    StartCoroutine(MoveBossAndSpeechBubble(-10f, 1.4f, false));
+                    StartCoroutine(MoveBossAndSpeechBubble(-10f, 1.2f, false));
                     tutorialStateAcknowledged = true;
-                    passengersToDeliver = 10;
+                    passengersToDeliver = 15;
                     onYourOwn = true;
-                    tutorialWantingFreeze = true;
+                    elevator.Unlock();
+                    gameOver = false;
                     RequestPassenger();
                 }
                 break;
             case "[boss_return_2]":
                 if (!tutorialStateAcknowledged)
                 {
-                    StartCoroutine(MoveBossAndSpeechBubble(10f, 1.4f, true));
+                    StartCoroutine(MoveBossAndSpeechBubble(10f, 1.2f, true));
                     tutorialStateAcknowledged = true;
                 }
                 break;
+
+            case "[passenger_1_reset]":
+                if (!tutorialStateAcknowledged)
+                {
+                    tutorialStateAcknowledged = true;
+                    StartCoroutine(PassengerReset());
+                }
+                break;
+            case "[passenger_2_reset]":
+                if (!tutorialStateAcknowledged)
+                {
+                    tutorialStateAcknowledged = true;
+                    StartCoroutine(PassengerReset());
+                }
+                break;
+                
             case "[tutorial_repeat_choice]":
                 if (!tutorialStateAcknowledged)
                 {
@@ -344,7 +388,7 @@ public class TutorialGameController : GameController {
                         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                     } else if (Input.GetKeyDown(KeyCode.DownArrow))
                     {
-                        SceneManager.LoadScene(1);
+                        LevelController.GoToMainMenu();
                     }
                 }
                 break;
@@ -396,7 +440,7 @@ public class TutorialGameController : GameController {
         if(!onYourOwn)
         {
             return;
-        } else if (passengersDelivered < passengersToDeliver || tutorialWantingFreeze)
+        } else if (passengersDelivered < passengersToDeliver)
         {
             base.RequestPassenger();
         }
@@ -440,9 +484,30 @@ public class TutorialGameController : GameController {
         }
     }
 
+    public override void GameOver()
+    {
+        if (!gameOver)
+        {
+            gameOver = true;
+            elevator.Lock();
+
+            if (passengersToDeliver == 6)
+            {
+                tutorialText = new Queue<string>(failFirstPassengers);
+            }
+            else if (passengersToDeliver == 15)
+            {
+                tutorialText = new Queue<string>(failSecondPassengers);
+            }
+
+            foreach (Passenger pass in passengers) cardManager.DismissCard(pass.Card());
+
+            AdvanceTutorial();
+        }
+    }
+
     public override void FreezePassengers()
     {
-        tutorialWantingFreeze = false;
         base.FreezePassengers();
     }
 
@@ -564,19 +629,14 @@ public class TutorialGameController : GameController {
 
     IEnumerator MoveBossAndSpeechBubble(float byYAmount, float inTime, bool advanceInThis)
     {
-        GameObject boss = GameObject.Find("Boss");
-        GameObject speech = GameObject.Find("Speech Bubble");
+        GameObject bossBubble = GameObject.Find("BossUI");
 
-        Vector3 bossFrom = boss.transform.position;
-        Vector3 speechFrom = speech.transform.position;
-
+        Vector3 bossFrom = bossBubble.transform.localPosition;
         Vector3 bossTo = bossFrom + new Vector3(0, byYAmount);
-        Vector3 speechTo = speechFrom + new Vector3(0, byYAmount);
 
         for (var t = 0f; t < 1; t += Time.deltaTime / inTime)
         {
-            boss.transform.position = Vector3.Lerp(bossFrom, bossTo, t);
-            speech.transform.position = Vector3.Lerp(speechFrom, speechTo, t);
+            bossBubble.transform.localPosition = Vector3.Lerp(bossFrom, bossTo, t);
             yield return null;
         }
 
@@ -593,6 +653,7 @@ public class TutorialGameController : GameController {
             barbra.transform.localPosition = Vector3.Lerp(fromPosition, toPosition, t);
             yield return null;
         }
+        Destroy(barbra);
         elevator.Unlock();
         AdvanceTutorial();
 
@@ -606,8 +667,7 @@ public class TutorialGameController : GameController {
         textbox.GetComponent<RectTransform>().anchoredPosition = new Vector3(271.2f, -60.0f);
         elevator.transform.position = new Vector3(-2.5f, -1.25f);
         GameObject.Find("Main Camera").transform.position = new Vector3(0, 0, -10);
-        GameObject.Find("Boss").transform.position = new Vector3(-8.039978f, -1.15f);
-        GameObject.Find("Speech Bubble").transform.position = new Vector3(-6.475952f, 2.36f);
+        GameObject.Find("BossUI").transform.localPosition = new Vector3(0, 0, 0);
         AdvanceTutorial();
         yield return null;
     }
@@ -644,17 +704,13 @@ public class TutorialGameController : GameController {
         }
 
         twoText.enabled = true;
-
-        Debug.Log("elevator.GetFloor() = " + elevator.GetFloor());
+        
         int nearestFloor = (elevator.GetFloor() == 0 ? NearestFloor() : elevator.GetFloor());
-        Debug.Log("nearest floor = " + nearestFloor);
         float yPosition = GetYPositionOfFloor(nearestFloor);
-
-        Debug.Log("Elevator.y = " + elevator.gameObject.transform.position.y + "; yPosition = " + yPosition);
+        
 
         if(elevator.transform.position.y != yPosition)
         {
-            Debug.Log("snapping to " + yPosition);
             Vector3 fromPosition = elevator.gameObject.transform.position;
             Vector3 toPosition = new Vector3(elevator.transform.position.x, yPosition);
             for (var t = 0f; t < 1; t += Time.deltaTime / 0.6f)
@@ -669,7 +725,6 @@ public class TutorialGameController : GameController {
 
     private int NearestFloor()
     {
-        Debug.Log("finding nearest floor");
         int floorNo = 1;
         foreach (GameObject floor in elevator.Floors())
         {
@@ -692,6 +747,23 @@ public class TutorialGameController : GameController {
             floor++;
         }
         return (2.5f * 7) - 6.25f;
+    }
+    
+    IEnumerator PassengerReset()
+    {
+        passengersDelivered = 0;
+        foreach (Passenger pass in passengers.ToArray())
+        {
+            passengers.Remove(pass);
+            Destroy(pass.gameObject);
+        }
+
+        textbox.GetComponent<RectTransform>().anchoredPosition = new Vector3(271.2f, -60.0f);
+        elevator.transform.position = new Vector3(-2.5f, -1.25f);
+        GameObject.Find("Main Camera").transform.position = new Vector3(0, 0, -10);
+
+        AdvanceTutorial();
+        yield return null;
     }
 }
 
