@@ -949,6 +949,8 @@ public class TutorialGameController : GameController {
         elevator.transform.position = new Vector3(-2.5f, -1.25f);
         GameObject.Find("Main Camera").transform.position = new Vector3(0, 0, -10);
 
+        gameOver = false;
+
         AdvanceTutorial();
         yield return null;
     }
