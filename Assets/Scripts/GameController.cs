@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour {
     private bool isOver = false;
     private float timePlaying = 0.0f;
     private bool isEnding = false;
+	private Coroutine a;
 
     [SerializeField]
     protected GameObject passengerPrefab;
@@ -50,7 +51,7 @@ public class GameController : MonoBehaviour {
 		cardManager = GameObject.Find ("CardManager").GetComponent<CardManager> ();
         dayMarker.text = "Day " + LevelController.GetLevel().ToString();
         floorsText.text = (LevelController.GetLevel() + 6).ToString() + " Floors";
-        StartCoroutine(FadeInMessageOfTheDay());
+        a = StartCoroutine(FadeInMessageOfTheDay());
         StartCoroutine(StartDayFadeIn());
 	}
 
@@ -58,7 +59,7 @@ public class GameController : MonoBehaviour {
     void Update() {
         if (isRunning)
         {
-            timePlaying += Time.deltaTime * 40.0f;
+            timePlaying += Time.deltaTime * 6.0f;
             bool isAm;
             timeText.text = ToClockString(timePlaying, out isAm, 540.0f);
             if (isAm)
@@ -73,8 +74,9 @@ public class GameController : MonoBehaviour {
             {
                 if (Input.GetKeyDown(KeyCode.RightArrow) && !isEnding)
                 {
+					isRunning = true;
+					StopCoroutine (a);
                     StartCoroutine(FadeOutMessageOfTheDay());
-                    isRunning = true;
                 }
                     
             } else
