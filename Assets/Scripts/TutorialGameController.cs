@@ -950,6 +950,7 @@ public class TutorialGameController : GameController {
         GameObject.Find("Main Camera").transform.position = new Vector3(0, 0, -10);
 
         gameOver = false;
+        elevator.SetLastFloor(0);
 
         AdvanceTutorial();
         yield return null;
