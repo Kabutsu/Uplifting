@@ -252,7 +252,7 @@ public class ElevatorMove : MonoBehaviour {
         return 0;
     }
 
-    private void SetLastFloor(int floor)
+    public void SetLastFloor(int floor)
     {
         lastFloor = floor;
     }
